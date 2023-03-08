@@ -1,22 +1,44 @@
 import express from 'express'
+import swaggerUI from 'swagger-ui-express'
+import swaggerJsDoc from 'swagger-jsdoc'
+import morgan from 'morgan'
+import usersRouter from './routes/user'
+
+const options = {
+	definition: {
+		openapi: '3.0.0',
+		info: {
+			title: 'Phantom API',
+			version: '1.0.0',
+		},
+		servers: [
+			{
+				url: 'http://localhost:3003'
+			}
+		]
+	},
+	apis: ['./routes/*.ts']
+}
+
 const app = express()
 const port = process.env.PORT || 3003
 
-const normalResponse = {
-    msg: 'App running.'
-}
-const exceptionalResponse= {
-    msg: 'Wow! you\'re a deep digger'
-}
-app.use('/', (req, res) => {
-    res.json(normalResponse)
+app.get('/', (req, res) => {
+	res.json({
+		root: 'App running.'
+	})
 })
 
-app.use('*', (req, res) => {
-    
-    res.json(exceptionalResponse)
-})
+app.use('/users', usersRouter)
+
+const specs = swaggerJsDoc(options)
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs))
+
+app.use(express.json())
+app.use(morgan('dev'))
+
 
 app.listen(port, () => {
-    console.info(port)
+	console.info(`server running: http://localhost:${port}`)
 })
