@@ -5,7 +5,7 @@
 	"main": "src/index.ts",
 	"scripts": {
 		"start": "tsx src/index.ts",
-		"dev": "tsx src/index.ts",
+		"dev": "tsx watch src/index.ts",
 		"test": "tsc && nyc mocha",
 		"lint": "eslint src"
 	},

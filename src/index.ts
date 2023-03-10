@@ -25,7 +25,9 @@ const port = process.env.PORT || 3003
 
 app.get('/', (req, res) => {
 	res.json({
-		root: 'App running.'
+		status: 200,
+		message: 'Welcome To Phantom Server.',
+		data: []
 	})
 })
 
