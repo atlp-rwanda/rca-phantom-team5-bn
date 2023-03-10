@@ -1,5 +1,6 @@
-import express from 'express'
-const app = express()
+import app from "./app"
+
+
 const port = process.env.PORT || 3003
 
 const normalResponse = {
@@ -8,8 +9,10 @@ const normalResponse = {
 const exceptionalResponse= {
     msg: 'Wow! you\'re a deep digger'
 }
+
+
 app.use('/', (req, res) => {
-    res.json(normalResponse)
+    res.send({message:req.t('login_success')})
 })
 
 app.use('*', (req, res) => {

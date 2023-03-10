@@ -1,0 +1,11 @@
+{
+    "welcome":"welcome to Phantom Application",
+    "user_created_success":" the account created successfully",
+    "user_updated_sucess" :" acount updated successfully",
+    "user_delete_sucess":"account deleted successfully",
+    "error_occured": "unkown error occured",
+    "login_success":"login successfully",
+    "login_fail":"Invalid email or password"
+    
+
+}

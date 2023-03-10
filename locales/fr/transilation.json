@@ -1,0 +1,9 @@
+{
+    "welcome":"Bienvenue dans l'application fantôme",
+    "user_created_success":" le compte créé avec succès",
+    "user_updated_sucess" :" acount updated successfully",
+    "user_delete_sucess":"compte mis à jour avec succès",
+    "error_occured": "erreur est survenue",
+    "login_success":"connexion terminée avec succès",
+    "login_fail":"email ou mot de passe invalide"
+}

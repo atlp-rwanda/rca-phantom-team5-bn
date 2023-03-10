@@ -1,0 +1,9 @@
+{
+    "welcome":"Murakaza neza kuri apurikasiyo ya Phantom",
+    "user_created_success":"Gufungura konti byagenze neza",
+    "user_updated_sucess" :"Guhindura ibiranga konti byagenze neza",
+    "user_delete_sucess":"Gusiba Konti byagenze neza",
+    "error_occured": "Habayemo ikosa",
+    "login_success":"Kwinjira muri Konti yawe byagenze neza",
+    "login_fail":"Umubare wibanga ntabwo uhura na email"
+}
