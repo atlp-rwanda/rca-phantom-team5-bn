@@ -5,7 +5,8 @@
     "user_delete_sucess":"account deleted successfully",
     "error_occured": "unkown error occured",
     "login_success":"login successfully",
-    "login_fail":"Invalid email or password"
+    "login_fail":"Invalid email or password",
+    "profile_picture_updated":"profile picture updated "
     
 
 }
