@@ -1,5 +1,5 @@
 import express from 'express'
-import connection from './database/connection'
+import db from './database/models'
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -23,7 +23,7 @@ app.use('*', (req, res) => {
 
 const start = async (): Promise<void> => {
     try {
-      await connection.sync();
+      await db.sequelize.sync();
       app.listen(port, () => {
         console.log(`Server started on port ${port}`);
       });
