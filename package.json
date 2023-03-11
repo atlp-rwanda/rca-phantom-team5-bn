@@ -4,6 +4,10 @@
   "description": "Elevate the public transport experience",
   "main": "src/index.ts",
   "scripts": {
+    "deleteOnetable": "npx sequelize db:migrate:undo --name 20230311000000-create-users.js",
+    "createOnetable": "npx sequelize-cli db:migrate --to 20230311000000-create-users.js",
+    "deleteAllTables": "tsc && npx sequelize db:migrate:undo:all",
+    "createAllTables": "tsc && npx sequelize db:migrate",
     "start": "tsc && node dist/index",
     "dev": "tsc && nodemon dist/index",
     "test": "tsc && nyc mocha",
@@ -44,14 +48,14 @@
   },
   "homepage": "https://github.com/Stackup-Rwanda/phantom-backend#readme",
   "dependencies": {
+    "@babel/register": "^7.21.0",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
-    "sequelize": "^6.29.2",
-    "sequelize-typescript": "^2.1.5",
-    "sequelize-typescript-generator": "^9.0.3"
+    "sequelize": "^6.29.3",
+    "sequelize-typescript": "^2.1.5"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
