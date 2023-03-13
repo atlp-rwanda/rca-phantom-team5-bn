@@ -1,2 +1,4 @@
 # phantom-backend
 Elevate the public transport experience  
+[![Node.js CI](https://github.com/atlp-rwanda/rca-phantom-team5-bn/actions/workflows/build_test.yml/badge.svg)](https://github.com/atlp-rwanda/rca-phantom-team5-bn/actions/workflows/build_test.yml)
+
