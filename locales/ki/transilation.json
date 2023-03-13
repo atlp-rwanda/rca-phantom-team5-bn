@@ -5,5 +5,21 @@
     "user_delete_sucess":"Gusiba Konti byagenze neza",
     "error_occured": "Habayemo ikosa",
     "login_success":"Kwinjira muri Konti yawe byagenze neza",
-    "login_fail":"Umubare wibanga ntabwo uhura na email"
+    "login_fail":"Umubare wibanga ntabwo uhura na email",
+    "profile_picture_updated":"ifoto yawe yahinduwe ",
+    "verification_email_sent":"Emeli yemeza yoherejwe",
+    "required_field":"aka kazu karakenewe cane",
+    "added_bus":"Bisi nshya yongeweho",
+    "delete_bus":"Bisi yasibwe",
+    "updated_bus":"amakuru kuri bisi yahinduwe",
+    "no_bus_found":"Nta bisi iboneka",
+    "add_location":"Icyerekezo gishya cyongeweho",
+    "location_not_found":"Icyerekezo ntabwo kiboneka",
+    "bus_full": "Bisi iruzuye",
+    "new_bus_available":"Bisi Iraboneka",
+    "password_has_been_reset":"Umubare wibanga wawe wahinduwe",
+    "booked_bus":"wamaze gufata umwanya muri bisi"
+
+
+
 }

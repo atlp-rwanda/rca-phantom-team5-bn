@@ -6,7 +6,22 @@
     "error_occured": "unkown error occured",
     "login_success":"login successfully",
     "login_fail":"Invalid email or password",
-    "profile_picture_updated":"profile picture updated "
+    "profile_picture_updated":"profile picture updated ",
+    "verification_email_sent":"Verification email sent to",
+    "required_field":"this field is required",
+    "added_bus":"New bus was added successfully",
+    "delete_bus":" the bus has been removed ",
+    "updated_bus":"the bus has been added",
+    "no_bus_found":"no bus found",
+    "add_location":"new location has been added",
+    "location_not_found":"the location does't not found",
+    "bus_full": " the bus is full",
+    "new_bus_available":"new bus available in the your destination",
+    "password_has_been_reset":"Your password has been reset",
+    "booked_bus":"You has booked the bus"
+
+
+
     
 
 }

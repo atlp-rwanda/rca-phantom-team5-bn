@@ -5,5 +5,18 @@
     "user_delete_sucess":"compte mis à jour avec succès",
     "error_occured": "erreur est survenue",
     "login_success":"connexion terminée avec succès",
-    "login_fail":"email ou mot de passe invalide"
+    "login_fail":"email ou mot de passe invalide",
+    "profile_picture_updated":"photo de profil mise à jour",
+    "verification_email_sent":"Courriel de vérification envoyé à",
+    "required_field":"Ce champ est obligatoire",
+    "added_bus":"Le nouveau bus a été ajouté avec succès",
+    "delete_bus":" le bus a été supprimé ",
+    "updated_bus":"le bus a été ajouté",
+    "no_bus_found":"aucun bus trouvé",
+    "add_location":"un nouvel emplacement a été ajouté",
+    "location_not_found":"l'emplacement n'est pas trouvé",
+    "bus_full": "le bus est plein",
+    "new_bus_available":"nouveau bus disponible dans votre destination",
+    "password_has_been_reset":"votre mot de passe a été réinitialisé",
+    "booked_bus":"Vous avez réservé le bus"
 }
