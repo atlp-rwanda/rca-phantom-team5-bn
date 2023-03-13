@@ -1,26 +1,23 @@
 import dotenv from 'dotenv'
-​
-​
+
 dotenv.config()
-module.exports = {
-    test: {
-       
-        url: process.env.DATABASE_URL,
-        dialect: 'postgres',
-        logging: false,
-    },
-​
-    development: {
-       
-        url: process.env.DATABASE_URL,
-        dialect: 'postgres',
-        logging: false,
-    },
-​
-    production: {
-      
-        url: process.env.DATABASE_URL,
-        dialect: 'postgres',
-        logging: false,
-    }
+
+export default {
+	test: {
+		dialect: { dialect: 'postgres' },
+		url: process.env.DATABASE_URL,
+		logging: false,
+	},
+
+	development: {
+		dialect: { dialect: 'postgres' },
+		url: process.env.DATABASE_URL,
+		logging: false,
+	},
+
+	production: {
+		dialect: { dialect: 'postgres' },
+		url: process.env.DATABASE_URL,
+		logging: false,
+	}
 }
