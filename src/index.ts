@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import connection from './database/config/connection'
 import userRoutes from './routes/user'
+import swaggerDocs from './api-docs/swagger'
 
 dotenv.config()
 const app = express()
@@ -16,11 +17,12 @@ app.get('/', (req, res) => {
 	})
 })
 
-const port = process.env.PORT || 3000
+const port = Number(process.env.PORT) || 3000
 
 const start = async () => {
 	try {
 		await connection.sync()
+		swaggerDocs(app, port)
 		app.listen(port, () => {
 			console.log(`Server is running at http://localhost:${port}`)
 		})
