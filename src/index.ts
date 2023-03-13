@@ -1,9 +1,12 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import connection from './database/config/connection'
+import userRoutes from './routes/user';
 
 dotenv.config()
 const app = express()
+
+app.use('/api/users', userRoutes);
 
 app.get('/', (req, res) => {
 	return res.json({
