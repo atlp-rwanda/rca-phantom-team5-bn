@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 const port = process.env.PORT || 3000
 
-const start = async (): Promise<void> => {
+const start = async () => {
 	try {
 		await connection.sync()
 		app.listen(port, () => {
@@ -30,4 +30,4 @@ const start = async (): Promise<void> => {
 	}
 }
 
-void start()
+start()
