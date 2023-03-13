@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "phantom-backend",
   "version": "1.0.0",
   "description": "Elevate the public transport experience",
@@ -10,7 +11,7 @@
     "createAllTables": "tsc && npx sequelize db:migrate",
     "start": "tsc && node dist/index",
     "dev": "tsc && nodemon dist/index",
-    "test": "tsc && nyc mocha",
+    "test": "mocha",
     "lint": "eslint src"
   },
   "mocha": {
@@ -48,6 +49,13 @@
   },
   "homepage": "https://github.com/Stackup-Rwanda/phantom-backend#readme",
   "dependencies": {
+    "@types/chai": "^4.3.4",
+    "@types/express": "^4.17.6",
+    "express": "^4.17.1",
+    "global": "^4.4.0",
+    "sinon": "^15.0.1",
+    "typescript": "^3.9.7"
+
     "@babel/register": "^7.21.0",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
@@ -66,7 +74,7 @@
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "assert": "^2.0.0",
-    "chai": "^4.2.0",
+    "chai": "^4.3.7",
     "eslint": "^7.8.1",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
