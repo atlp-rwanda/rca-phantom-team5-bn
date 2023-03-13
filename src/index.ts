@@ -3,6 +3,9 @@ import swaggerUI from 'swagger-ui-express'
 import swaggerJsDoc from 'swagger-jsdoc'
 import morgan from 'morgan'
 import usersRouter from './routes/user'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const options = {
 	definition: {
