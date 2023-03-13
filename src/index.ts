@@ -4,8 +4,7 @@ import swaggerJsDoc from 'swagger-jsdoc'
 import morgan from 'morgan'
 import usersRouter from './routes/user'
 import dotenv from 'dotenv'
-
-dotenv.config()
+import db from './database/models'
 
 const options = {
 	definition: {
@@ -23,8 +22,10 @@ const options = {
 	apis: ['./routes/*.ts']
 }
 
+
+dotenv.config()
 const app = express()
-const port = process.env.PORT || 3003
+const port = process.env.PORT || 3000
 
 app.get('/', (req, res) => {
 	res.json({
@@ -44,6 +45,16 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 
-app.listen(port, () => {
-	console.info(`server running: http://localhost:${port}`)
-})
+const start = async (): Promise<void> => {
+	try {
+		await db.sequelize.sync()
+		app.listen(port, () => {
+			console.log(`Server started on port ${port}`)
+		})
+	} catch (error) {
+		console.error(error)
+		process.exit(1)
+	}
+}
+
+start()
