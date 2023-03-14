@@ -3,11 +3,15 @@
 	"version": "1.0.0",
 	"description": "Elevate the public transport experience",
 	"main": "src/index.ts",
-	"type": "module",
-
 	"scripts": {
+		"createAllSeeds": "tsc && npx sequelize db:seed:all",
+		"deleteAllSeeds": "tsc && npx sequelize db:seed:undo:all",
+		"deleteOnetable": "npx sequelize db:migrate:undo --name 20230311000000-create-users.js",
+		"createOnetable": "npx sequelize-cli db:migrate --to 20230311000000-create-users.js",
+		"deleteAllTables": "tsc && npx sequelize db:migrate:undo:all",
+		"createAllTables": "tsc && npx sequelize db:migrate",
 		"start": "tsc && node dist/index",
-		"dev": "tsx watch src/index.ts",
+		"dev": "tsc && nodemon dist/index",
 		"test": "tsc && nyc mocha",
 		"lint": "eslint src"
 	},
@@ -57,6 +61,7 @@
 	},
 	"devDependencies": {
 		"@istanbuljs/nyc-config-typescript": "^1.0.1",
+		"@types/chai": "^4.3.4",
 		"@types/express": "^4.17.17",
 		"@types/mocha": "^8.0.3",
 		"@types/node": "^13.13.52",
@@ -68,6 +73,7 @@
 		"eslint": "^7.8.1",
 		"mocha": "^10.2.0",
 		"nyc": "^15.1.0",
+		"sequelize-cli": "^6.6.0",
 		"source-map-support": "^0.5.19",
 		"ts-node": "^9.0.0",
 		"ts-node-dev": "^2.0.0",
