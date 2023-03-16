@@ -1,5 +1,6 @@
 'use strict'
 import { Model } from 'sequelize'
+
 interface UserAttributes {
     createdAt: Date;
     updatedAt: Date;
@@ -8,6 +9,7 @@ interface UserAttributes {
     email: string;
     password: string;
 }
+
 module.exports = (sequelize: any, DataTypes: any) => {
     class users extends Model<UserAttributes> 
         implements UserAttributes {
@@ -43,5 +45,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
             modelName: 'users',
         }
     )
+
     return users
 }
