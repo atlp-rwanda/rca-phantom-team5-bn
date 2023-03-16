@@ -1,60 +1,21 @@
-import express from 'express'
-import swaggerUI from 'swagger-ui-express'
-import swaggerJsDoc from 'swagger-jsdoc'
-import morgan from 'morgan'
-import usersRouter from './routes/user'
 import dotenv from 'dotenv'
-import db from './database/models'
+import express from 'express'
+import swaggerUi from 'swagger-ui-express'
 
-const options = {
-	definition: {
-		openapi: '3.0.0',
-		info: {
-			title: 'Phantom API',
-			version: '1.0.0',
-		},
-		servers: [
-			{
-				url: 'http://localhost:3003'
-			}
-		]
-	},
-	apis: ['./routes/*.ts']
-}
-
+import routes from './routes'
+import * as swaggerDocument from '../swagger.json'
 
 dotenv.config()
 const app = express()
 const port = process.env.PORT || 3000
 
-app.get('/', (req, res) => {
-	res.json({
-		status: 200,
-		message: 'Welcome To Phantom Server.',
-		data: []
-	})
-})
+app.use('/api', routes)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-app.use('/users', usersRouter)
+app.get('**', (req, res) => res.status(200).json({
+    status: 200,
+    message: 'Welcome To Phantom Server',
+    data: []
+}))
 
-const specs = swaggerJsDoc(options)
-
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs))
-
-app.use(express.json())
-app.use(morgan('dev'))
-
-
-const start = async (): Promise<void> => {
-	try {
-		await db.sequelize.sync()
-		app.listen(port, () => {
-			console.log(`Server started on port ${port}`)
-		})
-	} catch (error) {
-		console.error(error)
-		process.exit(1)
-	}
-}
-
-start()
+app.listen(port, () => { console.log(`Server is running at http://localhost:${port}`) })

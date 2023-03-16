@@ -1,0 +1,48 @@
+
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Elevate the public transport experience",
+    "version": "1.0.0",
+    "title": "PHANTOM ASSIGNMENT",
+    "termsOfService": "https://github.com/atlp-rwanda/rca-phantom-team5-bn#readme",
+    "contact": { "email": "" }
+  },
+
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "Initial Route",
+      "description": "Initial/Fake Endpoint | GET Route"
+    }
+  ],
+  
+  "schemes": ["http", "https"],
+  "consumes": ["application/json", "none"],
+  "produces": [ "application/json", "none"],
+  "paths": {
+
+    "/": {
+      "get": {
+        "tags": [ "Initial Route"],
+        "summary": "Handle Intial / Wrong GET Route)",
+        "description": "By the use of initial/wrong GET endpoint, you will be able to see welcome message (Welcome To Phantom Server)",
+        "responses": { "200": { "description": "Success. (Welcome To Phantom Server)" } }
+      }
+    }
+  },
+
+  "definitions": {
+    "users": {
+      "type": "object",
+      "properties": {
+        "name":  { "type": "string", "example": "Team-5" },
+        "email":  { "type": "string", "required": true, "example": "your-email@gmail.com" },
+        "password":  { "type": "string", "required": true, "example": "Password@123" }
+      }
+    }
+  }
+}
+
+     
