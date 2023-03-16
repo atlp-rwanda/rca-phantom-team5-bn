@@ -1,28 +1,50 @@
-import { DataTypes, Model } from 'sequelize'
-import { v4 as uuidv4 } from 'uuid'
-import { sequelizeDb } from '.'
+'use strict'
+import { Model } from 'sequelize'
 
+interface UserAttributes {
+    createdAt: Date;
+    updatedAt: Date;
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+}
 
-class User extends Model { }
+module.exports = (sequelize: any, DataTypes: any) => {
+    class users extends Model<UserAttributes> 
+        implements UserAttributes {
+            createdAt!: Date;
+            updatedAt!: Date;
+            id!: string;
+            name!: string;
+            email!: string;
+            password!: string;
+            static associate(models: any) {
+                // users.belongsToMany(models.routes, {
+                //     foreignKey: 'route_id',
+                //     through: 'routes',
+                //     as: 'route',
+                // })
+            }
+    }
+    
+    users.init(
+        {
+            createdAt: { field: 'createdAt', type: DataTypes.DATE },
+            updatedAt: { field: 'updatedAt', type: DataTypes.DATE },
+            id: { allowNull: false, autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER },
+            name: { type: DataTypes.STRING },
+            email: { type: DataTypes.STRING },
+            password: { type: DataTypes.STRING },
+        },
+        {
+            sequelize,
+            timestamps: true,
+            underscored: true,
+            tableName: 'users',
+            modelName: 'users',
+        }
+    )
 
-
-User.init(
-	{
-		id: {
-			type: DataTypes.INTEGER,
-			primaryKey: true,
-			autoIncrement: true,
-			allowNull: false
-		},
-		name: {
-			type: DataTypes.STRING
-		}
-	},
-	{
-		sequelize: sequelizeDb,
-		tableName: 'users',
-		timestamps: false
-	}
-)
-
-export default User
+    return users
+}

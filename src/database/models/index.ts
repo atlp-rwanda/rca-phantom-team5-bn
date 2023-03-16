@@ -3,20 +3,29 @@ import { config } from 'dotenv'
 
 config()
 
-export const sequelizeDb = new Sequelize(process.env.DATABASE_URL as string, {
-	dialect: 'postgres',
-	protocol: 'postgres',
-	logging: false,
+if (config.url) {
+    sequelize = new Sequelize(config.url, config)
+} else {
+    sequelize = new Sequelize(config.database!, config.username!, config.password, config)
+}
+
+fs
+    .readdirSync(__dirname)
+    .filter((file: string) => {
+        return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.ts')
+    })
+    .forEach((file: string) => {
+        const model = require(path.join(__dirname, file))(sequelize, DataTypes)
+        db[model.name] = model
+    })
+
+Object.keys(db).forEach(modelName => {
+    if (db[modelName].associate) {
+        db[modelName].associate(db)
+    }
 })
 
-
-const connectDb = async () => {
-	try {
-		await sequelizeDb.authenticate()
-		console.log('Database connected')
-	} catch (error) {
-		console.error('Database failed to connect', error)
-	}
-}
+db.sequelize = sequelize
+db.Sequelize = Sequelize
 
 export default connectDb
