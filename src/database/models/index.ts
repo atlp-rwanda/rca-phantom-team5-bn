@@ -1,7 +1,13 @@
-import { Sequelize } from 'sequelize'
-import { config } from 'dotenv'
+import fs from 'fs'
+import path from 'path'
+import * as dbConnection from '../configs/config'
+import { Sequelize, DataTypes } from 'sequelize'
 
-config()
+const db: any = {}
+let sequelize: Sequelize
+const basename = path.basename(__filename)
+const env: string = process.env.NODE_ENV || 'development'
+const config: any = dbConnection[env as keyof typeof dbConnection]
 
 if (config.url) {
     sequelize = new Sequelize(config.url, config)
@@ -28,4 +34,4 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize
 db.Sequelize = Sequelize
 
-export default connectDb
+export default db
