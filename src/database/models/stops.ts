@@ -2,16 +2,17 @@
 import { Model } from 'sequelize'
 
 interface StopsAttributes {
+
     id: string;
     stopName: string;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
+
     class stops extends Model<StopsAttributes> 
         implements StopsAttributes {
             id!: string;
             stopName!: string;
-            
     }
     
     stops.init(
@@ -29,5 +30,4 @@ module.exports = (sequelize: any, DataTypes: any) => {
     )
 
     return stops
-
 }
