@@ -1,7 +1,9 @@
+'use strict';
+
 import fs from 'fs'
 import path from 'path'
-import * as dbConnection from '../configs/config'
 import { Sequelize, DataTypes } from 'sequelize'
+import * as dbConnection from '../configs/config'
 
 const db: any = {}
 let sequelize: Sequelize
