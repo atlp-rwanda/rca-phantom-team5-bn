@@ -42,9 +42,14 @@ export function validateToken(token: string): Promise<TokenPayload> {
   };
 
   return new Promise((resolve, reject) => {
-    verify(token, publicKey, verifyOptions, (error: any, decoded: TokenPayload) => {
-      if (error) return reject(error);
-      resolve(decoded);
-    })
+    verify(token, publicKey, verifyOptions, (err, decoded) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(decoded as TokenPayload);
+      }
+
   });
+})
+
 }

@@ -51,10 +51,12 @@
   "homepage": "https://github.com/Stackup-Rwanda/phantom-backend#readme",
   "dependencies": {
     "@babel/register": "^7.21.0",
+    "@types/jsonwebtoken": "^9.0.1",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "http-status": "^1.6.2",
     "i": "^0.3.7",
+    "jsonwebtoken": "^9.0.0",
     "npm": "^9.6.2",
     "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
