@@ -1,58 +1,69 @@
 'use strict'
-import { Model } from "sequelize"
+import {Model} from "sequelize"
+import { Agency } from './agency';
 
-interface BusAttributes{
-    id:string;
-    location:string;
-    plate_number:string;
-    available_sits:number;
-    agency_id:number;
-    commuter_id:number;
-    createdAt: Date;
-    updatedAt: Date;
+class Bus extends Model {
+  public id!: number;
+  public name!: string;
+  public make!: string;
+  public model!: string;
+  public year!: number;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+  public agencyId!: number;
+  
+  public readonly agency?: Agency;
 
+  // Define other model methods and properties here
 }
 
-module.exports = (sequelize: any, DataTypes: any) =>{
-    class buses extends Model<BusAttributes>implements BusAttributes{
-        createdAt!: Date;
-        updatedAt!: Date;
-        id!: string;
-        plate_number!: string;
-        location!:string;
-        available_sits!: number;
-        agency_id!:number;
-        commuter_id!:number;
-        static associate(models: any) {
-            // buses.belongsToMany(models.agencies, {
-            //     foreignKey: agency_id',
-            //     through: 'agencies',
-            //     as: 'agency',
-            // })
-        }
+module.exports = (sequelize: any, DataTypes: any) => {
+Bus.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    name: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+    },
+    make: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+    },
+    model: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+    },
+    year: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    agencyId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    tableName: 'buses',
+    timestamps: true,
+    paranoid: true,
+  }
+);
 
-    }
-
-    buses.init(
-        {
-            createdAt: { field: 'createdAt', type: DataTypes.DATE },
-            updatedAt: { field: 'updatedAt', type: DataTypes.DATE },
-            id: { allowNull: false, autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER },
-            location: { type: DataTypes.STRING },
-            plate_number: { type: DataTypes.STRING },
-            available_sits: { type: DataTypes.INTEGER },
-            agency_id: { type: DataTypes.INTEGER },
-            commuter_id: { type: DataTypes.INTEGER },
-        },
-
-        {
-            sequelize,
-            timestamps: true,
-            underscored: true,
-            tableName: 'buses',
-            modelName: 'buses',
-        }
-    )
-
-    return buses
+// Define the association with Agency
+Bus.belongsTo(Agency, {
+  as: 'agency',
+  foreignKey: {
+    name: 'agencyId',
+    allowNull: false,
+  },
+});
+return Bus
 }
+
+export { Bus };
+
