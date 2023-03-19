@@ -31,6 +31,18 @@ describe('true or false', () => {
         done(error);
       });
   });
+  
+  it('User should be able to update user', (done) => {
+    router()
+      .put('/api/users/update-user')
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.have.property('data');
+        done(error);
+      });
+  });
 })
 
 

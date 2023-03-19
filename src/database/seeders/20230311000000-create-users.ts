@@ -1,8 +1,8 @@
 import { QueryInterface  } from 'sequelize'
 
 const userOne = {
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  created_at: new Date(),
+  updated_at: new Date(),
   name: 'John Doe',
   email: 'demo@demo.com',
   password: '$321!pass!123$'
