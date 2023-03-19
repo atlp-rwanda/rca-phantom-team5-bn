@@ -12,4 +12,18 @@ const getUser = async (id: string) => {
     return data
   }
 
-export default { getUsers, getUser }
+  const updateUser = async (id: string, data: object ) => {
+    
+    
+    const updatedUser = await  users.update(data, {
+      where: { id: id }
+    })
+    if (updatedUser) {
+      const user = await users.findOne({ where: { id } })
+      return user
+    }else{
+      throw new Error('User not found')
+    }
+  }
+
+export default { getUsers, getUser , updateUser}
