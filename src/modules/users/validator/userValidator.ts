@@ -6,6 +6,8 @@ export class UserValidator{
         const schema = Joi.object({
             user_id:Joi.string().allow(null),
             name:Joi.string().min(4).max(50).required(),
+            email: Joi.string().email(),
+            password:Joi.string().required(),
         })
         return schema.validate(user)
     }
