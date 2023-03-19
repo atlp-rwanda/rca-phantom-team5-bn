@@ -8,7 +8,7 @@ import * as path from 'path';
 export function generateToken(payload: any): string {
 
   // read private key value
-  const privateKey = fs.readFileSync(path.join(__dirname, './../../../private.key'));
+  const privateKey = fs.readFileSync(path.join(__dirname, './../../private.key'));
 
   const signInOptions: SignOptions = {
     // RS256 uses a public/private key pair. The API provides the private key 
@@ -35,7 +35,7 @@ interface TokenPayload {
  * @param token the expected token payload
  */
 export function validateToken(token: string): Promise<TokenPayload> {
-  const publicKey = fs.readFileSync(path.join(__dirname, './../../../public.key'));
+  const publicKey = fs.readFileSync(path.join(__dirname, './../../public.key'));
 
   const verifyOptions: VerifyOptions = {
     algorithms: ['RS256'],

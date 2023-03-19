@@ -23,7 +23,7 @@ export const authorize = (allowedAccessTypes: string[]) => async (req: Request, 
     // verify token hasn't expired yet
     const decodedToken = await validateToken(jwt);
 
-    const hasAccessToEndpoint = allowedAccessTypes.some(
+    const hasAccessToEndpoint = allowedAccessTypes.length < 1 ? true : allowedAccessTypes.some(
       (at) => decodedToken.accessTypes.some((uat: string) => uat === at)
     );
 
