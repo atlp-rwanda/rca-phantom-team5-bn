@@ -3,6 +3,7 @@ import { INTERNAL_SERVER_ERROR, OK } from 'http-status'
 
 import responseUtil from '../../../utils/responseUtil'
 import usersRepository from '../repository/usersRepository'
+import client from '../../../utils/connectRedisUtils'
 
 const getUsers = async (req: Request, res: Response) => {
     try {
@@ -27,4 +28,16 @@ const getUser = async (req: Request, res: Response) => {
     }
 }
 
-export default { getUsers, getUser }
+const logout = async (req: Request, res: Response) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('bearer ')) {
+        return res.status(401).json({ message: 'Invalid authorization header' });
+    }
+
+    const token = authHeader.slice('bearer'.length).trim();
+
+    client.set(token, 'revoked');
+    res.json({ message: 'Logout successful' });
+}
+
+    export default { getUsers, getUser, logout }

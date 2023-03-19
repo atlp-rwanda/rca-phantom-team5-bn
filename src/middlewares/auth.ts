@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { validateToken } from '../utils/jwt.utils';
+import client from '../utils/connectRedisUtils';
 
 /**
  * middleware to check whether user has access to a specific endpoint
@@ -21,15 +22,21 @@ export const authorize = (allowedAccessTypes: string[]) => async (req: Request, 
     }
 
     // verify token hasn't expired yet
-    const decodedToken = await validateToken(jwt);
+    client.get(jwt).then(async(value)=>{
+      if (value === 'revoked') return res.status(401).json({ message: 'Your token is not valid' });;
+      const decodedToken = await validateToken(jwt as string);
 
-    const hasAccessToEndpoint = allowedAccessTypes.length < 1 ? true : allowedAccessTypes.some(
-      (at) => decodedToken.accessTypes.some((uat: string) => uat === at)
-    );
+      const hasAccessToEndpoint = allowedAccessTypes.length < 1 ? true : allowedAccessTypes.some(
+        (at) => decodedToken.accessTypes.some((uat: string) => uat === at)
+      );
+  
+      if (!hasAccessToEndpoint) {
+        return res.status(401).json({ message: 'No enough privileges to access endpoint' });
+      }
+    }).catch((error)=>{
+       return res.status(500).json("error occured while trying to verify your token");
 
-    if (!hasAccessToEndpoint) {
-      return res.status(401).json({ message: 'No enough privileges to access endpoint' });
-    }
+    })
 
     next();
   } catch (error:any) {
