@@ -10,7 +10,6 @@
     "createAllTables": "tsc && npx sequelize db:migrate",
     "deleteAllSeeds": "tsc && npx sequelize db:seed:undo:all",
     "createAllSeeds": "tsc && npx sequelize db:seed:all",
-  
     "test": "nyc mocha -r ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit",
     "start": "tsnd --respawn ./src/index",
     "dev": "tsnd --respawn ./src/index",
@@ -51,7 +50,9 @@
   },
   "homepage": "https://github.com/Stackup-Rwanda/phantom-backend#readme",
   "dependencies": {
+    "@babel/core": "^7.0.0-0",
     "@babel/register": "^7.21.0",
+    "@types/jsonwebtoken": "^9.0.1",
     "chai-http": "^4.3.0",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
