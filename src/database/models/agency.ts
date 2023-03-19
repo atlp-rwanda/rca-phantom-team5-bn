@@ -1,55 +1,56 @@
-import { Model,DataTypes} from 'sequelize';
-import { Bus } from './buses';
+import {Model} from "sequelize"
+//import { Agency } from './agency';
 
 
-class Agency extends Model {
-    id!: number;
-    name!: string;
-    address!: string;
-    createdAt!: Date;
-    updatedAt!: Date;
- 
-   // Define other model methods and properties here
-    static associate(models: any) {
-    Agency.hasMany(models.Bus, { foreignKey: 'agencyId' });
-  }
- }
 
-module.exports = (sequelize: any) => {
-Agency.init(
+interface AgenciesAttributes {
+   id: number;
+   name: string;
+   createdAt: Date;
+   updatedAt: Date;
+}
+
+
+
+module.exports = (sequelize: any, DataTypes: any) => {
+  class agencies extends Model<AgenciesAttributes> 
+      implements AgenciesAttributes {
+        id!: number;
+        name!: string;
+        createdAt!: Date;
+        updatedAt!: Date;
+      }
+  
+agencies.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING(250),
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    address: {
-      type: DataTypes.STRING(250),
-      allowNull: false,
+
+    createdAt: {
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      type: DataTypes.DATE
     },
   },
   
   {
     sequelize,
-    tableName: 'agencies',
+    tableName: 'buses',
     timestamps: true,
     paranoid: true,
   }
-);
+)
 
-// Define the association with Bus
-// Agency.hasMany(Bus, {
-//   as: 'buses',
-//   foreignKey: {
-//     name: 'agencyId',
-//     allowNull: false,
-//   },
-// });
+return agencies
 }
 
-export { Agency };
+
 

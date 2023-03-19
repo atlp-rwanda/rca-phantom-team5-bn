@@ -1,45 +1,70 @@
-import {Model,DataTypes} from "sequelize"
-import { Agency } from './agency';
+import {Model} from "sequelize"
+//import { Agency } from './agency';
 
-class Bus extends Model {
-  public id!: number;
-  public name!: string;
-  public make!: string;
-  public model!: string;
-  public year!: number;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
-  public agencyId!: number;
-  
-  public readonly agency?: Agency;
 
-  // Define other model methods and properties here
+
+interface BusesAttributes {
+   id: number;
+   name: string;
+   available_sits: string;
+   model: string;
+   plate_number: string;
+   createdAt: Date;
+   updatedAt: Date;
+   agencyId: number;
 }
 
-module.exports=(sequelize:any)=>{
-Bus.init(
+
+
+module.exports = (sequelize: any, DataTypes: any) => {
+  class buses extends Model<BusesAttributes> 
+      implements BusesAttributes {
+        id!: number;
+        name!: string;
+        available_sits!: string;
+        model!: string;
+        plate_number!: string;
+        createdAt!: Date;
+        updatedAt!: Date;
+        agencyId!: number;
+          static associate(models: any) {
+              buses.belongsToMany(models.agencies, {
+                  foreignKey: 'agency_id',
+                  through: 'agencies',
+                  as: 'agency',
+              })
+          }
+      }
+  
+buses.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING(128),
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    make: {
-      type: DataTypes.STRING(128),
+    available_sits: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
     model: {
-      type: DataTypes.STRING(128),
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    year: {
-      type: DataTypes.INTEGER.UNSIGNED,
+    plate_number: {
+      type: DataTypes,
       allowNull: false,
     },
+    createdAt: {
+       type: DataTypes.DATE
+       },
+      updatedAt: {
+          type: DataTypes.DATE
+         },
     agencyId: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
@@ -51,18 +76,10 @@ Bus.init(
     timestamps: true,
     paranoid: true,
   }
-);
+)
+
+return buses
 }
 
-// Define the association with Agency
-Bus.belongsTo(Agency, {
-  as: 'agency',
-  foreignKey: {
-    name: 'agencyId',
-    allowNull: false,
-  },
-});
 
-
-export { Bus };
 

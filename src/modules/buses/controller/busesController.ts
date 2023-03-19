@@ -1,118 +1,35 @@
 import { Request, Response } from 'express';
-import { Bus } from '../../../database/models/buses';
+ import busesRepository from '../repository/busesRepository';
 
-// import models from '../../../database/models/index'
-// const { Bus } = models
- const createBus = async (req: Request, res: Response): Promise<void> => {
+ import { INTERNAL_SERVER_ERROR, OK } from 'http-status'
+ import responseUtil from '../../../utils/responseUtil'
+
+ const createBus = async (req: Request, res: Response)=> {
   try {
-    const carData = req.body;
-    const bus = await Bus.create(carData);
-    res.status(201).json({ success: true, data: bus });
+    const bus = await busesRepository.createBus(req.body)
+    responseUtil.handleSuccess(OK, 'Success', bus)
+    return responseUtil.response(res)
   } catch (err:any) {
-    console.error(err);
-    res.status(500).json({ success: false, error: 'Server error' });
+    responseUtil.handleError(INTERNAL_SERVER_ERROR, err.toString())
+    return responseUtil.response(res)
   }
 };
 
-/**
-export const createNoteController = async (req: Request,res: Response) => {
-  try {
-    const { title, content, category, published } = req.body;
-
-    const bus = await Bus.create({
-      title,
-      content,
-      category,
-      published,
-    });
-
-    res.status(201).json({
-      status: "success",
-      data: {
-        bus,
-      },
-    });
-  } catch (error: any) {
-    if (error.name === "SequelizeUniqueConstraintError") {
-      return res.status(409).json({
-        status: "failed",
-        message: "Note with that title already exists",
-      });
+export const deleteBus = async (req: Request, res: Response) =>{
+    try {
+      const id=parseInt(req.params.id)
+        const data = await busesRepository.deleteBus(id);
+        responseUtil.handleSuccess(OK, 'Success', data);
+        return responseUtil.response(res);
+    } catch (error: any) {
+        responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+        return responseUtil.response(res);
     }
-
-    res.status(500).json({
-      status: "error",
-      message: error.message,
-    });
-  }
-};
-
- */
-
-export const updateBus = async (req: Request,res: Response) => {
-  try {
-    const result = await Bus.update(
-      { ...req.body, updatedAt: Date.now() },
-      {
-        where: {
-          id: req.params.id,
-        },
-      }
-    );
-
-    if (result[0] === 0) {
-      return res.status(404).json({
-        status: "fail",
-        message: "Bus with that ID not found",
-      });
-    }
-
-    const bus = await Bus.findByPk(req.params.id);
-
-    res.status(200).json({
-      status: "success",
-      data: {
-        bus,
-      },
-    });
-  } catch (error: any) {
-    res.status(500).json({
-      status: "error",
-      message: error.message,
-    });
-  }
-};
-
-
-
-export const deleteBus = async (req: Request,res: Response) => {
-  try {
-    const result = await Bus.destroy({
-      where: { id: req.params.id },
-      force: true,
-    });
-
-    if (result === 0) {
-      return res.status(404).json({
-        status: "fail",
-        message: "Bus with that ID not found",
-      });
-    }
-
-    res.status(204).json();
-  } catch (error: any) {
-    res.status(500).json({
-      status: "error",
-      message: error.message,
-    });
-  }
-};
-
-
+}
 
 export const findBus = async (req: Request, res: Response) => {
   try {
-    const bus = await Bus.findByPk(req.params.id);
+    const bus = await busesRepository.getABus(req.params.id);
 
     if (!bus) {
       return res.status(404).json({
@@ -128,10 +45,8 @@ export const findBus = async (req: Request, res: Response) => {
       },
     });
   } catch (error: any) {
-    res.status(500).json({
-      status: "error",
-      message: error.message,
-    });
+    responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+    return responseUtil.response(res);
   }
 };
 
@@ -144,7 +59,7 @@ export const findAllBuses = async (req: Request,res: Response) => {
     const limit:any = req.query.limit || 10;
     const skip = (page - 1) * limit;
 
-    const buses = await Bus.findAll({ limit, offset: skip,include:'agency' });
+    const buses = await busesRepository.getBuses();
 
     res.status(200).json({
       status: "success",
@@ -159,4 +74,17 @@ export const findAllBuses = async (req: Request,res: Response) => {
   }
 };
 
-export default{createBus,deleteBus,updateBus,findAllBuses,findBus}
+
+export const updateBus=async(req:Request,res:Response)=>{
+  try {
+    const id=parseInt(req.params.id)
+    const bus= await busesRepository.updateBus(id,req.body)
+    responseUtil.handleSuccess(OK, 'Success', bus);
+    return responseUtil.response(res);
+  } catch (error:any) {
+    responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+    return responseUtil.response(res);
+  }
+}
+
+export default{findAllBuses,findBus,createBus,deleteBus,updateBus}
