@@ -1,5 +1,4 @@
-'use strict'
-import {Model} from "sequelize"
+import {Model,DataTypes} from "sequelize"
 import { Agency } from './agency';
 
 class Bus extends Model {
@@ -17,11 +16,11 @@ class Bus extends Model {
   // Define other model methods and properties here
 }
 
-module.exports = (sequelize: any, DataTypes: any) => {
+module.exports=(sequelize:any)=>{
 Bus.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -38,11 +37,11 @@ Bus.init(
       allowNull: false,
     },
     year: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
     },
     agencyId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
     },
   },
@@ -53,6 +52,7 @@ Bus.init(
     paranoid: true,
   }
 );
+}
 
 // Define the association with Agency
 Bus.belongsTo(Agency, {
@@ -62,8 +62,7 @@ Bus.belongsTo(Agency, {
     allowNull: false,
   },
 });
-return Bus
-}
+
 
 export { Bus };
 

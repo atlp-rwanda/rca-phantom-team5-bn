@@ -1,5 +1,4 @@
-'use strict'
-import { Model} from 'sequelize';
+import { Model,DataTypes} from 'sequelize';
 import { Bus } from './buses';
 
 
@@ -12,15 +11,15 @@ class Agency extends Model {
  
    // Define other model methods and properties here
     static associate(models: any) {
-    Agency.hasMany(Bus, { foreignKey: 'agencyId' });
+    Agency.hasMany(models.Bus, { foreignKey: 'agencyId' });
   }
  }
 
-module.exports = (sequelize: any, DataTypes: any) => {
+module.exports = (sequelize: any) => {
 Agency.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
     },

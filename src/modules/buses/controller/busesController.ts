@@ -1,9 +1,8 @@
-'use strict'
 import { Request, Response } from 'express';
-//import { Bus } from '../../../database/models/buses';
+import { Bus } from '../../../database/models/buses';
 
-import models from '../../../database/models/index'
-const { Bus } = models
+// import models from '../../../database/models/index'
+// const { Bus } = models
  const createBus = async (req: Request, res: Response): Promise<void> => {
   try {
     const carData = req.body;
