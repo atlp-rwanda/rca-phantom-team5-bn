@@ -2,10 +2,11 @@
 import { Model } from 'sequelize'
 
 interface UsersAttributes {
-    createdAt: Date;
-    updatedAt: Date;
+    created_at: Date;
+    updated_at: Date;
     id: string;
-    name: string;
+    first_name: string;
+    last_name: string;
     email: string;
     password: string;
 }
@@ -13,10 +14,11 @@ interface UsersAttributes {
 module.exports = (sequelize: any, DataTypes: any) => {
     class users extends Model<UsersAttributes> 
         implements UsersAttributes {
-            createdAt!: Date;
-            updatedAt!: Date;
+            created_at!: Date;
+            updated_at!: Date;
             id!: string;
-            name!: string;
+            first_name!: string;
+            last_name!: string;
             email!: string;
             password!: string;
             static associate(models: any) {
@@ -30,10 +32,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
     
     users.init(
         {
-            createdAt: { field: 'createdAt', type: DataTypes.DATE },
-            updatedAt: { field: 'updatedAt', type: DataTypes.DATE },
+            created_at: { field: 'created_at', type: DataTypes.DATE },
+            updated_at: { field: 'updated_at', type: DataTypes.DATE },
             id: { allowNull: false, autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER },
-            name: { type: DataTypes.STRING },
+            first_name: { type: DataTypes.STRING },
+            last_name: { type: DataTypes.STRING },
             email: { type: DataTypes.STRING },
             password: { type: DataTypes.STRING },
         },
