@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { validateToken } from '../utils/jwt.utils';
 import client from '../utils/connectRedisUtils';
+import ResponseUtil from '../utils/responseUtil'
+import { FORBIDDEN, INTERNAL_SERVER_ERROR } from 'http-status';
 
 /**
  * middleware to check whether user has access to a specific endpoint
@@ -13,7 +15,7 @@ export const authorize = (allowedAccessTypes: string[]) => async (req: Request, 
 
     // verify request has token
     if (!jwt) {
-      return res.status(401).json({ message: 'Invalid token ' });
+      return ResponseUtil.handleError(FORBIDDEN,'Invalid token ');
     }
 
     // remove Bearer if using Bearer Authorization mechanism
@@ -23,7 +25,7 @@ export const authorize = (allowedAccessTypes: string[]) => async (req: Request, 
 
     // verify token hasn't expired yet
     client.get(jwt).then(async(value)=>{
-      if (value === 'revoked') return res.status(401).json({ message: 'Your token is not valid' });;
+      if (value === 'revoked') return ResponseUtil.handleError(FORBIDDEN, 'Your token is not valid' );;
       const decodedToken = await validateToken(jwt as string);
 
       const hasAccessToEndpoint = allowedAccessTypes.length < 1 ? true : allowedAccessTypes.some(
@@ -31,20 +33,20 @@ export const authorize = (allowedAccessTypes: string[]) => async (req: Request, 
       );
   
       if (!hasAccessToEndpoint) {
-        return res.status(401).json({ message: 'No enough privileges to access endpoint' });
+        return ResponseUtil.handleError(FORBIDDEN, 'You are not authorized to access this endpoint');
       }
     }).catch((error)=>{
-       return res.status(500).json("error occured while trying to verify your token");
+       return ResponseUtil.handleError(INTERNAL_SERVER_ERROR,"error occured while trying to verify your token");
 
     })
 
     next();
   } catch (error:any) {
     if (error.name === 'TokenExpiredError') {
-      res.status(401).json({ message: 'Expired token' });
-      return;
+      return ResponseUtil.handleError(FORBIDDEN,'Expired token' );
+      
     }
 
-    res.status(500).json({ message: 'Failed to authenticate user' });
+   return ResponseUtil.handleError(INTERNAL_SERVER_ERROR,'Failed to authenticate user' );
   }
 };

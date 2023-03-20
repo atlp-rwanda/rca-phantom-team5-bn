@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { INTERNAL_SERVER_ERROR, OK } from 'http-status'
+import { INTERNAL_SERVER_ERROR,FORBIDDEN, OK } from 'http-status'
 
 import responseUtil from '../../../utils/responseUtil'
 import usersRepository from '../repository/usersRepository'
@@ -31,13 +31,13 @@ const getUser = async (req: Request, res: Response) => {
 const logout = async (req: Request, res: Response) => {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('bearer ')) {
-        return res.status(401).json({ message: 'Invalid authorization header' });
+        return  responseUtil.handleError(FORBIDDEN,'Invalid authorization header');
     }
 
     const token = authHeader.slice('bearer'.length).trim();
 
     client.set(token, 'revoked');
-    res.json({ message: 'Logout successful' });
+   return responseUtil.handleSuccess(OK, 'Logout successful',{});
 }
 
     export default { getUsers, getUser, logout }
