@@ -27,13 +27,13 @@ module.exports = (sequelize: any, DataTypes: any) => {
         createdAt!: Date;
         updatedAt!: Date;
         agencyId!: number;
-          static associate(models: any) {
+         /**  static associate(models: any) {
               buses.belongsToMany(models.agencies, {
                   foreignKey: 'agency_id',
                   through: 'agencies',
                   as: 'agency',
               })
-          }
+          }*/
       }
   
 buses.init(
