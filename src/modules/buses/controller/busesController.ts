@@ -38,12 +38,8 @@ export const findBus = async (req: Request, res: Response) => {
       });
     }
 
-    res.status(200).json({
-      status: "success",
-      data: {
-        bus,
-      },
-    });
+    responseUtil.handleSuccess(OK, 'Success', bus)
+    return responseUtil.response(res);
   } catch (error: any) {
     responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
     return responseUtil.response(res);
@@ -60,17 +56,13 @@ export const findAllBuses = async (req: Request,res: Response) => {
     const skip = (page - 1) * limit;
 
     const buses = await busesRepository.getBuses();
-
-    res.status(200).json({
-      status: "success",
-      results: buses.length,
-      buses,
-    });
+    responseUtil.handleSuccess(OK, 'Success', buses)
+    return responseUtil.response(res);
+  
   } catch (error: any) {
-    res.status(500).json({
-      status: "error",
-      message: error.message,
-    });
+    responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+    return responseUtil.response(res);
+    
   }
 };
 
