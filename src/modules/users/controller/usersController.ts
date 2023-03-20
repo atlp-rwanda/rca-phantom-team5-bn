@@ -1,11 +1,9 @@
+import { NOTFOUND } from 'dns';
 import { Request, Response } from 'express'
-import { INTERNAL_SERVER_ERROR, OK, BAD_REQUEST } from 'http-status'
+import { INTERNAL_SERVER_ERROR, OK, BAD_REQUEST, UNAUTHORIZED, NOT_FOUND } from 'http-status'
 
 import responseUtil from '../../../utils/responseUtil'
 import usersRepository from '../repository/usersRepository'
-import { UserValidator } from '../validator/userValidator';
-
-const userValidate = new UserValidator();
 
 const getUsers = async (req: Request, res: Response) => {
     try {
@@ -32,9 +30,9 @@ const getUser = async (req: Request, res: Response) => {
 
 const  updateProfile = async (req: Request, res: Response) =>{
     try {
-        let { error } = userValidate.validUpdatedUser(req.body);
-        if (error){
-            responseUtil.handleError(BAD_REQUEST, `Validation failed: ${error.details[0].message}`);
+        const user = await usersRepository.getUser(req.params.id);
+        if (!user) {
+            responseUtil.handleError(NOT_FOUND, 'User not found');
             return responseUtil.response(res);
         }
         const data = await usersRepository.updateUser(req.params.id, req.body);
