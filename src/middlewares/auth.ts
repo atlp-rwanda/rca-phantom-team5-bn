@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { validateToken } from '../utils/jwt.utils';
+import { validateToken } from '../utils/jwtUtil';
 import client from '../utils/connectRedisUtils';
 import ResponseUtil from '../utils/responseUtil'
 import { FORBIDDEN, INTERNAL_SERVER_ERROR } from 'http-status';
