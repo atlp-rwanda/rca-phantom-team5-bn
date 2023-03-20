@@ -66,7 +66,7 @@ buses.init(
           type: DataTypes.DATE
          },
     agencyId: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },

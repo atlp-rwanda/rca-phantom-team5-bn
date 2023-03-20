@@ -17,7 +17,7 @@ import { Request, Response } from 'express';
 
 export const deleteBus = async (req: Request, res: Response) =>{
     try {
-      const id=parseInt(req.params.id)
+        const id=parseInt(req.params.id)
         const data = await busesRepository.deleteBus(id);
         responseUtil.handleSuccess(OK, 'Success', data);
         return responseUtil.response(res);
@@ -29,7 +29,8 @@ export const deleteBus = async (req: Request, res: Response) =>{
 
 export const findBus = async (req: Request, res: Response) => {
   try {
-    const bus = await busesRepository.getABus(req.params.id);
+    const id=parseInt(req.params.id)
+    const bus = await busesRepository.getABus(id);
 
     if (!bus) {
       return res.status(404).json({
@@ -60,9 +61,9 @@ export const findAllBuses = async (req: Request,res: Response) => {
     return responseUtil.response(res);
   
   } catch (error: any) {
+    console.log(error)
     responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
-    return responseUtil.response(res);
-    
+    return responseUtil.response(res);    
   }
 };
 

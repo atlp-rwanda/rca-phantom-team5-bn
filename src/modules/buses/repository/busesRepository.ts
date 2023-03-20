@@ -2,12 +2,12 @@ import models from '../../../database/models/index'
 const { buses } = models
 
 const getBuses = async () => {
-  const data = await buses.findAll({ order: [['id', 'ASC']] })
+  const data = await buses.findAll()
   return data
 }
 
 
-const getABus = async (id: string) => {
+const getABus = async (id: number) => {
     const data = await buses.findOne({ where: { id } })
     return data
   }
