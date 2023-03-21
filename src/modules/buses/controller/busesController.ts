@@ -33,7 +33,7 @@ export const findBus = async (req: Request, res: Response) => {
     const bus = await busesRepository.getABus(id);
 
     if (!bus) {
-      responseUtil.handleError(BAD_REQUEST, "Bus with that ID not found");
+      responseUtil.handleError(BAD_REQUEST, "Bus with that ID  doesn't exist");
       return responseUtil.response(res);
     }
 
