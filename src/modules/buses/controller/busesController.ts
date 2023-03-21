@@ -50,11 +50,12 @@ export const findBus = async (req: Request, res: Response) => {
 
 export const findAllBuses = async (req: Request,res: Response) => {
   try {
-    const page:any = req.query.page || 1;
-    const limit:any = req.query.limit || 10;
-    const skip = (page - 1) * limit;
+    const page:any = req.query.page || 1
+    const limit:any = req.query.limit || 2;
+    // const skip = (page - 1) * limit;
 
-    const buses = await busesRepository.getBuses();
+   // const { page, limit } = req.query;
+   const buses = await busesRepository.getBuses(page,limit);
     responseUtil.handleSuccess(OK, 'Success', buses)
     return responseUtil.response(res);
   
