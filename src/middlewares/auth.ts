@@ -15,7 +15,7 @@ export const authorize = (allowedAccessTypes: string[]) => async (req: Request, 
 
     // verify request has token
     if (!jwt) {
-      return ResponseUtil.handleError(FORBIDDEN,'Invalid token ');
+      return ResponseUtil.handleError(FORBIDDEN, 'Invalid token ');
     }
 
     // remove Bearer if using Bearer Authorization mechanism
@@ -24,29 +24,39 @@ export const authorize = (allowedAccessTypes: string[]) => async (req: Request, 
     }
 
     // verify token hasn't expired yet
-    client.get(jwt).then(async(value)=>{
-      if (value === 'revoked') return ResponseUtil.handleError(FORBIDDEN, 'Your token is not valid' );;
-      const decodedToken = await validateToken(jwt as string);
 
-      const hasAccessToEndpoint = allowedAccessTypes.length < 1 ? true : allowedAccessTypes.some(
-        (at) => decodedToken.accessTypes.some((uat: string) => uat === at)
-      );
-  
-      if (!hasAccessToEndpoint) {
-        return ResponseUtil.handleError(FORBIDDEN, 'You are not authorized to access this endpoint');
-      }
-    }).catch((error)=>{
-       return ResponseUtil.handleError(INTERNAL_SERVER_ERROR,"error occured while trying to verify your token");
+    const isRevoked = await checkRevoked(jwt as string);
 
-    })
+    if (isRevoked) return ResponseUtil.handleError(FORBIDDEN, 'Your token is not valid');
 
-    next();
-  } catch (error:any) {
-    if (error.name === 'TokenExpiredError') {
-      return ResponseUtil.handleError(FORBIDDEN,'Expired token' );
-      
+
+    const decodedToken = await validateToken(jwt as string);
+
+    const hasAccessToEndpoint = hasAcess(allowedAccessTypes, decodedToken);
+
+    if (!hasAccessToEndpoint) {
+      return ResponseUtil.handleError(FORBIDDEN, 'You are not authorized to access this endpoint');
     }
 
-   return ResponseUtil.handleError(INTERNAL_SERVER_ERROR,'Failed to authenticate user' );
+    next();
+  } catch (error: any) {
+    return ResponseUtil.handleError(INTERNAL_SERVER_ERROR, 'Failed to authenticate user');
   }
 };
+
+const checkRevoked = async (jwt: string) => {
+  try {
+    const value = await client.get(jwt);
+    if (value === 'revoked') return false;
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+const hasAcess = (allowedAccessTypes: string[], decodedToken: any) => {
+  const hasAccessToEndpoint = allowedAccessTypes.length < 1 ? true : allowedAccessTypes.some(
+    (at) => decodedToken.accessTypes.some((uat: string) => uat === at)
+  );
+  return hasAccessToEndpoint;
+}
