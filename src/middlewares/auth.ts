@@ -28,7 +28,7 @@ const isAuthorized = (allowedAccessTypes: string[], decodedToken: any) => {
 
 
 export const authorize = (allowedAccessTypes: string[]) => async (req: Request, res: Response, next: NextFunction) => {
-  try {
+ 
     const jwt = req.headers.authorization?.replace('Bearer ', '');
     if (!jwt){return ResponseUtil.handleError(FORBIDDEN, 'Invalid token');}
 
@@ -40,7 +40,4 @@ export const authorize = (allowedAccessTypes: string[]) => async (req: Request, 
     if (!hasAccess) {return ResponseUtil.handleError(FORBIDDEN, 'You are not authorized to access this endpoint')};
 
     next();
-  } catch {
-    return ResponseUtil.handleError(INTERNAL_SERVER_ERROR, 'Failed to authenticate user');
-  }
 };
