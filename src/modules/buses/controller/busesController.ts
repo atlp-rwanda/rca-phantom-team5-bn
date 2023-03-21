@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
  import busesRepository from '../repository/busesRepository';
 
- import { INTERNAL_SERVER_ERROR, OK } from 'http-status'
+ import { INTERNAL_SERVER_ERROR, OK,BAD_REQUEST } from 'http-status'
  import responseUtil from '../../../utils/responseUtil'
 
  const createBus = async (req: Request, res: Response)=> {
@@ -33,10 +33,8 @@ export const findBus = async (req: Request, res: Response) => {
     const bus = await busesRepository.getABus(id);
 
     if (!bus) {
-      return res.status(404).json({
-        status: "fail",
-        message: "Bus with that ID not found",
-      });
+      responseUtil.handleError(BAD_REQUEST, "Bus with that ID not found");
+      return responseUtil.response(res);
     }
 
     responseUtil.handleSuccess(OK, 'Success', bus)
