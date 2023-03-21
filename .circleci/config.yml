@@ -5,7 +5,7 @@ jobs:
       CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
     docker:
       - image: "mileschou/xdebug:7.3"
-    working_directory: ~/repo
+    working_directory: ~/rca-phantom-team5-bn
     steps:
       - checkout
       - run:

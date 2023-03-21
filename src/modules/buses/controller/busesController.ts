@@ -70,6 +70,10 @@ export const updateBus=async(req:Request,res:Response)=>{
   try {
     const id=parseInt(req.params.id)
     const bus= await busesRepository.updateBus(id,req.body)
+    if (!bus) {
+      responseUtil.handleError(BAD_REQUEST, "Bus with that ID  doesn't exist");
+      return responseUtil.response(res);
+    }
     responseUtil.handleSuccess(OK, 'Success', bus);
     return responseUtil.response(res);
   } catch (error:any) {
