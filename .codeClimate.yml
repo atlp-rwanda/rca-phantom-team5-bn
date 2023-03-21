@@ -1,9 +1,31 @@
-version: 2
+name: code-climate
+on: [push]
 jobs:
   build:
-    docker:
-      - image: circleci/node:10.16.3
+    runs-on: ubuntu-latest
     steps:
-      - checkout
-      - run: npm install
-      - run: npm run test
+      - uses: actions/checkout@v3
+
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm run test
+
+      - name: Code Climate Coverage Action
+        uses: paambaati/codeclimate-action@v3.2.0
+
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+        with:
+          coverageCommand: npm run test
+          debug: true
