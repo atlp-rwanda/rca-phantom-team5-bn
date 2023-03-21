@@ -3,7 +3,7 @@ import { QueryInterface  } from 'sequelize'
 const stopOne = {
   createdAt: new Date(),
   updatedAt: new Date(),
-  stopName: 'Nyabugogo',
+  stop_name: 'Nyabugogo',
  
 }
   

@@ -5,8 +5,8 @@ interface StopsAttributes {
 
     createdAt: Date;
     updatedAt: Date;
-    id: string;
-    stopName: string;
+    id: number;
+    stop_name: string;
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -15,8 +15,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
         implements StopsAttributes {
             createdAt!: Date;
             updatedAt!: Date;
-            id!: string;
-            stopName!: string;
+            id!: number;
+            stop_name!: string;
     }
     
     stops.init(
@@ -24,7 +24,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
             createdAt: { field: 'createdAt', type: DataTypes.DATE },
             updatedAt: { field: 'updatedAt', type: DataTypes.DATE },
             id: { allowNull: false, autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER },
-            stopName: { type: DataTypes.STRING },
+            stop_name: { type: DataTypes.STRING, allowNull: false },
         },
         {
             sequelize,

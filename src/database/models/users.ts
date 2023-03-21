@@ -1,7 +1,7 @@
 'use strict'
 import { Model } from 'sequelize'
 
-interface UserAttributes {
+interface UsersAttributes {
     createdAt: Date;
     updatedAt: Date;
     id: string;
@@ -11,8 +11,8 @@ interface UserAttributes {
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-    class users extends Model<UserAttributes> 
-        implements UserAttributes {
+    class users extends Model<UsersAttributes> 
+        implements UsersAttributes {
             createdAt!: Date;
             updatedAt!: Date;
             id!: string;
@@ -26,7 +26,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
                 //     as: 'route',
                 // })
             }
-    }
+        }
     
     users.init(
         {
@@ -41,7 +41,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
             sequelize,
             timestamps: true,
             underscored: true,
-            tableName: 'users',
             modelName: 'users',
         }
     )
