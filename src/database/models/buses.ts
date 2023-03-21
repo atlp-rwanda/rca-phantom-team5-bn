@@ -74,7 +74,7 @@ buses.init(
     sequelize,
     tableName: 'buses',
     timestamps: true,
-    paranoid: true,
+    //paranoid: true,
   }
 )
 
