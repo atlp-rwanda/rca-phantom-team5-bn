@@ -10,3 +10,6 @@ plugins:
     output-format: json
     input:
       - ./coverage/lcov.info
+exclude_patterns:
+- node_modules/
+- test/
