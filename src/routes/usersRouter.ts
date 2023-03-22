@@ -7,6 +7,7 @@ const usersRouter = Router()
 usersRouter.get('/get-users', usersController.getUsers)
 usersRouter.get('/get-users/:id', usersController.getUser)
 usersRouter.post('/admin/add-new',registerDriversContoller.RegisterDrivers);
+usersRouter.get('/admin/all-drivers',registerDriversContoller.listOfDriver);
 	
 
 export default usersRouter

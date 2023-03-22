@@ -1,6 +1,8 @@
 'use strict'
 import { Model } from 'sequelize'
 interface driversAttributes {
+           createdAt:Date;
+            updatedAt:Date;
             fname:string;
             lname:string;
             email:string;
@@ -12,7 +14,8 @@ interface driversAttributes {
 module.exports = (sequelize: any, DataTypes: any) => {
     class drivers extends Model<driversAttributes> 
         implements driversAttributes {
-            
+            createdAt!:Date;
+            updatedAt!:Date;
             fname!:string;
             lname!:string;
             email!:string;
@@ -30,6 +33,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     
     drivers.init(
         {
+            createdAt: { field: 'createdAt', type: DataTypes.DATE },
+            updatedAt: { field: 'updatedAt', type: DataTypes.DATE },
             fname:{type:DataTypes.STRING},
             lname:{type:DataTypes.STRING},
             email:{type:DataTypes.STRING},

@@ -12,6 +12,11 @@ const getDrivers = async () => {
       const data = await drivers.findOne({ where: { nid } })
       return data
     }
+    
+  const findDriverByEmail = async (email:string)=>{
+    const data = await drivers.findOne({ where: { email } })
+    return data
+  }  
 
     const createDriver=async(driverData:any)=>{
         try {
@@ -23,7 +28,7 @@ const getDrivers = async () => {
        }
 
 
-export default { getDrivers, getDriver,createDriver}   
+export default { getDrivers, getDriver,createDriver,findDriverByEmail}   
 
 
 
