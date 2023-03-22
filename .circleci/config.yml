@@ -1,31 +1,9 @@
 version: 2.1
 jobs:
-  run_tests:
+  build:
     docker:
-      - image: circleci/node
+      - image: cimg/node:16.10
     steps:
       - checkout
-      - run:
-          name: Install npm dependencies
-          command: |
-            npm install
-      - run:
-          name: Run Unit Tests
-          command: |
-            npm run test
-  assign_env_vars:
-    docker:
-      - image: circleci/node
-    steps:
-      - checkout
-      - run:
-          name: env var getting
-          command: |
-            echo $DBLINK
-workflows:
-  getting_env_vars:
-    jobs:
-      - assign_env_vars
-  build_tests:
-    jobs:
-      - run_tests
+      - run: npm install
+      - run: npm run test
