@@ -30,7 +30,7 @@ const createStops = async (req: Request, res: Response)=> {
  const getStops = async (req: Request,res: Response) => {
     try {
       const page:any = req.query.page || 1;
-      const limit:any = req.query.limit || 2;
+      const limit:any = req.query.limit || 3;
       const stops = await stopsRepository.getStops(page,limit);
       responseUtil.handleSuccess(OK, 'Success', stops)
       return responseUtil.response(res);
