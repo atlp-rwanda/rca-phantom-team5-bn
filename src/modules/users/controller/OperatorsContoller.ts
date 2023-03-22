@@ -7,18 +7,14 @@ import { INTERNAL_SERVER_ERROR, OK, BAD_REQUEST} from "http-status";
 import responseUtil from "../../../utils/responseUtil";
 
 
-
-
 const RegisterOperator = async (req:Request,res:Response)=>{
   
   const SearchDriverByEmail = await operatorsRepository.findOperatorByEmail(req.body.email);
    const SearchDriverByNid   = await operatorsRepository.getOperator(req.body.nid);
    
-  if(SearchDriverByNid == null && SearchDriverByEmail == null){
-  
+  if(SearchDriverByNid == null && SearchDriverByEmail == null){  
     let password= passwordFunctions.GenerateUserPassword();
     const hashedpassword =await passwordFunctions.HashPassword(password);
-   
         const NewOperator ={
             fname:req.body.fname,
             lname:req.body.lname,
@@ -38,20 +34,17 @@ const RegisterOperator = async (req:Request,res:Response)=>{
           return responseUtil.response(res)
         }
 }
-else{
+  else{
   return res.status(404).json({
     message:" Operator Already exist !! National Id or email has been used"
   })
 }
-}
+} 
 
 const listOfOperators = async (req:Request,res:Response)=>{
   const drivers = await operatorsRepository.getOperators() 
   responseUtil.handleSuccess(OK, 'Success', drivers)
-  return responseUtil.response(res)
-
- 
+  return responseUtil.response(res) 
 }
-
 
 export default {RegisterOperator,listOfOperators}

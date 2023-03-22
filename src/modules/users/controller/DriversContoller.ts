@@ -8,23 +8,16 @@ import { INTERNAL_SERVER_ERROR, OK, BAD_REQUEST} from "http-status";
 import responseUtil from "../../../utils/responseUtil";
 
 
-
-
-
-
 const RegisterDrivers = async (req:Request,res:Response)=>{
-   
 
- 
-   const SearchDriverByEmail = await driversRepository.findDriverByEmail(req.body.email);
-   const SearchDriverByNid   = await driversRepository.getDriver(req.body.nid);
+const SearchDriverByEmail = await driversRepository.findDriverByEmail(req.body.email);
+const SearchDriverByNid   = await driversRepository.getDriver(req.body.nid);
     
-  if(SearchDriverByNid == null && SearchDriverByEmail == null){
+if(SearchDriverByNid == null && SearchDriverByEmail == null){
   
-    let password= passwordFunctions.GenerateUserPassword();
-    const hashedpassword =await passwordFunctions.HashPassword(password);
-   
-        const Newdriver ={
+let password= passwordFunctions.GenerateUserPassword();
+const hashedpassword =await passwordFunctions.HashPassword(password);
+      const Newdriver ={
             fname:req.body.fname,
             lname:req.body.lname,
             email:req.body.email,
@@ -52,14 +45,9 @@ else{
   })
 }
 }
-
-const listOfDriver = async (req:Request,res:Response)=>{
+  const listOfDriver = async (req:Request,res:Response)=>{
   const drivers = await driversRepository.getDrivers() 
   responseUtil.handleSuccess(OK, 'Success', drivers)
   return responseUtil.response(res)
-
- 
 }
-
-
 export default {RegisterDrivers,listOfDriver}
