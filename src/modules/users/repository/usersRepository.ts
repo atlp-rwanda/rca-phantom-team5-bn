@@ -11,5 +11,24 @@ const getUser = async (id: string) => {
     const data = await users.findOne({ where: { id } })
     return data
   }
+  
 
-export default { getUsers, getUser }
+  const getUserByEmail = async (email: string) => {
+    const data = await users.findOne({
+      where : {
+        email: email
+      }
+    })
+    return data;
+  }
+  
+  const comparePassword = async (password: string) => {
+    const data = await users.findOne({
+      where : {
+        password: password
+      }
+    })
+    return data;
+  }
+  
+export default { getUsers, getUser, getUserByEmail ,comparePassword}

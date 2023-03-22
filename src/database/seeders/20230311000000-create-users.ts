@@ -1,11 +1,12 @@
 import { QueryInterface  } from 'sequelize'
+import { hashPassword } from '../../utils/passwordUtils'
 
 const userOne = {
-  createdAt: new Date(),
-  updatedAt: new Date(),
+  created_at: new Date(),
+  updated_at: new Date(),
   name: 'John Doe',
   email: 'demo@demo.com',
-  password: '$321!pass!123$'
+  password: hashPassword('$321!pass!123$')
 }
   
 const up = (queryInterface: QueryInterface) => queryInterface.bulkInsert('users', [userOne])

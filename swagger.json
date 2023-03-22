@@ -1,4 +1,3 @@
-
 {
   "swagger": "2.0",
   "info": {
@@ -6,43 +5,121 @@
     "version": "1.0.0",
     "title": "PHANTOM ASSIGNMENT",
     "termsOfService": "https://github.com/atlp-rwanda/rca-phantom-team5-bn#readme",
-    "contact": { "email": "" }
+    "contact": {
+      "email": ""
+    }
   },
-
-  "host": "localhost:3000",
+  "host": "localhost:3003",
   "basePath": "/api",
   "tags": [
     {
       "name": "Initial Route",
       "description": "Initial/Fake Endpoint | GET Route"
+    },
+    {
+      "name": "Auth Routes",
+      "description": "Authentication endpoints | POST Route"
     }
   ],
-  
-  "schemes": ["http", "https"],
-  "consumes": ["application/json", "none"],
-  "produces": [ "application/json", "none"],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json",
+    "none"
+  ],
+  "produces": [
+    "application/json",
+    "none"
+  ],
   "paths": {
-
     "/": {
       "get": {
-        "tags": [ "Initial Route"],
+        "tags": [
+          "Initial Route"
+        ],
         "summary": "Handle Intial / Wrong GET Route)",
         "description": "By the use of initial/wrong GET endpoint, you will be able to see welcome message (Welcome To Phantom Server)",
-        "responses": { "200": { "description": "Success. (Welcome To Phantom Server)" } }
+        "responses": {
+          "200": {
+            "description": "Success. (Welcome To Phantom Server)"
+          }
+        }
+      }
+    },
+
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "Auth Routes"
+        ],
+        "summary": " (Login User With POST Route)",
+        "description": "By the use of this POST endpoint, you will be able to signin a user account",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/Signin" }
+          }
+        ]
       }
     }
   },
-
+  
   "definitions": {
-    "users": {
+    "Users": {
       "type": "object",
       "properties": {
-        "name":  { "type": "string", "example": "Team-5" },
-        "email":  { "type": "string", "required": true, "example": "your-email@gmail.com" },
-        "password":  { "type": "string", "required": true, "example": "Password@123" }
+        "name": {
+          "type": "string",
+          "example": "Team-5"
+        },
+        "email": {
+          "type": "string",
+          "required": true,
+          "example": "your-email@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "required": true,
+          "example": "Password@123"
+        }
+      }
+    },
+    "Signin": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "required": true,
+          "example": "your-email@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "required": true,
+          "example": "Test@123"
+        },
+        "device_id": {
+          "type": "string",
+          "required": true,
+          "example": "SMG-1234"
+        }
       }
     }
   }
 }
-
-     
