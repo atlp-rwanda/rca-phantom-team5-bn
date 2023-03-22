@@ -1,34 +1,20 @@
-import models from '../../../database/models/index'
-const { users } = models
+import models from "../../../database/models/index";
+const { users } = models;
 
 const getUsers = async () => {
-  const data = await users.findAll({ order: [['id', 'ASC']] })
-  return data
-}
-
+  return await users.findAll({ order: [["id", "ASC"]] });
+};
 
 const getUser = async (id: string) => {
-    const data = await users.findOne({ where: { id } })
-    return data
-  }
-  
+  return await users.findOne({ where: { id } });
+};
 
-  const getUserByEmail = async (email: string) => {
-    const data = await users.findOne({
-      where : {
-        email: email
-      }
-    })
-    return data;
-  }
-  
-  const comparePassword = async (password: string) => {
-    const data = await users.findOne({
-      where : {
-        password: password
-      }
-    })
-    return data;
-  }
-  
-export default { getUsers, getUser, getUserByEmail ,comparePassword}
+const getUserByEmail = async (email: string) => {
+  return await users.findOne({ where: { email } });
+};
+
+const comparePassword = async (password: string) => {
+  return await users.findOne({ where: { password } });
+};
+
+export default { getUsers, getUser, getUserByEmail, comparePassword };
