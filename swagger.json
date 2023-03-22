@@ -54,7 +54,7 @@
         "tags": [
           "Auth Routes"
         ],
-        "summary": " (Login User With POST Route)",
+        "summary": " (Signin User With POST Route)",
         "description": "By the use of this POST endpoint, you will be able to signin a user account",
         "responses": {
           "200": {
