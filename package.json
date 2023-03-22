@@ -10,7 +10,6 @@
     "createAllTables": "tsc && npx sequelize db:migrate",
     "deleteAllSeeds": "tsc && npx sequelize db:seed:undo:all",
     "createAllSeeds": "tsc && npx sequelize db:seed:all",
-  
     "test": "nyc mocha -r ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit",
     "start": "tsnd --respawn ./src/index",
     "dev": "tsnd --respawn ./src/index",
@@ -80,7 +79,7 @@
     "assert": "^2.0.0",
     "chai": "^4.3.7",
     "eslint": "^7.8.1",
-    "mocha": "^10.2.0",
+    "mocha": "^9.1.3",
     "nyc": "^15.1.0",
     "source-map-support": "^0.5.19",
     "ts-node": "^10.9.1",
