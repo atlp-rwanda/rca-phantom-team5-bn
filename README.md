@@ -7,7 +7,27 @@ ELEVATE THE PUBLIC TRANSPORT EXPERIENCE
 [![Coverage Status](https://coveralls.io/repos/github/atlp-rwanda/rca-phantom-team5-bn/badge.svg?branch=develop)](https://coveralls.io/github/atlp-rwanda/rca-phantom-team5-bn?branch=develop)
 [![codecov](https://codecov.io/gh/atlp-rwanda/rca-phantom-team5-bn/branch/develop/graph/badge.svg?token=6QCWS8ES5Q)](https://codecov.io/gh/atlp-rwanda/rca-phantom-team5-bn)
 
+#### Hosted Swagger Documentation
+
+https://unavailable.com/api/documentation
+
+#### Github Repository For Phantom Backend
+
+https://github.com/atlp-rwanda/rca-phantom-team5-bn
 
 
+<br>
+
+## COMPLETED FEATURES
+
+- Initial Endpoint.
+- Signin Endpoint.
 
 
+#### TABLE OF API ENDPOINTS SPECIFICATION AND DESCRIPTION
+
+
+|NO  | VERBS  | ENDPOINTS                            | STATUS       | ACCESS      | DESCRIPTION                                |
+|----|--------|--------------------------------------|--------------|-------------|--------------------------------------------|
+| 1  | GET    | /api/any-etc                         | 200 OK       | public      | Handle all intial or wrong GET requests    |
+| 2  | POST   | /api//auth/signin                    | 200 OK       | public      | signin a user with email and password      |
