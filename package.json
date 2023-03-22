@@ -11,7 +11,7 @@
     "deleteAllSeeds": "tsc && npx sequelize db:seed:undo:all",
     "createAllSeeds": "tsc && npx sequelize db:seed:all",
   
-    "test": "nyc mocha -r ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit",
+    "test": "tsc && nyc mocha -r ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit",
     "start": "tsnd --respawn ./src/index",
     "dev": "tsnd --respawn ./src/index",
     "lint": "eslint src"
