@@ -1,11 +1,31 @@
 version: 2.1
-orbs:
-  node: circleci/node@4.7
 jobs:
-  build:
+  run_tests:
     docker:
-      - image: cimg/node:16.10
+      - image: circleci/node
     steps:
       - checkout
-      - run: npm install
-      - run: npm run test
+      - run:
+          name: Install npm dependencies
+          command: |
+            npm install
+      - run:
+          name: Run Unit Tests
+          command: |
+            npm run test
+  assign_env_vars:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - run:
+          name: env var getting
+          command: |
+            echo $DBLINK
+workflows:
+  getting_env_vars:
+    jobs:
+      - assign_env_vars
+  build_tests:
+    jobs:
+      - run_tests
