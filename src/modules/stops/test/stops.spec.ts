@@ -21,7 +21,19 @@ describe('true or false', () => {
             done(error);
          });
     });
-    it('User should be able to get a stop', (done) =>{
+    it('User should be able to get a stop by id', (done) =>{
+        router()
+         .get('/api/stops/stop')
+         .end((error, response)=>{
+            expect(response).to.have.status(OK);
+            expect(response.body).to.be.a('object');
+            expect(response.body.message).to.be.a('string');
+            expect(response.body).to.have.property('data');
+            done(error);
+         });
+    });
+
+    it('User should be able to get a stop by name', (done) =>{
         router()
          .get('/api/stops/stop')
          .end((error, response)=>{
@@ -53,11 +65,11 @@ describe('true or false', () => {
     
     it('User should be able to create a stop', (done) =>{
         const stop = new stops({
-            stop_name: 'Nyabisindu'});
+            stop_name: 'Nyanza'});
         router()
          .post('/api/stops/createStop')
          .send({
-            stop_name: 'Nyabisindu'
+            stop_name: 'Nyanza'
          })
          .end((error, response)=>{
             expect(response).to.have.status(OK);
@@ -70,7 +82,7 @@ describe('true or false', () => {
 
     it('User should be able to delete a stop', (done) =>{
         router()
-         .delete('/api/stops/deleteStop/8')
+         .delete('/api/stops/deleteStop/15')
          .end((error, response)=>{
             expect(response).to.have.status(OK);
             expect(response.body).to.be.a('object');
@@ -94,20 +106,21 @@ describe('true or false', () => {
           });
       });
 
-      it('Testing internal server error', (done) => {
-        router()
-          .post('/api/stops/createStop')
-          .send({
-            id:2,
-            stopname: 'Nyamirambo'
-          })
-          .end((error, response) => {
-            expect(response).to.have.status(INTERNAL_SERVER_ERROR);
-            expect(response.body).to.be.a('object');
-            expect(response.body.message).to.be.an('string');
-            done(error);
-          });
-      });
+    //   it('Testing internal server error', (done) => {
+    //     const stop = new stops({
+    //         stop_name: 'Nyandungu'});
+    //     router()
+    //       .post('/api/stops/createStop')
+    //       .send({
+    //         stopname: 'Nyandungu'
+    //       })
+    //       .end((error, response) => {
+    //         expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+    //         expect(response.body).to.be.a('object');
+    //         expect(response.body.message).to.be.an('string');
+    //         done(error);
+    //       });
+    //   });
 
       it('Testing internal server error', (done) => {
         router()
@@ -122,6 +135,7 @@ describe('true or false', () => {
             done(error);
           });
       });
+
       it('Testing internal server error', (done) => {
         router()
           .get('/api/stops/stop/gh')

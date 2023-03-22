@@ -22,6 +22,11 @@ const getStop = async (id: number) => {
     return data;
   };
 
+  const findStopByName = async (stop_name:string)=>{
+    const data = await stops.findOne({where: {stop_name}});
+    return data;
+  }
+  
   const updateStop=async(id:number,data:any)=>{
     try {
       const[affectedCount]= await stops.update(data,{
@@ -47,5 +52,5 @@ const getStop = async (id: number) => {
 
 
 
-  export default { createStops, getStops, getStop, updateStop, deleStop};
+  export default { createStops, getStops, getStop, updateStop, deleStop, findStopByName};
 

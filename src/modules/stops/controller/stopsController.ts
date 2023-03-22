@@ -5,14 +5,29 @@ import responseUtil from '../../../utils/responseUtil'
 import stopsRepository from "../repository/stopsRepository";
 
 const createStops = async (req: Request, res: Response)=> {
+  const searchStopByName = await stopsRepository.findStopByName(req.body.stop_name);
+
+  if(searchStopByName == null){
+    const newStop = {
+      stop_name: req.body.stop_name,
+      createdAt:Date.now(),
+      updatedAt:Date.now(),
+    }
     try {
-      const stops = await stopsRepository.createStops(req.body)
+      const stops = await stopsRepository.createStops(newStop)
       responseUtil.handleSuccess(OK, 'Success', stops)
       return responseUtil.response(res)
     } catch (err:any) {
       responseUtil.handleError(INTERNAL_SERVER_ERROR, err.toString())
       return responseUtil.response(res)
     }
+  }
+  else{
+    return res.status(404).json({
+      message:"Stop name already exists!"
+    })
+  }
+    
   };
 
   const deleStop = async (req: Request, res: Response) =>{
@@ -49,7 +64,7 @@ const getStop = async (req: Request, res: Response) => {
     const stop = await stopsRepository.getStop(id);
 
     if (!stop) {
-      responseUtil.handleError(BAD_REQUEST, "Cannot find that Stop stop");
+      responseUtil.handleError(BAD_REQUEST, "Cannot find that Stop");
       return responseUtil.response(res);
     }
 
@@ -73,6 +88,18 @@ const  updateStop = async (req: Request, res: Response) =>{
       }
 }
 
-export default { createStops,getStops, getStop, updateStop,deleStop}
+const  findStopByName = async (req: Request, res: Response) =>{
+  try {
+    const stop_name = req.params.stop_name;
+      const stopName= await stopsRepository.findStopByName(stop_name)
+      responseUtil.handleSuccess(OK, 'Success', stopName);
+      return responseUtil.response(res);
+    } catch (error:any) {
+      responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+      return responseUtil.response(res);
+    }
+}
+
+export default { createStops,getStops, getStop, updateStop,deleStop,findStopByName}
 
 
