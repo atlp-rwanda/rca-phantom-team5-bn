@@ -6,7 +6,6 @@ import authRepository from "../repository/authRepository";
 import {  comparePassword } from "../../../utils/passwordUtils";
 import usersRepository from "../../users/repository/usersRepository";
 
-
 const signIn = async (req: Request, res: Response) => {
   try {
     const user = await usersRepository.getUserByEmail(req.body.email);

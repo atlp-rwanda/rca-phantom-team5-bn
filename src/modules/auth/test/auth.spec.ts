@@ -15,7 +15,7 @@ describe('Authentication test cases', () => {
       .send({
       email: 'demo@demo.com',
       password: '$321!pass!123$',
-      device_id: '1',
+      device_id: 'MC-123',
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);
