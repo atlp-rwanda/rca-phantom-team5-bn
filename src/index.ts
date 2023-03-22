@@ -1,9 +1,9 @@
-import dotenv from 'dotenv'
 import swaggerUi from 'swagger-ui-express'
 import express, { Request, Response } from 'express'
 
 import routes from './routes'
 import * as swaggerDocument from '../swagger.json'
+import dotenv from "dotenv"
 
 dotenv.config()
 const app = express()
@@ -24,5 +24,4 @@ app.get('**', (req: Request, res: Response) => res.status(200).json({
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`)
 })
-
 export default app;
