@@ -13,8 +13,4 @@ const getUserByEmail = async (email: string) => {
   return await users.findOne({ where: { email } });
 };
 
-const comparePassword = async (password: string) => {
-  return await users.findOne({ where: { password } });
-};
-
-export default { getUsers, getUser, getUserByEmail, comparePassword };
+export default { getUsers, getUser, getUserByEmail };
