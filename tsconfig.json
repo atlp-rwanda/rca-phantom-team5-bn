@@ -63,7 +63,4 @@
 
 	"exclude": [ "node_modules", "src/test" ],
 
-	"ts-node":{
-      "esm":true
-	}
   }
