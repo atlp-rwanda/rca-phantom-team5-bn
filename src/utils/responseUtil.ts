@@ -1,7 +1,7 @@
 import { Response } from 'express'
 
 class ResponseUtil {
-    static statusCode: number;
+    static statusCode: number
     static message: string
     static data: any
     static type: string
