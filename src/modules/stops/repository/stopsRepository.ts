@@ -11,9 +11,10 @@ const createStops = async (data:any) => {
     }
 };
 
-const getStops = async () =>{
-    const data = await stops.findAll();
-    return data;
+const getStops = async (page=1, limit=2) =>{
+  const offset = (page -1) *limit;
+  const data = await stops.findAndCountAll({limit,offset});
+  return data;
 };
 
 const getStop = async (id: number) => {
