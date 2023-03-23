@@ -16,7 +16,6 @@ const getUsers = async (req: Request, res: Response) => {
     }
 }
 
-
 const getUser = async (req: Request, res: Response) => {
     try {
         const data = await usersRepository.getUser(req.params.id)

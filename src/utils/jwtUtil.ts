@@ -2,25 +2,13 @@ import { sign, SignOptions, verify, VerifyOptions } from 'jsonwebtoken';
 import * as fs from 'fs';
 import * as path from 'path';
 
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 /**
  * generates JWT used for local testing
  */
-export function generateToken(payload: any): string {
-
-  // read private key value
-  const privateKey = fs.readFileSync(path.join(__dirname, './../../private.key'));
-
-  const signInOptions: SignOptions = {
-    // RS256 uses a public/private key pair. The API provides the private key 
-    // to generate the JWT. The client gets a public key to validate the 
-    // signature
-    algorithm: 'RS256',
-    expiresIn: '1h'
-  };
-
-  // generate JWT
-  return sign(payload, privateKey, signInOptions);
-};
 
 interface TokenPayload {
   exp: number;
@@ -53,3 +41,10 @@ export function validateToken(token: string): Promise<TokenPayload> {
 })
 
 }
+
+
+const generateToken =(payload: object,  key: string): string =>{
+ return sign(payload, key, { expiresIn: '24h' });
+};
+
+export { generateToken }
