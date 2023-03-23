@@ -62,10 +62,10 @@ describe('true or false', () => {
 
     it('User should be able to update a stop', (done) =>{
         const stop = new stops({
-            id:19,
+            id:1,
             stop_name: 'Rulindo'});
         router()
-         .put('/api/stops/updateStop/19')
+         .put('/api/stops/updateStop/1')
          .send({
             stop_name: 'Rulindo'
          })
@@ -82,7 +82,7 @@ describe('true or false', () => {
         router()
          .post('/api/stops/createStop')
          .send({
-            stop_name: 'Kamonyi'
+            stop_name: 'Rwanza'
          })
          .end((error, response)=>{
             expect(response).to.have.status(OK);
@@ -95,7 +95,7 @@ describe('true or false', () => {
 
     it('User should be able to delete a stop', (done) =>{
         router()
-         .delete('/api/stops/deleteStop/5')
+         .delete('/api/stops/deleteStop/10')
          .end((error, response)=>{
             expect(response).to.have.status(OK);
             expect(response.body).to.be.a('object');
@@ -133,7 +133,7 @@ describe('true or false', () => {
       router()
        .post('/api/stops/createStop')
        .send({
-          stop_name: 'Rugarama'
+          stop_name: 'Tumba'
        })
        .end((error, response)=>{
         expect(response).to.have.status(INTERNAL_SERVER_ERROR);
