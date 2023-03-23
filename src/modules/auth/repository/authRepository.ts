@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import { Request } from 'express'
 import models from '../../../database/models/index'
 import { generateToken, validateToken } from '../../../utils/jwtUtil'
 import { generateUserPassword, hashPassword } from '../../../utils/passwordUtils'
@@ -43,8 +44,10 @@ const deleteUserSession =async(token: string)=>{
     return false
   }
 
-
-
 }
 
-export default { getUserByEmail, getUserByNid, registerUsers, createUserSession,deleteUserSession }
+
+
+
+
+export default { getUserByEmail, getUserByNid, registerUsers, createUserSession,deleteUserSession}
