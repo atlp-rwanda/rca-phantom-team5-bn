@@ -11,10 +11,7 @@ dotenv.config()
  */
 
 interface TokenPayload {
-  exp: number;
-  accessTypes: string[];
-  name: string;
-  userId: number;
+  user_id:string
 }
 
 /**
@@ -22,8 +19,7 @@ interface TokenPayload {
  *
  * @param token the expected token payload
  */
-export function validateToken(token: string): Promise<TokenPayload> {
-  const publicKey = fs.readFileSync(path.join(__dirname, './../../public.key'));
+export function validateToken(token: string,publicKey:string): Promise<TokenPayload> {
 
   const verifyOptions: VerifyOptions = {
     algorithms: ['RS256'],

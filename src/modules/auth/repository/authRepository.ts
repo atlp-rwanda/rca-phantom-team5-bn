@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import models from '../../../database/models/index'
-import { generateToken } from '../../../utils/jwtUtil'
+import { generateToken, validateToken } from '../../../utils/jwtUtil'
 import { generateUserPassword, hashPassword } from '../../../utils/passwordUtils'
 const {users, users_sessions } = models 
 
@@ -32,4 +32,19 @@ const createUserSession = async (data: any) => {
   return userSession;
 }
 
-export default { getUserByEmail, getUserByNid, registerUsers, createUserSession }
+const deleteUserSession =async(token: string)=>{
+  try{
+  const {user_id} =  await validateToken(token,process.env.PUBLIC_KEY as string)
+  const session  = await users_sessions.findOne({ where: { user_id } })
+  await session.update({access_token: "revoked"});
+  await session.save()
+   return true
+  }catch{
+    return false
+  }
+
+
+
+}
+
+export default { getUserByEmail, getUserByNid, registerUsers, createUserSession,deleteUserSession }

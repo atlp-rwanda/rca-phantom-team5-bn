@@ -7,6 +7,7 @@ const routesRouter = Router()
 routesRouter
 	.post('/register-user', validRegisterUser, authController.registerUsers)
 	.post('/signin', validSignIn, authController.signIn)
+	.post('/logout',authController.logout)
 	
 
 export default routesRouter

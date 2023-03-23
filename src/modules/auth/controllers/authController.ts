@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import { BAD_REQUEST, CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from "http-status";
+import { BAD_REQUEST, CREATED, INTERNAL_SERVER_ERROR,FORBIDDEN, NOT_FOUND, OK } from "http-status";
 
 import sendEmail from "../../../services/mailService";
 import responseUtil from "../../../utils/responseUtil";
 import authRepository from "../repository/authRepository";
 import {  comparePassword } from "../../../utils/passwordUtils";
 import usersRepository from "../../users/repository/usersRepository";
+import { use } from "chai";
 
 const registerUsers = async (req:Request,res:Response) => {
   try{
@@ -63,4 +64,25 @@ const signIn = async (req: Request, res: Response) => {
   }
 };
 
-export default { registerUsers, signIn };
+const logout = async (req: Request, res: Response) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('bearer ')) {
+      responseUtil.handleError(FORBIDDEN,'Invalid authorization header');
+      return responseUtil.response(res)
+  }
+
+  const token = authHeader.slice('bearer'.length).trim();
+
+  const resp =await authRepository.deleteUserSession(token)
+  
+  if(resp){
+    responseUtil.handleSuccess(OK, 'Logout successful',{});
+  }else{
+    responseUtil.handleError(INTERNAL_SERVER_ERROR, "Error occured")
+  }
+ 
+ return responseUtil.response(res)
+}
+
+
+export default { registerUsers, signIn,logout };
