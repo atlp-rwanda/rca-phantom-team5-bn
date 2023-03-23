@@ -43,9 +43,7 @@ const getStops = async (req: Request,res: Response) => {
       const stops = await stopsRepository.getStops(page,limit);
       responseUtil.handleSuccess(OK, 'Success', stops)
       return responseUtil.response(res);
-    
     } catch (error: any) {
-      console.log(error)
       responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
       return responseUtil.response(res);    
     }
@@ -59,7 +57,6 @@ const getStop = async (req: Request, res: Response) => {
       responseUtil.handleError(BAD_REQUEST, "Cannot find that Stop");
       return responseUtil.response(res);
     }
-
     responseUtil.handleSuccess(OK, 'Success', stop)
     return responseUtil.response(res);
   } catch (error: any) {
@@ -72,21 +69,15 @@ const updateStop = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   const existingStop = await stopsRepository.getStop(id);
   if (!existingStop) {
-    return res.status(404).json({
-      message: "Stop not found",
-    });
+    responseUtil.handleError(NOT_FOUND, 'Stop not found');
+    return responseUtil.response(res);
   }
   const stopsWithSameName = await stopsRepository.findStopByName(stopName);
   if (stopsWithSameName && stopsWithSameName.id !== id) {
-    return res.status(400).json({
-      message: "Stop name already exists",
-    });
+    responseUtil.handleError(BAD_REQUEST, 'Stop already exists!');
+    return responseUtil.response(res);
   }
-  const updatedStop = {
-    stop_name: stopName,
-    createdAt: Date.now(),
-    updatedAt: Date.now(),
-  };
+  const updatedStop = {stop_name: stopName,createdAt: Date.now(),updatedAt: Date.now()};
   try {
     const stop = await stopsRepository.updateStop(id, updatedStop);
     responseUtil.handleSuccess(OK, "Success", stop);
