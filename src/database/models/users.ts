@@ -2,8 +2,11 @@
 import { Model } from 'sequelize'
 
 interface UsersAttributes {
-    id: string;
-    name: string;
+    role: string;
+    fname: string;
+    lname: string;
+    driver_licence: string;
+    nid: string;
     email: string;
     password: string;
 }
@@ -11,11 +14,14 @@ interface UsersAttributes {
 module.exports = (sequelize: any, DataTypes: any) => {
     class users extends Model<UsersAttributes> 
         implements UsersAttributes {
-            id!: string;
-            name!: string;
-            email!: string;
-            password!: string;
-            static associate(models: any) {
+           declare role: string;
+           declare fname: string;
+           declare lname: string;
+           declare driver_licence: string;
+           declare nid: string;
+           declare email: string;
+           declare password: string;
+  static associate(models: any) {
                 // users.belongsToMany(models.routes, {
                 //     foreignKey: 'route_id',
                 //     through: 'routes',
@@ -26,10 +32,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
     
     users.init(
         {
-            id: { allowNull: false, autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER },
-            name: { type: DataTypes.STRING },
+            role: { type: DataTypes.STRING },
+            fname: { type: DataTypes.STRING },
+            lname: { type: DataTypes.STRING },
+            driver_licence: { type: DataTypes.STRING },
+            nid: { type: DataTypes.STRING },
             email: { type: DataTypes.STRING },
             password: { type: DataTypes.STRING },
+            
         },
         {
             sequelize,

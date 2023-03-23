@@ -2,20 +2,15 @@ import models from "../../../database/models/index";
 const { users } = models;
 
 const getUsers = async () => {
-  const data = await users.findAll({ order: [["id", "ASC"]] });
-  return data;
+  return await users.findAll({ order: [["id", "ASC"]] });
 };
 
 const getUser = async (id: string) => {
-  const data = await users.findOne({ where: { id } });
-  return data;
+  return await users.findOne({ where: { id } });
 };
 
-const updateUser = async (id: string, data: object) => {
-  await users.update(data, {
-    where: { id: id },
-  });
-  return getUser(id);
+const getUserByEmail = async (email: string) => {
+  return await users.findOne({ where: { email } });
 };
 
-export default { getUsers, getUser, updateUser };
+export default { getUsers, getUser, getUserByEmail };
