@@ -47,7 +47,7 @@ const getStops = async (req: Request,res: Response) => {
       responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
       return responseUtil.response(res);    
     }
-  };
+  }
 const getStop = async (req: Request, res: Response) => {
     try {
     const id=parseInt(req.params.id)
