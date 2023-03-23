@@ -5,6 +5,7 @@ const  stopRouter = Router()
 
 stopRouter.get("/all-stops",stopsController.getStops)
 stopRouter.get("/stop/:id", stopsController.getStop)
+stopRouter.get("/stop/${stopName}", stopsController.findStopByName)
 stopRouter.post("/createStop", stopsController.createStops)
 stopRouter.delete("/deleteStop/:id", stopsController.deleStop)
 stopRouter.put("/updateStop/:id", stopsController.updateStop)
