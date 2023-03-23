@@ -243,13 +243,6 @@
           }
         },
         "parameters": [
-           {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "stop id"
-          },
           {
             "in": "body",
             "name": "body",
