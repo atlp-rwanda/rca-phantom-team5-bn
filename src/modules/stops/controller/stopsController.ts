@@ -1,12 +1,9 @@
 import {Request, Response} from "express";
 import { INTERNAL_SERVER_ERROR, OK, BAD_REQUEST, UNAUTHORIZED, NOT_FOUND } from "http-status";
-
 import responseUtil from '../../../utils/responseUtil'
 import stopsRepository from "../repository/stopsRepository";
-
 const createStops = async (req: Request, res: Response)=> {
   const searchStopByName = await stopsRepository.findStopByName(req.body.stop_name);
-
   if(searchStopByName == null){
     const newStop = {
       stop_name: req.body.stop_name,
@@ -26,10 +23,8 @@ const createStops = async (req: Request, res: Response)=> {
     return res.status(500).json({
       message:"Stop name already exists!"
     })
-  }
-    
+  } 
   };
-
   const deleStop = async (req: Request, res: Response) =>{
     try {
         const id=parseInt(req.params.id)
@@ -41,8 +36,7 @@ const createStops = async (req: Request, res: Response)=> {
         return responseUtil.response(res);
     }
 };
-
- const getStops = async (req: Request,res: Response) => {
+const getStops = async (req: Request,res: Response) => {
     try {
       const page:any = req.query.page || 1;
       const limit:any = req.query.limit || 3;
@@ -56,8 +50,6 @@ const createStops = async (req: Request, res: Response)=> {
       return responseUtil.response(res);    
     }
   };
-
-
 const getStop = async (req: Request, res: Response) => {
     try {
     const id=parseInt(req.params.id)
@@ -75,28 +67,21 @@ const getStop = async (req: Request, res: Response) => {
     return responseUtil.response(res);
   }
 }
-
 const updateStop = async (req: Request, res: Response) => {
   const stopName = req.body.stop_name;
   const id = parseInt(req.params.id);
-
-  // Check if stop with the given ID exists
   const existingStop = await stopsRepository.getStop(id);
   if (!existingStop) {
     return res.status(404).json({
       message: "Stop not found",
     });
   }
-
-  // Check if stop name already exists in the database
   const stopsWithSameName = await stopsRepository.findStopByName(stopName);
   if (stopsWithSameName && stopsWithSameName.id !== id) {
     return res.status(400).json({
       message: "Stop name already exists",
     });
   }
-
-  // Update the stop
   const updatedStop = {
     stop_name: stopName,
     createdAt: Date.now(),
@@ -111,8 +96,6 @@ const updateStop = async (req: Request, res: Response) => {
     return responseUtil.response(res);
   }
 };
-
-
 const  findStopByName = async (req: Request, res: Response) =>{
   try {
     const stop_name = req.params.stop_name;
@@ -124,7 +107,4 @@ const  findStopByName = async (req: Request, res: Response) =>{
       return responseUtil.response(res);
     }
 }
-
 export default { createStops,getStops, getStop, updateStop,deleStop,findStopByName}
-
-

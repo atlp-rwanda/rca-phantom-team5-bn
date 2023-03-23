@@ -95,7 +95,7 @@ describe('true or false', () => {
 
     it('User should be able to delete a stop', (done) =>{
         router()
-         .delete('/api/stops/deleteStop/5')
+         .delete('/api/stops/deleteStop/1')
          .end((error, response)=>{
             expect(response).to.have.status(OK);
             expect(response.body).to.be.a('object');
@@ -133,7 +133,7 @@ describe('true or false', () => {
       router()
        .post('/api/stops/createStop')
        .send({
-          stop_name: 'Kimisange'
+          stop_name: 'Gatenga'
        })
        .end((error, response)=>{
         expect(response).to.have.status(INTERNAL_SERVER_ERROR);
