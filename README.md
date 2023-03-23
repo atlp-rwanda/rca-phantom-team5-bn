@@ -36,4 +36,4 @@ https://github.com/atlp-rwanda/rca-phantom-team5-bn
 | 5  | GET    | /api/stops/stop/:id                  | 200 OK       | public      | Retrieve a stop by a given ID              |
 | 6  | POST   | /api/stops/createStop                | 201 CREATED  | public      | Create a new stop                          |
 | 7  | PUT    | /api/stops/updateStop/:id            | 200 OK       | public      | Update a stop of a given ID                |
-| 8  | PUT    | /api/stops/deleteStop/:id            | 200 OK       | public      | Delete a stop of a given ID                |
+| 8  | DELETE | /api/stops/deleteStop/:id            | 200 OK       | public      | Delete a stop of a given ID                |

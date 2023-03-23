@@ -19,6 +19,9 @@
     {
       "name": "Auth Routes",
       "description": "Authentication endpoints | POST Route"
+    }, {
+      "name": "Stop Routes",
+      "description": "Stops/Routes endpoints | POST Route"
     }
   ],
   "schemes": [
@@ -106,6 +109,157 @@
           }
         ]
       }
+    },
+
+    "/stops/all-stops": {
+      "get": {
+        "tags": [
+          "Stop Routes"
+        ],
+        "summary" : " (Get All Stops With GET Route)",
+        "description": "By use of this GET endpoint, you'll be able to get all stops",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+      
+    },
+    "/stops/updateStop/{id}": {
+      "put": {
+        "tags": [
+          "Stop Routes"
+        ],
+        "summary": " (Update Stop With PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update a stop",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "stop id"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/Stop" }
+          }
+        ]
+      }
+    },
+    "/stops/deleteStop/{id}": {
+      "delete": {
+        "tags": [
+          "Stop Routes"
+        ],
+        "summary": " (Delete Stop With DELETE Route)",
+        "description": "By the use of this DELETE endpoint, you will be able to delete a stop",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "stop id"
+          }
+        ]
+      }
+    },
+    "/stops/stop/{id}": {
+      "get": {
+        "tags": [
+          "Stop Routes"
+        ],
+        "summary": " (Retrieve Stop With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get a single stop",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "stop id"
+          }
+        ]
+      }
+    },
+    "/stops/createStop": {
+      "post": {
+        "tags": [
+          "Stop Routes"
+        ],
+        "summary": " (Create Stop With POST Route)",
+        "description": "By the use of this POST endpoint, you will be able to create a stop",
+        "responses": {
+          "201": {
+            "description": "CREATED."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+           {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "stop id"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/Stop" }
+          }
+        ]
+      }
     }
   },
   
@@ -161,6 +315,16 @@
           "example": "SMG-1234"
         }
       }
-    }
+    },
+    "Stops" : {
+      "type": "object",
+      "properties": {
+        "stop_name": {
+          "type": "string",
+          "required": true,
+          "example": "Kimicanga"
+        }
+      }
+        }
   }
 }
