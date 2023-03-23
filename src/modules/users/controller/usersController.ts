@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { INTERNAL_SERVER_ERROR, OK } from 'http-status'
+import { INTERNAL_SERVER_ERROR,FORBIDDEN, OK } from 'http-status'
 
 import responseUtil from '../../../utils/responseUtil'
 import usersRepository from '../repository/usersRepository'
@@ -14,7 +14,6 @@ const getUsers = async (req: Request, res: Response) => {
         return responseUtil.response(res)
     }
 }
-
 
 const getUser = async (req: Request, res: Response) => {
     try {
