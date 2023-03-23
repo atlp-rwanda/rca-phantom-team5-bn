@@ -9,7 +9,7 @@
       "email": ""
     }
   },
-  "host": "localhost:3000",
+  "host": "localhost:3003",
   "basePath": "/api",
   "tags": [
     {
@@ -19,6 +19,10 @@
     {
       "name": "Auth Routes",
       "description": "Authentication endpoints | POST Route"
+    },
+    {
+      "name": "User Routes",
+      "description": "User endpoints | Put Route"
     }
   ],
   "schemes": [
@@ -106,6 +110,42 @@
           }
         ]
       }
+    },
+    "/users/update-profile/{id}": {
+      "put": {
+        "tags": [
+          "User Routes"
+        ],
+        "summary": " (Update User With PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update a user account",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "user Id"
+          },{
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/UpdateProfile" }
+          }
+        ]
+      }
     }
   },
   
@@ -159,6 +199,29 @@
           "type": "string",
           "required": true,
           "example": "SMG-1234"
+        }
+      }
+    },
+    "UpdateProfile": {
+      "type": "object",
+      "properties": {
+        "fname": {
+          "type": "string",
+          "example": "John"
+        },
+        "lname": {
+          "type": "string",
+          "example": "Doe"
+        },
+        "email": {
+          "type": "string",
+          "required": true,
+          "example": "your-email@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "required": true,
+          "example": "23442*(&^i"
         }
       }
     }
