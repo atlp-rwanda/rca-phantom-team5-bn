@@ -9,7 +9,7 @@
       "email": ""
     }
   },
-  "host": "localhost:3003",
+  "host": "localhost:3000",
   "basePath": "/api",
   "tags": [
     {
@@ -78,6 +78,34 @@
           }
         ]
       }
+    },
+
+    "/auth/register-user": {
+      "post": {
+        "tags": [
+          "Auth Routes"
+        ],
+        "summary": " (Register User With POST Route)",
+        "description": "By the use of this POST endpoint, you will be able to register a user account",
+        "responses": {
+          "201": {
+            "description": "CREATED."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/Users" }
+          }
+        ]
+      }
     }
   },
   
@@ -85,19 +113,32 @@
     "Users": {
       "type": "object",
       "properties": {
-        "name": {
+        "role": {
           "type": "string",
-          "example": "Team-5"
+          "example": "[operator, driver]"
+        },
+        "fname": {
+          "type": "string",
+          "example": "John"
+        },
+        "lname": {
+          "type": "string",
+          "example": "Doe"
         },
         "email": {
           "type": "string",
           "required": true,
           "example": "your-email@gmail.com"
         },
-        "password": {
+        "driver_licence": {
           "type": "string",
           "required": true,
-          "example": "Password@123"
+          "example": "[A,B,C,D,E,F]"
+        },
+        "nid": {
+          "type": "string",
+          "required": true,
+          "example": "1920786767665547"
         }
       }
     },
