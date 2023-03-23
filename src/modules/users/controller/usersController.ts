@@ -26,4 +26,15 @@ const getUser = async (req: Request, res: Response) => {
     }
 }
 
-export default { getUsers, getUser }
+const  updateProfile = async (req: Request, res: Response) =>{
+    try {
+        const data = await usersRepository.updateUser(req.params.id, req.body);
+        responseUtil.handleSuccess(OK, 'Success', data);
+        return responseUtil.response(res);
+    } catch (error: any) {
+        responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+        return responseUtil.response(res);
+    }
+}
+
+export default { getUsers, getUser, updateProfile }
