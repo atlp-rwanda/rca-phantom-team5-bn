@@ -8,13 +8,13 @@ import getUserSession from '../services/sessionService';
 
 dotenv.config()
 
-const isTokenValid = async (jwt: string,user_id:string) => {
+const isTokenValid = async (user_id:string) => {
   try {
     const session = await getUserSession(user_id)
-    if(session.access_token  == jwt){
-       return true;
+    if(session.access_token  == "revoked"){
+       return false;
     }
-    return false;
+    return true;
   } catch (error) {
     return false;
   }
@@ -51,9 +51,8 @@ export const authorize = (allowedAccessTypes: string[]=[]) => async (req: Reques
       return ResponseUtil.response(res)
     };
 
-    const isValid = await isTokenValid(jwt,decodedToken.user_id);
+    const isValid = await isTokenValid(decodedToken.user_id);
     if (!isValid){ 
-     
        ResponseUtil.handleError(FORBIDDEN, 'Your token is not valid')
        return ResponseUtil.response(res)
     };
