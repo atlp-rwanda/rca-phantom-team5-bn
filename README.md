@@ -32,3 +32,8 @@ https://github.com/atlp-rwanda/rca-phantom-team5-bn
 | 1  | GET    | /api/any-etc                         | 200 OK       | public      | Handle all intial or wrong GET requests    |
 | 2  | POST   | /api/auth/signin                     | 200 OK       | public      | signin a user with email and password      |
 | 3  | POST   | /api/auth/register-user              | 201 CREATED  | privated    | register user & generate password in email |
+| 4  | GET    | /api/stops/all-stops                 | 200 OK       | public      | Retrieve all stops                         |
+| 5  | GET    | /api/stops/stop/:id                  | 200 OK       | public      | Retrieve a stop by a given ID              |
+| 6  | POST   | /api/stops/createStop                | 201 CREATED  | public      | Create a new stop                          |
+| 7  | PUT    | /api/stops/updateStop/:id            | 200 OK       | public      | Update a stop of a given ID                |
+| 8  | PUT    | /api/stops/deleteStop/:id            | 200 OK       | public      | Delete a stop of a given ID                |
