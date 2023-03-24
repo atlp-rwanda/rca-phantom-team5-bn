@@ -6,7 +6,6 @@ import { verifyToken } from '../utils/jwtUtil';
 import ResponseUtil from '../utils/responseUtil'
 import  authRepository  from '../modules/auth/repository/authRepository';
 
-
 dotenv.config() 
 
 const userAuthorization = (roles: any) => {
