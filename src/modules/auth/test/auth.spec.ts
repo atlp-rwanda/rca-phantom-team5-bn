@@ -1,17 +1,68 @@
 import chaihttp from 'chai-http';
 import chai, { expect } from 'chai';
-import { NOT_FOUND, BAD_REQUEST, CREATED, OK, INTERNAL_SERVER_ERROR } from 'http-status';
+import { NOT_FOUND, BAD_REQUEST, CREATED, OK, INTERNAL_SERVER_ERROR, CONFLICT } from 'http-status';
 
 import app from '../../../index'
 
 chai.use(chaihttp);
 const router = () => chai.request(app);
 
+
 describe('Authentication test cases', () => {
+//  sign in
+let access_token: string;
+it('Signin should return a user_session on successful signin', (done) => {
+  router()
+    .post('/api/auth/signin')
+    .send({
+    email: 'peter@demo.com',
+    password: 'peter!123$',
+    device_id: 'MC-123',
+    })
+    .end((error, response) => {
+      access_token = response.body.data.access_token
+      expect(response).to.have.status(OK);
+      expect(response.body).to.be.a('object');
+      expect(response.body.message).to.be.a('string');
+      expect(response.body).to.have.property('data');
+      done(error);
+    });
+});
+
+it('should return an error message on incorrect sigin credentials', (done) => {
+  chai.request(app)
+    .post('/api/auth/signin')
+    .send({  email: 'de@demo.com',
+    password: '1!pass!123$',
+    device_id: '1', })
+    .end((error, response) => {
+      expect(response).to.have.status(NOT_FOUND);
+      expect(response.body).to.be.a('object');
+      expect(response.body.message).to.be.a('string');
+      done(error);
+    });
+});
+
+it('Signin should have three properties: email, password, device_id', (done) => {
+  router()
+    .post('/api/auth/signin')
+    .send({
+    email: 'demo@demo.com',
+    password: '$321!pass!123$'
+    })
+    .end((error, response) => {
+      expect(response).to.have.status(BAD_REQUEST);
+      expect(response.body).to.be.a('object');
+      expect(response.body.message).to.be.a('string');
+      done(error);
+    });
+});
+
 // register user
   it('register operater does not require driver_licence (bad request)', (done) => {
     router()
       .post('/api/auth/register-user')
+      .set('Authorization', `Bearer ${access_token}`)
       .send({
         role: 'operator',
         fname: 'dad',
@@ -29,10 +80,10 @@ describe('Authentication test cases', () => {
       });
   });
 
-
   it('register user email exist (bad request)', (done) => {
     router()
       .post('/api/auth/register-user')
+      .set('Authorization', `Bearer ${access_token}`)
       .send({
         role: 'operator',
         fname: 'dad',
@@ -41,17 +92,17 @@ describe('Authentication test cases', () => {
         email:'jane@demo.com',
       })
       .end((error, response) => {
-        expect(response).to.have.status(BAD_REQUEST);
+        expect(response).to.have.status(CONFLICT);
         expect(response.body).to.be.a('object');
         expect(response.body.message).to.be.a('string');
         done(error);
       });
   });
 
-
   it('register user National ID exist (bad request)', (done) => {
     router()
       .post('/api/auth/register-user')
+      .set('Authorization', `Bearer ${access_token}`)
       .send({
         role: 'operator',
         fname: 'dad',
@@ -60,17 +111,17 @@ describe('Authentication test cases', () => {
         email:'dad@demo.com',
       })
       .end((error, response) => {
-        expect(response).to.have.status(BAD_REQUEST);
+        expect(response).to.have.status(CONFLICT);
         expect(response.body).to.be.a('object');
         expect(response.body.message).to.be.a('string');
         done(error);
       });
   });
 
-
   it('register operator success', (done) => {
     router()
       .post('/api/auth/register-user')
+      .set('Authorization', `Bearer ${access_token}`)
       .send({
         role: 'operator',
         fname: 'ead',
@@ -87,11 +138,10 @@ describe('Authentication test cases', () => {
       });
   });
 
-
-
   it('register driver success', (done) => {
     router()
       .post('/api/auth/register-user')
+      .set('Authorization', `Bearer ${access_token}`)
       .send({
         role: 'driver',
         fname: 'aad',
@@ -106,73 +156,6 @@ describe('Authentication test cases', () => {
         expect(response.body).to.be.a('object');
         expect(response.body.message).to.be.a('string');
         expect(response.body).to.have.property('data');
-        done(error);
-      });
-  });
-
-//  sign in
-
-  it('Signin should return a user_session on successful signin', (done) => {
-    router()
-      .post('/api/auth/signin')
-      .send({
-      email: 'demo@demo.com',
-      password: '$321!pass!123$',
-      device_id: 'MC-123',
-      })
-      .end((error, response) => {
-        expect(response).to.have.status(OK);
-        expect(response.body).to.be.a('object');
-        expect(response.body.message).to.be.a('string');
-        expect(response.body).to.have.property('data');
-        done(error);
-      });
-  });
-
-
-
-  it('Signin should return a user_session on successful signin', (done) => {
-    router()
-      .post('/api/auth/signin')
-      .send({
-      email: 'demo@demo.com',
-      password: '$321!pass!123$',
-      device_id: 'MC-123',
-      })
-      .end((error, response) => {
-        expect(response).to.have.status(OK);
-        expect(response.body).to.be.a('object');
-        expect(response.body.message).to.be.a('string');
-        expect(response.body).to.have.property('data');
-        done(error);
-      });
-  });
-
-  it('should return an error message on incorrect sigin credentials', (done) => {
-    chai.request(app)
-      .post('/api/auth/signin')
-      .send({  email: 'de@demo.com',
-      password: '1!pass!123$',
-      device_id: '1', })
-      .end((error, response) => {
-        expect(response).to.have.status(NOT_FOUND);
-        expect(response.body).to.be.a('object');
-        expect(response.body.message).to.be.a('string');
-        done(error);
-      });
-  });
-
-  it('Signin should have three properties: email, password, device_id', (done) => {
-    router()
-      .post('/api/auth/signin')
-      .send({
-      email: 'demo@demo.com',
-      password: '$321!pass!123$'
-      })
-      .end((error, response) => {
-        expect(response).to.have.status(BAD_REQUEST);
-        expect(response.body).to.be.a('object');
-        expect(response.body.message).to.be.a('string');
         done(error);
       });
   });
