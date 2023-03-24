@@ -7,7 +7,7 @@ const routesRouter = Router();
 
 routesRouter
 	.post('/register-user',userAuthorization(['admin','super_admin']), validRegisterUser, authController.registerUsers)
-	.get('/logout', authorizationToken, authController.logout)
+	.delete('/logout', authorizationToken, authController.logout)
 	.post('/signin', validSignIn, authController.signIn);
 	
 export default routesRouter;

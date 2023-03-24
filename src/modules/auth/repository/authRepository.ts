@@ -40,7 +40,7 @@ const createUserSession = async (data: any) => {
 }
 
 const deleteUserSession =async(user_id: string)=>{
-   await users_sessions.findOne({ where: { user_id } }) 
+   await users_sessions.destroy({ where: { user_id } }) 
 }
 
 
