@@ -4,7 +4,7 @@
   "description": "Elevate the public transport experience",
   "main": "src/index.ts",
   "scripts": {
-    "deleteOnetable": "tsc && npx sequelize db:migrate:undo --name 20230311000000-create-users.js",
+    "deleteOnetable": "tsc && npx sequelize db:migrate:undo --name 20230316160925-create-stops.js",
     "createOnetable": "tsc && npx sequelize-cli db:migrate --to 20230311000000-create-users.js",
     "deleteAllTables": "tsc && npx sequelize db:migrate:undo:all",
     "createAllTables": "tsc && npx sequelize db:migrate",

@@ -2,6 +2,10 @@ import {Request, Response} from "express";
 import { INTERNAL_SERVER_ERROR, OK, BAD_REQUEST, UNAUTHORIZED, NOT_FOUND } from "http-status";
 import responseUtil from '../../../utils/responseUtil'
 import stopsRepository from "../repository/stopsRepository";
+import models from "../../../database/models/index";
+const { stops } = models;
+
+
 const createStops = async (req: Request, res: Response)=> {
   const searchStopByName = await stopsRepository.findStopByName(req.body.stop_name);
   if(searchStopByName == null){
@@ -87,15 +91,29 @@ const updateStop = async (req: Request, res: Response) => {
     return responseUtil.response(res);
   }
 };
-const  findStopByName = async (req: Request, res: Response) =>{
+
+const findStopByName = async (req: Request, res: Response) =>{
   try {
-    const stop_name = req.params.stop_name;
-      const stopName= await stopsRepository.findStopByName(stop_name)
-      responseUtil.handleSuccess(OK, 'Success', stopName);
-      return responseUtil.response(res);
-    } catch (error:any) {
-      responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+    const stopName = req.params.stop_name?.toString();
+    if (!stopName) {
+      responseUtil.handleError(BAD_REQUEST, "Missing or invalid stop name parameter");
       return responseUtil.response(res);
     }
+
+    const stop = await stops.findOne({ where: { stop_name: stopName } });
+
+    if (!stop) {
+      responseUtil.handleError(BAD_REQUEST, "Cannot find that Stop");
+      return responseUtil.response(res);
+    }
+
+    responseUtil.handleSuccess(OK, 'Success', stop)
+    return responseUtil.response(res);
+  } catch (error: any) {
+    console.error(error);
+    responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+    return responseUtil.response(res);
+  }
 }
-export default { createStops,getStops, getStop, updateStop,deleStop,findStopByName}
+
+export default { createStops,getStops, getStop, updateStop,deleStop}
