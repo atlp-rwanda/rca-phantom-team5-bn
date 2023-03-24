@@ -6,7 +6,6 @@ import { verifyToken } from '../utils/jwtUtil';
 import ResponseUtil from '../utils/responseUtil'
 import  authRepository  from '../modules/auth/repository/authRepository';
 
-
 dotenv.config() 
 
 const userAuthorization = (roles: any) => {
@@ -17,7 +16,7 @@ const userAuthorization = (roles: any) => {
         ResponseUtil.handleError(UNAUTHORIZED, "Invalid token");
         return ResponseUtil.response(res);
       }
-      const decodedToken = verifyToken(access_token, process.env.PUBLIC_KEY as string);
+      const decodedToken = verifyToken(access_token, process.env.SECRET_KEY as string);
       const userSession = await authRepository.getUserSessionByUserId(decodedToken.user_id);
       if (!userSession) {
         ResponseUtil.handleError(UNAUTHORIZED, "Invalid token");
