@@ -10,7 +10,7 @@
     "createAllTables": "tsc && npx sequelize db:migrate",
     "deleteAllSeeds": "tsc && npx sequelize db:seed:undo:all",
     "createAllSeeds": "tsc && npx sequelize db:seed:all",
-    "test": "npm run createAllTables && npm run createAllSeeds && nyc mocha -r ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit",
+    "test": "npm run deleteAllTables && npm run createAllTables && npm run createAllSeeds && nyc mocha -r ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls",
     "codecov": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "start": "tsnd --respawn ./src/index",
