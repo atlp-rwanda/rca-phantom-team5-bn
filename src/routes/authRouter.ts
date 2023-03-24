@@ -1,12 +1,13 @@
-import { Router } from 'express'
-import authController from '../modules/auth/controllers/authController'
-import { validRegisterUser, validSignIn } from '../modules/auth/validation/authValidator'
+import { Router } from 'express';
+import authController from '../modules/auth/controllers/authController';
+import { authorizationToken, userAuthorization } from '../middlewares/authMiddleware';
+import { validRegisterUser, validSignIn } from '../modules/auth/validation/authValidator';
 
-const routesRouter = Router()
+const routesRouter = Router();
 
 routesRouter
-	.post('/register-user', validRegisterUser, authController.registerUsers)
-	.post('/signin', validSignIn, authController.signIn)
+	.post('/register-user',userAuthorization(['admin','super_admin']), validRegisterUser, authController.registerUsers)
+	.get('/logout', authorizationToken, authController.logout)
+	.post('/signin', validSignIn, authController.signIn);
 	
-
-export default routesRouter
+export default routesRouter;

@@ -63,4 +63,15 @@ const signIn = async (req: Request, res: Response) => {
   }
 };
 
-export default { registerUsers, signIn };
+const logout = async (req: any, res: Response) => {
+  try {
+    await authRepository.deleteUserSession(req.user.id);
+    responseUtil.handleSuccess(OK, "Success", {});
+    return responseUtil.response(res);
+  } catch (error: any) {
+    responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+    return responseUtil.response(res);
+  }
+};
+
+export default { registerUsers, signIn, logout };
