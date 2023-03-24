@@ -11,13 +11,14 @@ dotenv.config()
 
 const userAuthorization = (roles: any) => async (req: any, res: Response, next: NextFunction) => {
   try {
-    const access_token = req.headers.authorization?.replace("bearer", "");
+    const access_token = req.headers.authorization?.replace("Bearer", "");
     if (!access_token) {
       ResponseUtil.handleError(UNAUTHORIZED, "Invalid token");
       return ResponseUtil.response(res);
     }
-
+    console.log("hello")
     const decodedToken = verifyToken(access_token, process.env.PUBLIC_KEY as string);
+    console.log("hello",decodedToken)
     const userSession = await authRepository.getUserSessionByUserId(decodedToken.user_id);
     if (!userSession) {
       ResponseUtil.handleError(UNAUTHORIZED, "Invalid token");

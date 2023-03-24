@@ -34,7 +34,6 @@ const registerUsers = async (data:any)=>{
 
 const createUserSession = async (data: any) => {
   const access_token = generateToken({user_id: data.user_id}, process.env.SECRET_KEY as string,process.env.EXPIRES_IN as string);
-  console.log(access_token)
   data.access_token = access_token;
   const userSession = await users_sessions.create(data)
   return userSession;

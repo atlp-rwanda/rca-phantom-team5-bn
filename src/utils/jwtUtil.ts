@@ -7,8 +7,7 @@ const generateToken = (payload: object, key: string, expiresIn: string): string 
 };
 
 const verifyToken = (token: string, key: string): any => {
-  return verify(token, key);
-  
+  return verify(token.trim(), key);
 
 };
 
