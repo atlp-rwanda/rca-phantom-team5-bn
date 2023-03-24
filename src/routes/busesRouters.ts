@@ -3,7 +3,7 @@ import bussesController from "../modules/buses/controller/busesController"
 
 const busRouter=Router()
 
-busRouter.get("/all-buses",bussesController.findAllBuses)
+busRouter.get("/buses",bussesController.findAllBuses)
 busRouter.get("/bus/:id",bussesController.findBus)
 busRouter.post("/create",bussesController.createBus)
 busRouter.delete("/delete/:id",bussesController.deleteBus)

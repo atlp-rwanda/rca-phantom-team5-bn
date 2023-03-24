@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import swaggerUi from 'swagger-ui-express'
 import express, { Request, Response } from 'express'
-
+import cors from 'cors'
 import routes from './routes'
 import * as swaggerDocument from '../swagger.json'
 
@@ -9,6 +9,7 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 3000
 
+app.use(cors)
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">30.76% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>8/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">30.76% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>8/26</span>
             </div>
         
             
@@ -111,33 +111,26 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -146,12 +139,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -159,22 +149,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import models from '../../../database/models/index'
-const { buses } = <span class="cstat-no" title="statement not covered" >models</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import models from '../../../database/models/index'
+const { buses } = models
 &nbsp;
-const getBuses = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
-  const data = <span class="cstat-no" title="statement not covered" >await buses.findAll({ order: [['id', 'ASC']] })</span>
+const getBuses = <span class="fstat-no" title="function not covered" >async </span>(page = <span class="branch-0 cbranch-no" title="branch not covered" >1,</span> limit = <span class="branch-0 cbranch-no" title="branch not covered" >2)</span> =&gt; {
+  const offset = <span class="cstat-no" title="statement not covered" >(page - 1) * limit;</span>
+  const data = <span class="cstat-no" title="statement not covered" >await buses.findAndCountAll({limit,offset})</span>
 <span class="cstat-no" title="statement not covered" >  return data</span>
 }
 &nbsp;
 &nbsp;
-const getABus = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (id: string) =&gt; {</span>
+const getABus = <span class="fstat-no" title="function not covered" >async </span>(id: number) =&gt; {
     const data = <span class="cstat-no" title="statement not covered" >await buses.findOne({ where: { id } })</span>
 <span class="cstat-no" title="statement not covered" >    return data</span>
   }
 &nbsp;
 &nbsp;
-  const deleteBus = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync (id:number) =&gt; {</span>
+  const deleteBus = <span class="fstat-no" title="function not covered" >async </span>(id:number) =&gt; {
       const result = <span class="cstat-no" title="statement not covered" >await buses.destroy({where: { id:id },force: true});</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >      if (result) {</span>
@@ -185,7 +188,7 @@ const getABus = <span class="cstat-no" title="statement not covered" ><span clas
       }
   }
   
-  const createBus=<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync(busData:any)=&gt;{</span>
+  const createBus=<span class="fstat-no" title="function not covered" >async(</span>busData:any)=&gt;{
 <span class="cstat-no" title="statement not covered" >   try {</span>
     const bus= <span class="cstat-no" title="statement not covered" >await buses.create(busData)</span>
 <span class="cstat-no" title="statement not covered" >    return bus;</span>
@@ -195,7 +198,7 @@ const getABus = <span class="cstat-no" title="statement not covered" ><span clas
   }
   
 &nbsp;
-  const updateBus=<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync(busId:number,busData:any)=&gt;{</span>
+  const updateBus=<span class="fstat-no" title="function not covered" >async(</span>busId:number,busData:any)=&gt;{
 <span class="cstat-no" title="statement not covered" >    try {</span>
       const[affectedCount]= <span class="cstat-no" title="statement not covered" >await buses.update(busData,{</span>
         where:{id:busId}
@@ -214,7 +217,7 @@ export default { getBuses, getABus,deleteBus, createBus,updateBus}</pre></td></t
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-19T21:22:46.387Z
+                at 2023-03-24T09:52:43.976Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
