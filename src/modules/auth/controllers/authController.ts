@@ -23,7 +23,7 @@ const registerUsers = async (req:Request,res:Response) => {
     }
 
     if (nidExist) {
-      responseUtil.handleError(CONFLICT, 'National ID Already used ');
+      responseUtil.handleError(CONFLICT,'National ID Already used ');
       return responseUtil.response(res);
     }
      
