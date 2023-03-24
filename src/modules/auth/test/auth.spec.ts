@@ -11,7 +11,6 @@ const router = () => chai.request(app);
 describe('Authentication test cases', () => {
 //  sign in
 let access_token: string;
-
 it('Signin should return a user_session on successful signin', (done) => {
   router()
     .post('/api/auth/signin')
