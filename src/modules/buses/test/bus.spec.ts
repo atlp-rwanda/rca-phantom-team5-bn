@@ -12,7 +12,7 @@ chai.should();
 const router = () => chai.request(app);
 
 
-describe('POST /cars', () => {
+describe('POST /create', () => {
     it('should create a new bus', (done) => {
       const newBus = {
         name: 'Toyota Corolla',
@@ -22,7 +22,7 @@ describe('POST /cars', () => {
         agencyId: 1
       };
       router()
-        .post('/buses')
+        .post('/create')
         .send(newBus)
         .end((err, res) => {
           expect(res).to.have.status(201);
@@ -53,7 +53,7 @@ describe('POST /cars', () => {
   });
 
 
-  describe('GET /cars/:id', () => {
+  describe('GET /bus/:id', () => {
     it('should return a bus with given id', (done) => {
       router()
       .get('/bus/1')
@@ -71,7 +71,7 @@ describe('POST /cars', () => {
   
     it('should return a 404 if bus is not found', (done) => {
       router()
-      .get('/cars/999')
+      .get('/bus/999')
         .end((err, res) => {
           expect(res.status).to.equal(404);
           done();
@@ -80,13 +80,13 @@ describe('POST /cars', () => {
   });
 
 
-  describe('Cars', () => {
+  describe('Buses', () => {
     describe('DELETE /bus/:id', () => {
       it('should delete a bus successfully', async () => {
         // First, create a bus to delete
         const res = await
           router()
-          .post('/buses')
+          .post('/create')
           .send({
             name: 'Bus to delete',
             available_sits: 4,
@@ -125,7 +125,7 @@ describe('Update a bus', () => {
   before(async () => {
     // create a new car for testing
     const res =await router()
-      .post('/buses')
+      .post('/create')
       .send({
         name: 'Test Bus',
         available_sits: '4',
@@ -140,7 +140,7 @@ describe('Update a bus', () => {
   it('should update a bus', async () => {
     const res = await chai
       .request(app)
-      .put(`/cars/${busId}`)
+      .put(`/update/${busId}`)
       .send({
         name: 'Updated Bus',
         available_sits: '6',
@@ -159,8 +159,8 @@ describe('Update a bus', () => {
   });
   
   after(async () => {
-    // delete the car created for testing
+    // delete the bus created for testing
     await router()
-      .delete(`/cars/${busId}`);
+      .delete(`/bus/${busId}`);
   });
 });

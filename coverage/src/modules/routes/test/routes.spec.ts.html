@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.9% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/22</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.85% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/21</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -106,30 +106,30 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,30 +142,30 @@ import { NOT_FOUND, BAD_REQUEST, CREATED, OK } from 'http-status';
 import app from '../../../index'
 &nbsp;
 chai.use(chaihttp);
-const router = <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >chai.request(app);</span>
+const router = () =&gt; chai.request(app);
 &nbsp;
 describe('true or false', () =&gt; {
-  it('User should be able to get routes', <span class="fstat-no" title="function not covered" >(d</span>one) =&gt; {
-<span class="cstat-no" title="statement not covered" >    router()</span>
+  it('User should be able to get routes', (done) =&gt; {
+    router()
       .get('/api/routes/get-routes')
-      .end(<span class="fstat-no" title="function not covered" >(e</span>rror, response) =&gt; {
-<span class="cstat-no" title="statement not covered" >        expect(response).to.have.status(OK);</span>
-<span class="cstat-no" title="statement not covered" >        expect(response.body).to.be.a('object');</span>
-<span class="cstat-no" title="statement not covered" >        expect(response.body.message).to.be.a('string');</span>
-<span class="cstat-no" title="statement not covered" >        expect(response.body).to.have.property('data');</span>
-<span class="cstat-no" title="statement not covered" >        done(error);</span>
+      .end((error, response) =&gt; {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.have.property('data');
+        done(error);
       });
   });
 &nbsp;
-  it('User should be able to get route', <span class="fstat-no" title="function not covered" >(d</span>one) =&gt; {
-<span class="cstat-no" title="statement not covered" >    router()</span>
+  it('User should be able to get route', (done) =&gt; {
+    router()
       .get('/api/routes/get-route')
-      .end(<span class="fstat-no" title="function not covered" >(e</span>rror, response) =&gt; {
-<span class="cstat-no" title="statement not covered" >        expect(response).to.have.status(OK);</span>
-<span class="cstat-no" title="statement not covered" >        expect(response.body).to.be.a('object');</span>
-<span class="cstat-no" title="statement not covered" >        expect(response.body.message).to.be.a('string');</span>
-<span class="cstat-no" title="statement not covered" >        expect(response.body).to.have.property('data');</span>
-<span class="cstat-no" title="statement not covered" >        done(error);</span>
+      .end((error, response) =&gt; {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.have.property('data');
+        done(error);
       });
   });
 })
@@ -178,7 +178,7 @@ describe('true or false', () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-24T12:16:33.567Z
+                at 2023-03-24T13:01:10.569Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

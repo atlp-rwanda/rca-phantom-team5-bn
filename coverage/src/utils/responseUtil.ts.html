@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.09% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/11</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.09% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/11</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -109,28 +109,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -145,29 +145,29 @@ class ResponseUtil {
     static data: any
     static type: string
 &nbsp;
-<span class="fstat-no" title="function not covered" >    static </span>handleSuccess(statusCode: number, message: string, data: any) {
-<span class="cstat-no" title="statement not covered" >      this.statusCode = statusCode</span>
-<span class="cstat-no" title="statement not covered" >      this.message = message</span>
-<span class="cstat-no" title="statement not covered" >      this.data = data</span>
-<span class="cstat-no" title="statement not covered" >      this.type = 'success'</span>
+    static handleSuccess(statusCode: number, message: string, data: any) {
+      this.statusCode = statusCode
+      this.message = message
+      this.data = data
+      this.type = 'success'
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    static </span>handleError(statusCode: number, message: string) {
-<span class="cstat-no" title="statement not covered" >      this.statusCode = statusCode</span>
-<span class="cstat-no" title="statement not covered" >      this.message = message</span>
-<span class="cstat-no" title="statement not covered" >      this.type = 'error'</span>
+    static handleError(statusCode: number, message: string) {
+      this.statusCode = statusCode
+      this.message = message
+      this.type = 'error'
     }
     
-<span class="fstat-no" title="function not covered" >    static </span>response(res: Response) {
-<span class="cstat-no" title="statement not covered" >      if (this.type === 'success') {</span>
-<span class="cstat-no" title="statement not covered" >        return res.status(this.statusCode).json({</span>
+    static response(res: Response) {
+      if (this.type === 'success') {
+        return res.status(this.statusCode).json({
           status: this.statusCode,
           message: this.message,
           data: this.data,
         })
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      return res.status(this.statusCode).json({</span>
+      return res.status(this.statusCode).json({
         status: this.statusCode,
         message: this.message,
       })
@@ -181,7 +181,7 @@ class ResponseUtil {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-24T12:16:33.567Z
+                at 2023-03-24T13:01:10.569Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
