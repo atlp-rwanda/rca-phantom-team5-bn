@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { BAD_REQUEST, CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from "http-status";
+import { BAD_REQUEST, CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK,CONFLICT } from "http-status";
 
 import sendEmail from "../../../services/mailService";
 import responseUtil from "../../../utils/responseUtil";
@@ -18,12 +18,12 @@ const registerUsers = async (req:Request,res:Response) => {
     const nidExist = await authRepository.getUserByNid(req.body.nid);
 
     if (emailExist) {
-      responseUtil.handleError(BAD_REQUEST, 'Email already used');
+      responseUtil.handleError(CONFLICT, 'Email already used');
       return responseUtil.response(res);
     }
 
     if (nidExist) {
-      responseUtil.handleError(BAD_REQUEST, 'National ID Already used ');
+      responseUtil.handleError(CONFLICT,'National ID Already used ');
       return responseUtil.response(res);
     }
      
@@ -63,4 +63,15 @@ const signIn = async (req: Request, res: Response) => {
   }
 };
 
-export default { registerUsers, signIn };
+const logout = async (req: any, res: Response) => {
+  try {
+    await authRepository.deleteUserSession(req.user.id);
+    responseUtil.handleSuccess(OK, "Success", {});
+    return responseUtil.response(res);
+  } catch (error: any) {
+    responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+    return responseUtil.response(res);
+  }
+};
+
+export default { registerUsers, signIn, logout };
