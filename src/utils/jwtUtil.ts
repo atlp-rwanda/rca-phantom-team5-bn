@@ -1,10 +1,14 @@
-import dotenv from 'dotenv'
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 
-dotenv.config()
 
-const generateToken =(payload: object,  key: string): string =>{
- return sign(payload, key, { expiresIn: '24h' });
+const generateToken = (payload: object, key: string, expiresIn: string): string => {
+  return sign(payload, key,{ expiresIn, allowInsecureKeySizes: true });
+
 };
 
-export { generateToken }
+const verifyToken = (token: string, key: string): any => {
+  return verify(token.trim(), key);
+
+};
+
+export { generateToken, verifyToken }

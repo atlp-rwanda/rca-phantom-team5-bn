@@ -51,6 +51,6 @@ const userFour = {
 
 
   
-const up = (queryInterface: QueryInterface) => queryInterface.bulkInsert('users', [userOne, usertwo])
+const up = (queryInterface: QueryInterface) => queryInterface.bulkInsert('users', [userOne, usertwo, userThree, userFour])
 const down = (queryInterface: QueryInterface) => queryInterface.bulkDelete('users', [], {})
 export { up, down }
