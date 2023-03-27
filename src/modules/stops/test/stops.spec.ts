@@ -25,7 +25,7 @@ describe('true or false', () => {
   // });
     it('User should be able to get stops', (done) =>{
         router()
-         .get('/api/stops/all-stops')
+         .get('/api/stops/getStops')
          .end((error, response)=>{
             expect(response).to.have.status(OK);
             expect(response.body).to.be.a('object');
@@ -38,7 +38,7 @@ describe('true or false', () => {
     
     it('User should be able to get a stop by id', (done) =>{
         router()
-         .get('/api/stops/stop')
+         .get('/api/stops/getStop')
          .end((error, response)=>{
             expect(response).to.have.status(OK);
             expect(response.body).to.be.a('object');
