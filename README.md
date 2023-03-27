@@ -37,4 +37,4 @@ https://github.com/atlp-rwanda/rca-phantom-team5-bn
 | 6  | POST   | /api/stops/createStop                | 201 CREATED  | public      | Create a new stop                          |
 | 7  | PUT    | /api/stops/updateStop/:id            | 200 OK       | public      | Update a stop of a given ID                |
 | 8  | DELETE | /api/stops/deleteStop/:id            | 200 OK       | public      | Delete a stop of a given ID                |
-| 3  | PUT    | /api/users/update-profile/:id        | 200 OK       | public      | update user names, email and password      |
+| 9  | PUT    | /api/users/update-profile/:id        | 200 OK       | public      | update user names, email and password      |
