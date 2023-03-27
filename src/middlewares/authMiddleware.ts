@@ -12,6 +12,7 @@ const userAuthorization = (roles: any) => {
   return async (req: any, res: Response, next: NextFunction) => {
     try {
       const access_token = req.headers.authorization?.replace("Bearer", "");
+
       if (!access_token) {
         ResponseUtil.handleError(UNAUTHORIZED, "Invalid token");
         return ResponseUtil.response(res);
@@ -40,7 +41,9 @@ const userAuthorization = (roles: any) => {
 
 const authorizationToken = async (req: any, res: Response, next: NextFunction) => {
   try {
-    const access_token = req.headers.authorization?.split(" ")[1];
+   
+    const access_token = req.headers.authorization?.replace("Bearer", "");
+  
     if (!access_token) {
       ResponseUtil.handleError(UNAUTHORIZED, "Invalid token");
       return ResponseUtil.response(res);

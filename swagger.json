@@ -10,6 +10,14 @@
     }
   },
   "host": "localhost:3000",
+  "securityDefinitions": {
+    "jwt": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "JWT authentication using the Bearer scheme. Enter the JWT token in the format 'Bearer {token}'."
+    }
+  },
   "basePath": "/api",
   "tags": [
     {
@@ -48,7 +56,6 @@
         }
       }
     },
-
     "/auth/signin": {
       "post": {
         "tags": [
@@ -74,12 +81,13 @@
             "type": "object",
             "required": true,
             "description": "Body Request",
-            "schema": { "$ref": "#/definitions/Signin" }
+            "schema": {
+              "$ref": "#/definitions/Signin"
+            }
           }
         ]
       }
     },
-
     "/auth/register-user": {
       "post": {
         "tags": [
@@ -102,12 +110,14 @@
             "type": "object",
             "required": true,
             "description": "Body Request",
-            "schema": { "$ref": "#/definitions/Users" }
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
           }
         ]
       }
     },
-    "/auth/logout":{
+    "/auth/logout": {
       "delete": {
         "summary": "Log out a user",
         "description": "Logs out the currently authenticated user.",
@@ -116,9 +126,7 @@
         ],
         "security": [
           {
-            "BearerAuth": [
-    
-            ]
+            "jwt": []
           }
         ],
         "responses": {
@@ -147,9 +155,9 @@
   },
   "components": {
     "securitySchemes": {
-      "BearerAuth": {
+      "jwt": {
         "type": "http",
-        "scheme": "bearer",
+        "scheme": "Bearer",
         "bearerFormat": "JWT",
         "name": "Authorization",
         "in": "header"
