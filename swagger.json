@@ -95,6 +95,11 @@
         ],
         "summary": " (Register User With POST Route)",
         "description": "By the use of this POST endpoint, you will be able to register a user account",
+        "security": [
+          {
+            "jwt": []
+          }
+        ],
         "responses": {
           "201": {
             "description": "CREATED."
