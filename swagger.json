@@ -10,6 +10,14 @@
     }
   },
   "host": "localhost:3000",
+  "securityDefinitions": {
+    "jwt": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "JWT authentication using the Bearer scheme. Enter the JWT token in the format 'Bearer {token}'."
+    }
+  },
   "basePath": "/api",
   "tags": [
     {
@@ -152,17 +160,6 @@
           }
         }
       }
-    }
-  },
-  "components": {
-    "securitySchemes": {
-      "jwt": {
-        "type": "http",
-        "scheme": "Bearer",
-        "bearerFormat": "JWT",
-        "name": "Authorization",
-        "in": "header"
-      }
     },
     "/users/update-profile/{id}": {
       "put": {
@@ -192,20 +189,29 @@
             "type": "integer",
             "required": true,
             "description": "user Id"
-          },{
+          },
+          {
             "in": "body",
             "name": "body",
             "type": "object",
             "required": true,
             "description": "Body Request",
-            "schema": { "$ref": "#/definitions/UpdateProfile" }
-          }
-        ],
-        "security": [
-          {
-            "jwt": []
+            "schema": {
+              "$ref": "#/definitions/UpdateProfile"
+            }
           }
         ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "jwt": {
+        "type": "http",
+        "scheme": "Bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header"
       }
     }
   },
