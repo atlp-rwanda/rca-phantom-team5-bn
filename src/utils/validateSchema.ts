@@ -12,3 +12,4 @@ const validateSchema = (schema: any, body:object, res: Response, next: NextFunct
   return next();
 };
 export default validateSchema;
+
