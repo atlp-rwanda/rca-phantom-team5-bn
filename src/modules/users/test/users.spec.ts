@@ -2,8 +2,6 @@ import chaihttp from "chai-http";
 import chai, { expect } from "chai";
 import {
   NOT_FOUND,
-  BAD_REQUEST,
-  CREATED,
   OK,
   INTERNAL_SERVER_ERROR,
 } from "http-status";
@@ -46,7 +44,8 @@ describe("Users test cases", () => {
 
   it("User should be able to get user", (done) => {
     router()
-      .get("/api/users/get-user")
+      .get("/api/users/get-profile")
+      .set('Authorization', `Bearer ${token}`)
       .end((error, response) => {
         expect(response).to.have.status(OK);
         expect(response.body).to.be.a("object");

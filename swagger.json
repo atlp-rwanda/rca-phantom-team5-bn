@@ -119,6 +119,28 @@
         ]
       }
     },
+    "/users/get-profile": {
+      "get": {
+        "tags": [
+          "User Routes"
+        ],
+        "summary": " (Get user profile With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get a user profile",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "401": {
+            "description": "UNAUTHORIZED."
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
     "/users/update-profile/{id}": {
       "put": {
         "tags": [
