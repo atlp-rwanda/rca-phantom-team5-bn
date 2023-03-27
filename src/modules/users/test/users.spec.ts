@@ -10,13 +10,28 @@ import {
 import models from "../../../database/models/index";
 
 import app from "../../../index";
-import { hashPassword } from "../../../utils/passwordUtils";
 
 chai.use(chaihttp);
 const router = () => chai.request(app);
 const { users } = models;
 
 describe("Users test cases", () => {
+    let token = '';
+
+    beforeEach((done) => {
+      router()
+        .post("/api/auth/signin")
+        .send({
+          email: "demo@demo.com",
+          password: "$321!pass!123$",
+          device_id:"MC-123"
+        })
+        .end((error, response) => {
+          token = response.body.data.access_token;
+          done(error);
+        });
+    });
+  
   it("User should be able to get users", (done) => {
     router()
       .get("/api/users/get-users")
@@ -44,11 +59,11 @@ describe("Users test cases", () => {
   it("User should be able to update user given id", (done) => {
     router()
       .put("/api/users/update-profile/1")
+      .set('Authorization', `Bearer ${token}`)
       .send({
         fname: "Jane",
         lname: "Doene",
-        email: "your-email@gmail.com",
-        password: "$321!pass!123$",
+        nid:"1920786767665547"
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);
@@ -62,11 +77,11 @@ describe("Users test cases", () => {
   it("User should not be able to update user who does not exist", (done) => {
     router()
       .put("/api/users/update-profile/1234567")
+      .set('Authorization', `Bearer ${token}`)
       .send({
         fname: "Jane",
         lname: "Doene",
-        email: "your-email@gmail.com",
-        password: "$321!pass!123$",
+        nid:"1920786767665547"
       })
       .end((error, response) => {
         expect(response).to.have.status(NOT_FOUND);
@@ -79,11 +94,11 @@ describe("Users test cases", () => {
   it("Testing internal server error", (done) => {
     router()
       .put("/api/users/update-profile/y7)")
+      .set('Authorization', `Bearer ${token}`)
       .send({
         fname: "Jane",
         lname: "Doene",
-        email: "your-email@gmail.com",
-        password: "$321!pass!123$",
+        nid:"1920786767665547"
       })
       .end((error, response) => {
         expect(response).to.have.status(INTERNAL_SERVER_ERROR);
