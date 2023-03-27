@@ -1,6 +1,6 @@
 import chaihttp from 'chai-http';
 import chai, { expect } from 'chai';
-import { NOT_FOUND, BAD_REQUEST, CREATED, OK, INTERNAL_SERVER_ERROR, CONFLICT } from 'http-status';
+import { NOT_FOUND, BAD_REQUEST, CREATED, OK, INTERNAL_SERVER_ERROR, CONFLICT, UNAUTHORIZED } from 'http-status';
 
 import app from '../../../index'
 
@@ -159,6 +159,33 @@ it('Signin should have three properties: email, password, device_id', (done) => 
         done(error);
       });
   });
+
+  //logout
+
+  it('logout success', (done) => {
+    router()
+      .delete('/api/auth/logout')
+      .set('Authorization', `Bearer ${access_token}`)
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        done(error);
+      });
+  });
+
+  it('logout should return an error message on incorrect token', (done) => {
+    router()
+      .delete('/api/auth/logout')
+      .set('Authorization', `Bearer ${access_token}`)
+      .end((error, response) => {
+        expect(response).to.have.status(UNAUTHORIZED);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        done(error);
+      });
+  });
+  
 })
 
 
