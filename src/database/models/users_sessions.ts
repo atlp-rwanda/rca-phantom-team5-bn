@@ -7,7 +7,6 @@ interface UsersSessionAttributes {
     device_id: string;
     access_token: string;
 }
-
 module.exports = (sequelize: any, DataTypes: any) => {
     class users_sessions extends Model<UsersSessionAttributes> 
         implements UsersSessionAttributes {
@@ -16,9 +15,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
             declare device_id: string;
             declare access_token: string;
             static associate(models: any) {
+                users_sessions.belongsTo(models.users, { as: 'user', foreignKey: 'user_id' })
             }
         }
-
         users_sessions.init(
         {
             id: { allowNull: false, autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER },
@@ -33,6 +32,5 @@ module.exports = (sequelize: any, DataTypes: any) => {
             modelName: 'users_sessions',
         }
     )
-    
     return users_sessions
 }
