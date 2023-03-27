@@ -119,7 +119,7 @@ describe('true or false', () => {
       it('Testing internal server error for getting a non-existent stop', (done) => {
         sinon.stub(stopsRepository, 'getStop').throws();
         router()
-          .get('/api/stops/stop/999')
+          .get('/api/stops/getStop/999')
           .end((error, response) => {
             expect(response).to.have.status(INTERNAL_SERVER_ERROR);
             expect(response.body).to.be.a('object');
