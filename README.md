@@ -34,3 +34,4 @@ https://github.com/atlp-rwanda/rca-phantom-team5-bn
 | 3  | POST   | /api/auth/register-user              | 201 CREATED  | privated    | register user & generate password in email |
 | 4  | DELETE | /api/auth/logout                     | 200 OK       | public      | logout authanticated user                  |
 
+| 5  | PUT    | /api/users/update-profile/:id        | 200 OK       | public      | update user names, email and password      |

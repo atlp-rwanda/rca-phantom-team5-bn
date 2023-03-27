@@ -48,7 +48,6 @@ const authorizationToken = async (req: any, res: Response, next: NextFunction) =
       ResponseUtil.handleError(UNAUTHORIZED, "Invalid token");
       return ResponseUtil.response(res);
     }
-
     const decodedToken = verifyToken(access_token, process.env.SECRET_KEY as string);
     const userSession = await authRepository.getUserSessionByUserId(decodedToken.user_id);
     if (!userSession) {

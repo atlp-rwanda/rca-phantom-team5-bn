@@ -10,14 +10,6 @@
     }
   },
   "host": "localhost:3000",
-  "securityDefinitions": {
-    "jwt": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header",
-      "description": "JWT authentication using the Bearer scheme. Enter the JWT token in the format 'Bearer {token}'."
-    }
-  },
   "basePath": "/api",
   "tags": [
     {
@@ -27,6 +19,10 @@
     {
       "name": "Auth Routes",
       "description": "Authentication endpoints | POST Route"
+    },
+    {
+      "name": "User Routes",
+      "description": "User endpoints | Put Route"
     }
   ],
   "schemes": [
@@ -167,6 +163,50 @@
         "name": "Authorization",
         "in": "header"
       }
+    },
+    "/users/update-profile/{id}": {
+      "put": {
+        "tags": [
+          "User Routes"
+        ],
+        "summary": " (Update User With PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update a user account",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "401": {
+            "description": "UNAUTHORIZED."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "user Id"
+          },{
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/UpdateProfile" }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
     }
   },
   "definitions": {
@@ -219,6 +259,24 @@
           "type": "string",
           "required": true,
           "example": "SMG-1234"
+        }
+      }
+    },
+    "UpdateProfile": {
+      "type": "object",
+      "properties": {
+        "fname": {
+          "type": "string",
+          "example": "John"
+        },
+        "lname": {
+          "type": "string",
+          "example": "Doe"
+        },
+        "nid": {
+          "type": "string",
+          "required": true,
+          "example": "1920786767665547"
         }
       }
     }
