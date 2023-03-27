@@ -27,11 +27,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
            declare email: string;
            declare password: string;
   static associate(models: any) {
-                // users.belongsToMany(models.routes, {
-                //     foreignKey: 'route_id',
-                //     through: 'routes',
-                //     as: 'route',
-                // })
+                users.hasMany(models.users_sessions, {
+                    as: 'users_sessions',
+                    foreignKey: 'user_id',
+                })
             }
         }
     
