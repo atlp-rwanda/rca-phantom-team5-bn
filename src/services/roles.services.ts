@@ -1,5 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import models from "../database/models";
+import { RoleAttributes } from "../database/models/role";
 import CustomError from "../utils/custom-error";
 
 const { role } = models;

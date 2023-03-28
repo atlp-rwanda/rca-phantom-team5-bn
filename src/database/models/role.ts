@@ -1,6 +1,6 @@
 import { Model, Sequelize, DataTypes } from "sequelize";
 
-interface RoleAttributes {
+export interface RoleAttributes {
   title: string;
   description: string;
   privileges: string[];
