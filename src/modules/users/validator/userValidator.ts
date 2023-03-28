@@ -4,10 +4,9 @@ import { Request, Response, NextFunction } from "express";
 
 const validateUpdateUser = (  req: Request,  res: Response,  next: NextFunction) => {
   const bodySchema = Joi.object({
-    user_id: Joi.string().allow(null),
-    fname: Joi.string().required(),
-    lname: Joi.string().required(),
-    nid: Joi.string().required(),
+    fname: Joi.string(),
+    lname: Joi.string(),
+    driver_licence: Joi.string()
   }).options({ abortEarly: false });
   return validateSchema(bodySchema, req.body, res, next);
 };

@@ -17,8 +17,19 @@ const getUsers = async (req: Request, res: Response) => {
 
 const getUser = async (req: Request, res: Response) => {
     try {
+        const data = await usersRepository.getUser(req.params.id)
+        responseUtil.handleSuccess(OK, 'Success', data)
+        return responseUtil.response(res)
+    } catch (error: any) {
+        responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString())
+        return responseUtil.response(res)
+    }
+}
+
+const getProfile = async (req: Request, res: Response) => {
+    try {
         const access_token = req.headers.authorization?.split(" ")[1] as string;
-        const data = await usersRepository.getUser(access_token)
+        const data = await usersRepository.getProfile(access_token)
         responseUtil.handleSuccess(OK, 'Success', data)
         return responseUtil.response(res)
     } catch (error: any) {
@@ -29,12 +40,8 @@ const getUser = async (req: Request, res: Response) => {
 
 const  updateProfile = async (req: Request, res: Response) =>{
     try {
-        const user = await usersRepository.getUser(req.params.id);
-        if (!user) {
-            responseUtil.handleError(NOT_FOUND, 'User not found');
-            return responseUtil.response(res);
-        }
-        const data = await usersRepository.updateUser(req.params.id, req.body);
+        const access_token = req.headers.authorization?.split(" ")[1] as string;
+        const data = await usersRepository.updateUser(access_token, req.body);
         responseUtil.handleSuccess(OK, 'Success', data);
         return responseUtil.response(res);
     } catch (error: any) {
@@ -43,4 +50,4 @@ const  updateProfile = async (req: Request, res: Response) =>{
     }
 }
 
-export default { getUsers, getUser, updateProfile }
+export default { getUsers, getUser, updateProfile,getProfile }
