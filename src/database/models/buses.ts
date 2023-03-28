@@ -1,39 +1,27 @@
 import {Model} from "sequelize"
-//import { Agency } from './agency';
-
-
-
 interface BusesAttributes {
    id: number;
    name: string;
-   available_sits: string;
+   available_sits: number;
    model: string;
    plate_number: string;
-   createdAt: Date;
-   updatedAt: Date;
-   agencyId: number;
 }
 
-
-
 module.exports = (sequelize: any, DataTypes: any) => {
-  class buses extends Model<BusesAttributes> 
+  class buses extends Model<BusesAttributes>
       implements BusesAttributes {
-        id!: number;
-        name!: string;
-        available_sits!: string;
-        model!: string;
-        plate_number!: string;
-        createdAt!: Date;
-        updatedAt!: Date;
-        agencyId!: number;
-         /**  static associate(models: any) {
+        declare id: number;
+        declare name: string;
+        declare available_sits: number;
+        declare model: string;
+        declare plate_number: string;
+        static associate(models: any) {
               buses.belongsToMany(models.agencies, {
-                  foreignKey: 'agency_id',
-                  through: 'agencies',
-                  as: 'agency',
+                foreignKey: 'agencyId',
+                as: 'agency',
+                through: ""
               })
-          }*/
+          }
       }
   
 buses.init(
@@ -48,7 +36,7 @@ buses.init(
       allowNull: false,
     },
     available_sits: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     model: {
@@ -58,17 +46,7 @@ buses.init(
     plate_number: {
       type: DataTypes,
       allowNull: false,
-    },
-    createdAt: {
-       type: DataTypes.DATE
-       },
-      updatedAt: {
-          type: DataTypes.DATE
-         },
-    agencyId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    }
   },
   {
     sequelize,

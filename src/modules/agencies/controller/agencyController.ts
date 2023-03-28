@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
- import busesRepository from '../repository/busesRepository';
+import agenciesRepository from '../repository/agenciesRepository';
 
- import { INTERNAL_SERVER_ERROR, OK,BAD_REQUEST,CREATED } from 'http-status'
+ import { INTERNAL_SERVER_ERROR, OK,BAD_REQUEST } from 'http-status'
  import responseUtil from '../../../utils/responseUtil'
 
- const createBus = async (req: Request, res: Response)=> {
+ const createAgency = async (req: Request, res: Response)=> {
   try {
-    const data = await busesRepository.createBus(req.body)
-    responseUtil.handleSuccess(CREATED, 'Success', data)
+    const data = await agenciesRepository.createAgency(req.body)
+    responseUtil.handleSuccess(OK, 'Success', data)
     return responseUtil.response(res)
   } catch (err:any) {
     responseUtil.handleError(INTERNAL_SERVER_ERROR, err.toString())
@@ -15,10 +15,10 @@ import { Request, Response } from 'express';
   }
 };
 
-export const deleteBus = async (req: Request, res: Response) =>{
+export const deleteAgency = async (req: Request, res: Response) =>{
     try {
         const id=parseInt(req.params.id)
-        const data = await busesRepository.deleteBus(id);
+        const data = await agenciesRepository.deleteAgency(id);
         responseUtil.handleSuccess(OK, 'Success', data);
         return responseUtil.response(res);
     } catch (error: any) {
@@ -27,13 +27,13 @@ export const deleteBus = async (req: Request, res: Response) =>{
     }
 }
 
-export const findBus = async (req: Request, res: Response) => {
+export const findAgency = async (req: Request, res: Response) => {
   try {
     const id=parseInt(req.params.id)
-    const data = await busesRepository.getABus(id);
+    const data = await agenciesRepository.getAgency(id);
 
     if (!data) {
-      responseUtil.handleError(BAD_REQUEST, "Bus with that ID  doesn't exist");
+      responseUtil.handleError(BAD_REQUEST, "Agency with that ID  doesn't exist");
       return responseUtil.response(res);
     }
 
@@ -48,14 +48,9 @@ export const findBus = async (req: Request, res: Response) => {
 
 
 
-export const findAllBuses = async (req: Request,res: Response) => {
+export const findAllAgencies = async (req: Request,res: Response) => {
   try {
-    const page:any = req.query.page || 1
-    const limit:any = req.query.limit || 2;
-    // const skip = (page - 1) * limit;
-
-   // const { page, limit } = req.query;
-   const data = await busesRepository.getBuses(page,limit);
+   const data = await agenciesRepository.getAgencies();
     responseUtil.handleSuccess(OK, 'Success', data)
     return responseUtil.response(res);
   
@@ -67,12 +62,12 @@ export const findAllBuses = async (req: Request,res: Response) => {
 };
 
 
-export const updateBus=async(req:Request,res:Response)=>{
+export const updateAgency=async(req:Request,res:Response)=>{
   try {
     const id=parseInt(req.params.id)
-    const data= await busesRepository.updateBus(id,req.body)
+    const data= await agenciesRepository.updateAgency(id,req.body)
     if (!data) {
-      responseUtil.handleError(BAD_REQUEST, "Bus with that ID  doesn't exist");
+      responseUtil.handleError(BAD_REQUEST, "Agency with that ID  doesn't exist");
       return responseUtil.response(res);
     }
     responseUtil.handleSuccess(OK, 'Success', data);
@@ -83,4 +78,4 @@ export const updateBus=async(req:Request,res:Response)=>{
   }
 }
 
-export default{findAllBuses,findBus,createBus,deleteBus,updateBus}
+export default{findAllAgencies,findAgency,createAgency,deleteAgency,updateAgency}

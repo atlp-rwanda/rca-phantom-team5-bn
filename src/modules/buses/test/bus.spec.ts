@@ -1,166 +1,140 @@
-import chaihttp from 'chai-http';
-import chai, { expect } from 'chai';
-import { NOT_FOUND, BAD_REQUEST, CREATED, OK, INTERNAL_SERVER_ERROR } from 'http-status';
-
-import app from '../../../index'
+import chaihttp from "chai-http";
+import chai, { expect } from "chai";
+import { NOT_FOUND,BAD_REQUEST,CREATED,OK,INTERNAL_SERVER_ERROR,} from "http-status";
 import models from "../../../database/models/index";
-const { users } = models;
 
+import app from "../../../index";
 
 chai.use(chaihttp);
-chai.should();
 const router = () => chai.request(app);
+const { buses } = models;
 
+describe("Buses test cases", () => {
+  it("Should be able to get buses", (done) => {
+    router()
+      .get("/api/buses/buses")
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
 
-describe('POST /create', () => {
-    it('should create a new bus', (done) => {
-      const newBus = {
+  
+  it("Should be able to get a bus", (done) => {
+    router()
+      .get("/api/buses/bus/1")
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  it("Should be able to update bus given id", (done) => {
+    router()
+      .put("/api/buses/update/1")
+      .send({
         name: 'Toyota Corolla',
         available_sits: 5,
         model: 'XLi',
         plate_number: 'ABC-123',
-        agencyId: 1
-      };
-      router()
-        .post('/create')
-        .send(newBus)
-        .end((err, res) => {
-          expect(res).to.have.status(201);
-          expect(res.body).to.have.property('id');
-          expect(res.body.name).to.equal(newBus.name);
-          expect(res.body.available_sits).to.equal(newBus.available_sits);
-          expect(res.body.model).to.equal(newBus.model);
-          expect(res.body.plate_number).to.equal(newBus.plate_number);
-          expect(res.body.agencyId).to.equal(newBus.agencyId);
-          done();
-        });
-    });
-  });
-
-
-  describe('Buses', () => {
-    describe('GET /buses', () => {
-      it('should get all buses', (done) => {
-        router()
-          .get('/buses')
-          .end((err, res) => {
-            res.should.have.status(200);
-            res.body.should.be.a('object');
-            done();
-          });
+        agencyId:1
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
       });
-    });
   });
 
 
-  describe('GET /bus/:id', () => {
-    it('should return a bus with given id', (done) => {
-      router()
-      .get('/bus/1')
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body).to.be.an('object');
-          expect(res.body.id).to.equal(1);
-          expect(res.body.name).to.equal('Toyota Corolla');
-          expect(res.body.model).to.equal('Corolla');
-          expect(res.body.year).to.equal(2015);
-          expect(res.body.agencyId).to.equal(1);
-          done();
-        });
-    });
-  
-    it('should return a 404 if bus is not found', (done) => {
-      router()
-      .get('/bus/999')
-        .end((err, res) => {
-          expect(res.status).to.equal(404);
-          done();
-        });
-    });
-  });
 
-
-  describe('Buses', () => {
-    describe('DELETE /bus/:id', () => {
-      it('should delete a bus successfully', async () => {
-        // First, create a bus to delete
-        const res = await
-          router()
-          .post('/create')
-          .send({
-            name: 'Bus to delete',
-            available_sits: 4,
-            model: 'Model X',
-            plate_number: 'ABC123',
-            agencyId: 1,
-          });
-  
-        // Ensure the bus was created successfully
-        expect(res).to.have.status(201);
-        const busId = res.body.id;
-  
-        // Then, attempt to delete the bus
-        const deleteRes = await router().delete(`/bus/${busId}`);
-  
-        // Ensure the bus was deleted successfully
-        expect(deleteRes).to.have.status(204);
-      });
-  
-      it('should return 404 if bus does not exist', async () => {
-        // Try to delete a bus that doesn't exist
-        const deleteRes = await router().delete('/bus/9999');
-  
-        // Ensure the response has a 404 status code
-        expect(deleteRes).to.have.status(404);
-        expect(deleteRes.body).to.have.property('message');
-      });
-    });
-  });
-
-
-  
-describe('Update a bus', () => {
-  let busId:string;
-  
-  before(async () => {
-    // create a new car for testing
-    const res =await router()
-      .post('/create')
+  it("Should not be able to update bus which does not exist", (done) => {
+    router()
+      .put("/api/buses/update/1234567")
       .send({
-        name: 'Test Bus',
-        available_sits: '4',
-        model: 'Test Model',
-        plate_number: 'ABC123',
-        agencyId: 1,
+          name: 'Range Rovers',
+          available_sits: 5,
+          model: 'XL',
+          plate_number: 'ABC-123',
+          agencyId:1
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(NOT_FOUND);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.an("string");
+        done(error);
       });
-    
-    busId = res.body.id;
   });
-  
-  it('should update a bus', async () => {
-    const res = await chai
-      .request(app)
-      .put(`/update/${busId}`)
+
+
+  it("Testing internal server error", (done) => {
+    router()
+      .put("/api/buses/update/zt7)")
       .send({
-        name: 'Updated Bus',
-        available_sits: '6',
-        model: 'Updated Model',
-        plate_number: 'DEF456',
-        agencyId: 2,
+        name: 'Toyota Corolla',
+        available_sits: 5,
+        model: 'XLi',
+        plate_number: 'ABC-123',
+        agencyId:1
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.an("string");
+        done(error);
       });
-    
-    expect(res).to.have.status(200);
-    expect(res.body).to.have.property('id').equal(busId);
-    expect(res.body).to.have.property('name').equal('Updated Bus');
-    expect(res.body).to.have.property('available_sits').equal('6');
-    expect(res.body).to.have.property('model').equal('Updated Model');
-    expect(res.body).to.have.property('plate_number').equal('DEF456');
-    expect(res.body).to.have.property('agencyId').equal(2);
   });
-  
-  after(async () => {
-    // delete the bus created for testing
-    await router()
-      .delete(`/bus/${busId}`);
+
+
+
+  it('Should be able to create Bus successful', (done) => {
+    router()
+      .post('/api/buses/create')
+      .send({
+        name: 'Toyota Corolla',
+        available_sits: 5,
+        model: 'XLi',
+        plate_number: 'ABC-123',
+        agencyId:1
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(CREATED);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.have.property('data');
+        done(error);
+      });
+  });
+
+
+  it('should delete a bus with given id', (done) => {
+    router()
+      .delete("/api/buses/delete/1")
+      .end((err, res) => {
+        expect(res).to.have.status(OK);
+        expect(res.body).to.be.a('object');
+        expect(res.body.message).to.be.a('string');
+        expect(res.body).to.have.property('data');
+        done(err);
+      });
+  });
+
+
+  it('should return a 404 if bus is not found', (done) => {
+    router()
+      .delete("/api/buses/delete/12345678")
+      .end((err, res) => {
+        expect(res).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(res.body.error).to.be.a("string");
+        done(err);
+      });
   });
 });

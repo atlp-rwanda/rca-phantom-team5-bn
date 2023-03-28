@@ -111,6 +111,7 @@
         ]
       }
     },
+
     "/users/update-profile/{id}": {
       "put": {
         "tags": [
@@ -136,7 +137,8 @@
             "type": "integer",
             "required": true,
             "description": "user Id"
-          },{
+          },
+          {
             "in": "body",
             "name": "body",
             "type": "object",
@@ -146,10 +148,323 @@
           }
         ]
       }
+    },
+
+
+
+
+    "/buses/create": {
+      "post": {
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": "(Create a new bus with POST route}",
+        "description": "By the use of this POST endpoint, you will be able to a new bus",
+        "responses": {
+          "201": {
+            "description": "CREATED."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/Buses" }
+          }
+        ]
+      }
+    },
+
+    "/buses/update/{id}": {
+      "put": {
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": " (Update Bus With PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update a bus",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Bus Id"
+          },{
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/Buses" }
+          }
+        ]
+      }
+    },
+
+
+    "/buses/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": " (Delete Bus With DELETE Route)",
+        "description": "By the use of this DELETE endpoint, you will be able to delete a bus",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Bus Id",
+            "schema": { "$ref": "#/definitions/Buses" }
+          }
+        ]
+      }
+    },
+
+    "/buses/bus/{id}": {
+      "get": {
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": " (Get Bus With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get a bus",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Bus Id",
+            "schema": { "$ref": "#/definitions/Buses" }
+          }
+        ]
+      }
+    },
+    "/buses/buses": {
+      "get": {
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": " (Get all buses With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get all buses",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+       "schema": { "$ref": "#/definitions/Buses" }
+      }
+    },
+
+
+
+    "/agencies/create": {
+      "post": {
+        "tags": [
+          "Agency Routes"
+        ],
+        "summary": "(Create a new agency with POST route}",
+        "description": "By the use of this POST endpoint, you will be able to a new agency",
+        "responses": {
+          "201": {
+            "description": "CREATED."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/Agencies" }
+          }
+        ]
+      }
+    },
+
+    "/agencies/update/{id}": {
+      "put": {
+        "tags": [
+          "Agency Routes"
+        ],
+        "summary": " (Update agency With PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update an agency",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Bus Id"
+          },{
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/Agencies" }
+          }
+        ]
+      }
+    },
+
+
+    "/agencies/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Agency Routes"
+        ],
+        "summary": " (Delete agency With DELETE Route)",
+        "description": "By the use of this DELETE endpoint, you will be able to delete an agency",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Bus Id",
+            "schema": { "$ref": "#/definitions/Agencies" }
+          }
+        ]
+      }
+    },
+
+    "/agencies/agency/{id}": {
+      "get": {
+        "tags": [
+          "Agency Routes"
+        ],
+        "summary": " (Get agency With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get an agency",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Bus Id",
+            "schema": { "$ref": "#/definitions/Agencies" }
+          }
+        ]
+      }
+    },
+    "/agencies": {
+      "get": {
+        "tags": [
+          "Agency Routes"
+        ],
+        "summary": " (Get all agencies With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get all agencies",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+       "schema": { "$ref": "#/definitions/Agencies" }
+      }
     }
 
+
+
+
+
+
+
+
+
   },
-  
+
+
+
   "definitions": {
     "Users": {
       "type": "object",
@@ -225,7 +540,57 @@
           "example": "23442*(&^i"
         }
       }
+    },
+    "Buses": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "required":true,
+          "example": "Toyota Corolla"
+        },
+        "available_sits": {
+          "type": "number",
+          "required":true,
+          "example": 5
+        },
+        "model": {
+          "type": "string",
+          "required": true,
+          "example": "XLi"
+        },
+        "plate_number": {
+          "type": "string",
+          "required": true,
+          "example": "ABC-123"
+        },
+        "agencyId": {
+          "type": "number",
+          "required": true,
+          "example": 1
+        }
+      }
+    },
+
+
+    "Agencies": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "required":true,
+          "example": "Stella Express"
+        },
+        "location": {
+          "type": "string",
+          "required": true,
+          "example": "Kigali City"
+        }
+      }
     }
+
+
+
   }
 
    }

@@ -21,7 +21,7 @@ const getABus = async (id: number) => {
         const bus = await buses.findOne({ where: { id } })
         return bus
       }else{
-        throw new Error('User not found')
+        throw new Error('Bus not found')
       }
   }
   

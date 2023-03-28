@@ -1,13 +1,8 @@
 import {Model} from "sequelize"
-//import { Agency } from './agency';
-
-
-
 interface AgenciesAttributes {
    id: number;
    name: string;
-   createdAt: Date;
-   updatedAt: Date;
+   location:string;
 }
 
 
@@ -15,12 +10,18 @@ interface AgenciesAttributes {
 module.exports = (sequelize: any, DataTypes: any) => {
   class agencies extends Model<AgenciesAttributes> 
       implements AgenciesAttributes {
-        id!: number;
-        name!: string;
-        createdAt!: Date;
-        updatedAt!: Date;
+        declare id: number;
+        declare name: string;
+        declare location:string;
+
+        static associate(models:any) {
+          agencies.hasMany(models.buses, {
+            foreignKey: 'agencyId',
+            as: 'buses',
+          });
+        }
       }
-  
+
 agencies.init(
   {
     id: {
@@ -32,20 +33,17 @@ agencies.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-
-    createdAt: {
-      type: DataTypes.DATE
-    },
-    updatedAt: {
-      type: DataTypes.DATE
-    },
+   location: {
+         type:DataTypes.STRING,
+         allowNull:false,
+    }
   },
   
   {
     sequelize,
-    tableName: 'buses',
+    tableName: 'agencies',
     timestamps: true,
-    paranoid: true,
+   // paranoid: true,
   }
 )
 
