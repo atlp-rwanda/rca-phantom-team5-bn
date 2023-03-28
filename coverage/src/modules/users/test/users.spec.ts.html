@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">76.74% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>43/43</span>
+                <span class='fraction'>33/43</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">76.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/42</span>
+                <span class='fraction'>32/42</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -214,10 +214,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,9 +232,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,9 +249,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -310,10 +310,10 @@ describe("Users test cases", () =&gt; {
       })
       .end((error, response) =&gt; {
         expect(response).to.have.status(OK);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.a("string");
-        expect(response.body).to.have.property("data");
-        done(error);
+<span class="cstat-no" title="statement not covered" >        expect(response.body).to.be.a("object");</span>
+<span class="cstat-no" title="statement not covered" >        expect(response.body.message).to.be.a("string");</span>
+<span class="cstat-no" title="statement not covered" >        expect(response.body).to.have.property("data");</span>
+<span class="cstat-no" title="statement not covered" >        done(error);</span>
       });
   });
 &nbsp;
@@ -328,9 +328,9 @@ describe("Users test cases", () =&gt; {
       })
       .end((error, response) =&gt; {
         expect(response).to.have.status(NOT_FOUND);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.an("string");
-        done(error);
+<span class="cstat-no" title="statement not covered" >        expect(response.body).to.be.a("object");</span>
+<span class="cstat-no" title="statement not covered" >        expect(response.body.message).to.be.an("string");</span>
+<span class="cstat-no" title="statement not covered" >        done(error);</span>
       });
   });
 &nbsp;
@@ -345,9 +345,9 @@ describe("Users test cases", () =&gt; {
       })
       .end((error, response) =&gt; {
         expect(response).to.have.status(INTERNAL_SERVER_ERROR);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.an("string");
-        done(error);
+<span class="cstat-no" title="statement not covered" >        expect(response.body).to.be.a("object");</span>
+<span class="cstat-no" title="statement not covered" >        expect(response.body.message).to.be.an("string");</span>
+<span class="cstat-no" title="statement not covered" >        done(error);</span>
       });
   });
 });
@@ -358,7 +358,7 @@ describe("Users test cases", () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-27T13:40:07.822Z
+                at 2023-03-28T15:56:19.371Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
