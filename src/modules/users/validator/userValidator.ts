@@ -9,6 +9,7 @@ const validateUpdateUser = (  req: Request,  res: Response,  next: NextFunction)
     lname: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().required(),
+    nid: Joi.string().required(),
   }).options({ abortEarly: false });
   return validateSchema(bodySchema, req.body, res, next);
 };

@@ -10,6 +10,14 @@
     }
   },
   "host": "localhost:3003",
+  "securityDefinitions": {
+    "jwt": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "JWT authentication using the Bearer scheme. Enter the JWT token in the format 'Bearer {token}'."
+    }
+  },
   "basePath": "/api",
   "tags": [
     {
@@ -451,6 +459,50 @@
         },
        "schema": { "$ref": "#/definitions/Agencies" }
       }
+    },
+    "/users/update-profile/{id}": {
+      "put": {
+        "tags": [
+          "User Routes"
+        ],
+        "summary": " (Update User With PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update a user account",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "401": {
+            "description": "UNAUTHORIZED."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "user Id"
+          },{
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/UpdateProfile" }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
     }
 
 
@@ -529,62 +581,10 @@
           "type": "string",
           "example": "Doe"
         },
-        "email": {
+        "nid": {
           "type": "string",
           "required": true,
-          "example": "your-email@gmail.com"
-        },
-        "password": {
-          "type": "string",
-          "required": true,
-          "example": "23442*(&^i"
-        }
-      }
-    },
-    "Buses": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "required":true,
-          "example": "Toyota Corolla"
-        },
-        "available_sits": {
-          "type": "number",
-          "required":true,
-          "example": 5
-        },
-        "model": {
-          "type": "string",
-          "required": true,
-          "example": "XLi"
-        },
-        "plate_number": {
-          "type": "string",
-          "required": true,
-          "example": "ABC-123"
-        },
-        "agencyId": {
-          "type": "number",
-          "required": true,
-          "example": 1
-        }
-      }
-    },
-
-
-    "Agencies": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "required":true,
-          "example": "Stella Express"
-        },
-        "location": {
-          "type": "string",
-          "required": true,
-          "example": "Kigali City"
+          "example": "1920786767665547"
         }
       }
     }

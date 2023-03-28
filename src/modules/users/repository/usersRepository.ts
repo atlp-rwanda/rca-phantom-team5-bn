@@ -12,6 +12,7 @@ const getUser = async (id: string) => {
 const getUserByEmail = async (email: string) => {
   return await users.findOne({ where: { email } });
 };
+
 const updateUser = async (id: string, data: any) => {
   if(await users.update(data, { where: { id } })){
     return await users.findOne({ where: { id } });
