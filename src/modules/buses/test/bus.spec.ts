@@ -120,15 +120,4 @@ describe("Buses test cases", () => {
         done(err);
       });
   });
-
-
-  // it('should return a 404 if bus is not found', (done) => {
-  //   router()
-  //     .delete("/api/buses/delete/999")
-  //     .end((err, res) => {
-  //       expect(res).to.have.status(NOT_FOUND);
-  //       expect(res.body.error).to.be.a("string");
-  //       done(err);
-  //     });
-  // });
 });
