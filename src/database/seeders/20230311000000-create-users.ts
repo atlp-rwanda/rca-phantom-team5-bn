@@ -7,7 +7,7 @@ const userOne = {
   role: 'driver',
   fname: 'john',
   lname: 'Doe',
-  driver_licence:'C',
+  driver_licence:['A','B','C','D','E','F'],
   nid: '1997988947289789',
   email:'demo@demo.com',
   password:hashPassword('$321!pass!123$')
