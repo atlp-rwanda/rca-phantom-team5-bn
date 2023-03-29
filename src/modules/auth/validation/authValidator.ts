@@ -8,7 +8,7 @@ const validRegisterUser = (  req: Request,  res: Response,  next: NextFunction) 
     role: Joi.string().required().valid('driver', 'operator'),
     fname: Joi.string().required(),
     lname: Joi.string().required(),
-    driver_licence: Joi.string().length(1).uppercase(),
+    driver_licence: Joi.array().min(1).max(6).items(Joi.valid('A','B','C','C','D','E','F')).required(),
     nid: Joi.string().length(16).required(),   
   }).options({ abortEarly: false });
   return validateSchema(bodySchema, req.body, res, next);
