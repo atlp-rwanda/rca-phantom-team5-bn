@@ -11,7 +11,7 @@
   },
   "host": "localhost:3000",
   "securityDefinitions": {
-    "jwt": {
+    "bearerAuth": {
       "type": "apiKey",
       "name": "Authorization",
       "in": "header",
@@ -64,7 +64,6 @@
         }
       }
     },
-
     "/auth/signin": {
       "post": {
         "tags": [
@@ -90,12 +89,13 @@
             "type": "object",
             "required": true,
             "description": "Body Request",
-            "schema": { "$ref": "#/definitions/Signin" }
+            "schema": {
+              "$ref": "#/definitions/Signin"
+            }
           }
         ]
       }
     },
-
     "/auth/register-user": {
       "post": {
         "tags": [
@@ -103,6 +103,11 @@
         ],
         "summary": " (Register User With POST Route)",
         "description": "By the use of this POST endpoint, you will be able to register a user account",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "201": {
             "description": "CREATED."
@@ -118,9 +123,50 @@
             "type": "object",
             "required": true,
             "description": "Body Request",
-            "schema": { "$ref": "#/definitions/Users" }
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description":"parsing a session/token in the hearder authorization with Bearer Session. Ex: ( Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6Me )"
           }
+
         ]
+      }
+    },
+    "/auth/logout": {
+      "delete": {
+        "summary": "Log out a user",
+        "description": "Logs out the currently authenticated user.",
+        "tags": [
+          "Auth Routes"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description":"parsing a session/token in the hearder authorization with Bearer Session. Ex: ( Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6Me )"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success."
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          }
+        }
       }
     },
 
@@ -141,7 +187,7 @@
         },
         "security": [
           {
-            "jwt": []
+            "bearerAuth": []
           }
         ]
       }
@@ -154,6 +200,11 @@
         ],
         "summary": " (Update User With PUT Route)",
         "description": "By the use of this PUT endpoint, you will be able to update a user account",
+        "security":[
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK."
@@ -175,23 +226,27 @@
             "type": "integer",
             "required": true,
             "description": "user Id"
-          },{
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description":"parsing a session/token in the hearder authorization with Bearer Session. Ex: ( Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6Me )"
+          },
+          {
             "in": "body",
             "name": "body",
             "type": "object",
             "required": true,
             "description": "Body Request",
-            "schema": { "$ref": "#/definitions/UpdateProfile" }
-          }
-        ],
-        "security": [
-          {
-            "jwt": []
+            "schema": {
+              "$ref": "#/definitions/UpdateProfile"
+            }
           }
         ]
       }
     },
-
     "/admins/get-user/{id}": {
       "get": {
         "tags": [
@@ -227,7 +282,17 @@
       }
     }
   },
-  
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "Bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
   "definitions": {
     "Users": {
       "type": "object",
