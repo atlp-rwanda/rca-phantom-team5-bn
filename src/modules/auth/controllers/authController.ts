@@ -28,7 +28,7 @@ const registerUsers = async (req:Request,res:Response) => {
     }
      
     const { createdUser, genPassword } = await authRepository.registerUsers(req.body);
-    await sendEmail('https://sign.phantom.transport.com', req.body.fname, req.body.email, 'SIGN-IN PASSWORD', genPassword);
+    await sendEmail('https://sign.phantom.transport.com', req.body.fname, req.body.email, 'Sign-in Password', genPassword);
 
     responseUtil.handleSuccess(CREATED, 'Created', createdUser);
     return responseUtil.response(res);

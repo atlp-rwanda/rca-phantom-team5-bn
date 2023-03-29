@@ -31,6 +31,10 @@
     {
       "name": "User Routes",
       "description": "User endpoints | Put Route"
+    },
+    {
+      "name": "Admin Routes",
+      "description": "Admin endpoints | GET Route"
     }
   ],
   "schemes": [
@@ -165,7 +169,31 @@
         }
       }
     },
-    "/users/update-profile/{id}": {
+
+    "/users/get-profile": {
+      "get": {
+        "tags": [
+          "User Routes"
+        ],
+        "summary": " (Get user profile With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get a user profile",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "401": {
+            "description": "UNAUTHORIZED."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+   
+    "/users/update-profile": {
       "put": {
         "tags": [
           "User Routes"
@@ -218,11 +246,46 @@
           }
         ]
       }
+    },
+
+    "/admins/get-user/{id}": {
+      "get": {
+        "tags": [
+          "Admin Routes"
+        ],
+        "summary": " (Get user profile using his/her id With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get a user profile as long as you have his/her id",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "401": {
+            "description": "UNAUTHORIZED."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "user Id"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
     "securitySchemes": {
-      "jwt": {
+      "bearerAuth": {
         "type": "http",
         "scheme": "Bearer",
         "bearerFormat": "JWT",
@@ -253,9 +316,9 @@
           "example": "your-email@gmail.com"
         },
         "driver_licence": {
-          "type": "string",
+          "type": "array",
           "required": true,
-          "example": "[A,B,C,D,E,F]"
+          "example": "['A','B','C','D','E','F']"
         },
         "nid": {
           "type": "string",
@@ -295,10 +358,10 @@
           "type": "string",
           "example": "Doe"
         },
-        "nid": {
+        "driver_licence": {
           "type": "string",
           "required": true,
-          "example": "1920786767665547"
+          "example": ""
         }
       }
     }

@@ -2,10 +2,9 @@ import chaihttp from "chai-http";
 import chai, { expect } from "chai";
 import {
   NOT_FOUND,
-  BAD_REQUEST,
-  CREATED,
   OK,
   INTERNAL_SERVER_ERROR,
+  UNAUTHORIZED,
 } from "http-status";
 import models from "../../../database/models/index";
 
@@ -17,6 +16,7 @@ const { users } = models;
 
 describe("Users test cases", () => {
     let token = '';
+    let adminToken = '';
 
     beforeEach((done) => {
       router()
@@ -44,9 +44,23 @@ describe("Users test cases", () => {
       });
   });
 
-  it("User should be able to get user", (done) => {
+  before((done) => {
     router()
-      .get("/api/users/get-user")
+      .post("/api/auth/signin")
+      .send({
+        email: "peter@demo.com",
+        password: "peter!123$",
+        device_id:"MC-123"
+      })
+      .end((error, response) => {
+        adminToken = response.body.data.access_token;
+        done(error);
+      });
+  });
+  it("User who is admin should be able to get users by id", (done) => {
+    router()
+      .get("/api/admins/get-user/2")
+      .set('Authorization', `Bearer ${adminToken}`)
       .end((error, response) => {
         expect(response).to.have.status(OK);
         expect(response.body).to.be.a("object");
@@ -56,45 +70,36 @@ describe("Users test cases", () => {
       });
   });
 
-  it("User should be able to update user given id", (done) => {
+  it("User who is not admin should be unauthorized", (done) => {
     router()
-      .put("/api/users/update-profile/1")
+      .get("/api/admins/get-user/2")
       .set('Authorization', `Bearer ${token}`)
-      .send({
-        fname: "Jane",
-        lname: "Doene",
-        nid:"1920786767665547"
-      })
+      .end((error, response) => {
+        expect(response).to.have.status(UNAUTHORIZED);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        done(error);
+      });
+  });
+
+
+  it("User should be able to get user as long as he is logged in", (done) => {
+    router()
+      .get("/api/users/get-profile")
+      .set('Authorization', `Bearer ${token}`)
       .end((error, response) => {
         expect(response).to.have.status(OK);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
         expect(response.body).to.have.property("data");
-        done(error);
-      });
-  });
-
-  it("User should not be able to update user who does not exist", (done) => {
-    router()
-      .put("/api/users/update-profile/1234567")
-      .set('Authorization', `Bearer ${token}`)
-      .send({
-        fname: "Jane",
-        lname: "Doene",
-        nid:"1920786767665547"
-      })
-      .end((error, response) => {
-        expect(response).to.have.status(NOT_FOUND);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.an("string");
         done(error);
       });
   });
 
   it("Testing internal server error", (done) => {
     router()
-      .put("/api/users/update-profile/y7)")
-      .set('Authorization', `Bearer ${token}`)
+      .put("/api/users/update-profile")
+      .set('Authorization', `Bearer ${token}+2`)
       .send({
         fname: "Jane",
         lname: "Doene",
