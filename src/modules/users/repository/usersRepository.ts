@@ -4,12 +4,8 @@ const { users } = models;
 const getUsers = async () => {
   return await users.findAll({ order: [["id", "ASC"]] });
 };
-const getUser = async (id: string) => {
+const getUserById = async (id: string) => {
   return await users.findOne({ where: { id } });
-};
-
-const getProfile = async (user_id: number) => {
-  return await users.findOne({ where: { id:user_id} });
 };
 
 const getUserByEmail = async (email: string) => {
@@ -22,4 +18,4 @@ const updateUser = async (user_id: number, data: any) => {
   }
   return "Something went wrong";
 };
-export default { getUsers, getUser, getUserByEmail, updateUser,getProfile };
+export default { getUsers, getUserById, getUserByEmail, updateUser };

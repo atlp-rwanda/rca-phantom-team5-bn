@@ -15,9 +15,9 @@ const getUsers = async (req: Request, res: Response) => {
     }
 }
 
-const getUser = async (req: Request, res: Response) => {
+const getUserById = async (req: Request, res: Response) => {
     try {
-        const data = await usersRepository.getUser(req.params.id)
+        const data = await usersRepository.getUserById(req.params.id)
         responseUtil.handleSuccess(OK, 'Success', data)
         return responseUtil.response(res)
     } catch (error: any) {
@@ -28,7 +28,7 @@ const getUser = async (req: Request, res: Response) => {
 
 const getProfile = async (req: any, res: Response) => {
     try {
-        const data = await usersRepository.getProfile(req.user.id)
+        const data = await usersRepository.getUserById(req.user.id)
         responseUtil.handleSuccess(OK, 'Success', data)
         return responseUtil.response(res)
     } catch (error: any) {
@@ -48,4 +48,4 @@ const  updateProfile = async (req: any, res: Response) =>{
     }
 }
 
-export default { getUsers, getUser, updateProfile,getProfile }
+export default { getUsers, getUserById, updateProfile, getProfile }
