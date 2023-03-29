@@ -9,7 +9,7 @@
       "email": ""
     }
   },
-  "host": "localhost:3003",
+  "host": "localhost:3000",
   "securityDefinitions": {
     "jwt": {
       "type": "apiKey",

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { INTERNAL_SERVER_ERROR, OK } from 'http-status'
+import { INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from 'http-status'
 
 import responseUtil from '../../../utils/responseUtil'
 import usersRepository from '../repository/usersRepository'
@@ -18,6 +18,10 @@ const getUsers = async (req: Request, res: Response) => {
 const getUserById = async (req: Request, res: Response) => {
     try {
         const data = await usersRepository.getUserById(req.params.id)
+        if(!data) {
+            responseUtil.handleError(NOT_FOUND, 'User not found')
+            return responseUtil.response(res)
+        }
         responseUtil.handleSuccess(OK, 'Success', data)
         return responseUtil.response(res)
     } catch (error: any) {
