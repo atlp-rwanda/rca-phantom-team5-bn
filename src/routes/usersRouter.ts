@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import usersController from '../modules/users/controller/usersController'
 import { validateUpdateUser } from '../modules/users/validator/userValidator'
-import { authorizationToken, userAuthorization } from '../middlewares/authMiddleware'
+import { authorizationToken } from '../middlewares/authMiddleware'
 
 const usersRouter = Router()
 

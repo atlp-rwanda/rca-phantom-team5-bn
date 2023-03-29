@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { INTERNAL_SERVER_ERROR, OK, NOT_FOUND } from 'http-status'
+import { INTERNAL_SERVER_ERROR, OK } from 'http-status'
 
 import responseUtil from '../../../utils/responseUtil'
 import usersRepository from '../repository/usersRepository'
@@ -26,10 +26,9 @@ const getUser = async (req: Request, res: Response) => {
     }
 }
 
-const getProfile = async (req: Request, res: Response) => {
+const getProfile = async (req: any, res: Response) => {
     try {
-        const access_token = req.headers.authorization?.split(" ")[1] as string;
-        const data = await usersRepository.getProfile(access_token)
+        const data = await usersRepository.getProfile(req.user.id)
         responseUtil.handleSuccess(OK, 'Success', data)
         return responseUtil.response(res)
     } catch (error: any) {
@@ -38,10 +37,9 @@ const getProfile = async (req: Request, res: Response) => {
     }
 }
 
-const  updateProfile = async (req: Request, res: Response) =>{
+const  updateProfile = async (req: any, res: Response) =>{
     try {
-        const access_token = req.headers.authorization?.split(" ")[1] as string;
-        const data = await usersRepository.updateUser(access_token, req.body);
+        const data = await usersRepository.updateUser(req.user.id, req.body);
         responseUtil.handleSuccess(OK, 'Success', data);
         return responseUtil.response(res);
     } catch (error: any) {
