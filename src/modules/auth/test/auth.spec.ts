@@ -59,7 +59,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
 });
 
 // register user
-  it('register operater does not require driver_licence (bad request)', (done) => {
+  it('register operater does not require driver_licence (BAD_REQUEST)', (done) => {
     router()
       .post('/api/auth/register-user')
       .set('Authorization', `Bearer ${access_token}`)
@@ -67,7 +67,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
         role: 'operator',
         fname: 'dad',
         lname: 'diane',
-        driver_licence:"C",
+        driver_licence: ["C"],
         nid: '1967984947289789',
         email:'dad@demo.com',
         password:'dad!123$'
@@ -85,11 +85,11 @@ it('Signin should have three properties: email, password, device_id', (done) => 
       .post('/api/auth/register-user')
       .set('Authorization', `Bearer ${access_token}`)
       .send({
-        role: 'operator',
-        fname: 'dad',
-        lname: 'diane',
-        nid: '1967988947289786',
-        email:'jane@demo.com',
+       role: 'operator',
+       fname: 'Jane',
+       lname: 'Doene',
+       nid: '8967988947289789',
+       email:'jane@demo.com',   
       })
       .end((error, response) => {
         expect(response).to.have.status(CONFLICT);
@@ -146,7 +146,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
         role: 'driver',
         fname: 'aad',
         lname: 'aiane',
-        driver_licence:"A",
+        driver_licence:["A"],
         nid: '7367788947289129',
         email:'aad@demo.com',
         
