@@ -1,18 +1,11 @@
 import chaihttp from "chai-http";
 import chai, { expect } from "chai";
-import {
-  NOT_FOUND,
-  OK,
-  INTERNAL_SERVER_ERROR,
-  UNAUTHORIZED,
-} from "http-status";
-import models from "../../../database/models/index";
+import {NOT_FOUND, OK, UNAUTHORIZED } from "http-status";
 
 import app from "../../../index";
 
 chai.use(chaihttp);
 const router = () => chai.request(app);
-const { users } = models;
 
 describe("Users test cases", () => {
     let token = '';
@@ -44,32 +37,6 @@ describe("Users test cases", () => {
       });
   });
 
-  before((done) => {
-    router()
-      .post("/api/auth/signin")
-      .send({
-        email: "peter@demo.com",
-        password: "peter!123$",
-        device_id:"MC-123"
-      })
-      .end((error, response) => {
-        adminToken = response.body.data.access_token;
-        done(error);
-      });
-  });
-  it("User who is admin should be able to get users by id", (done) => {
-    router()
-      .get("/api/admins/get-user/2")
-      .set('Authorization', `Bearer ${adminToken}`)
-      .end((error, response) => {
-        expect(response).to.have.status(OK);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.a("string");
-        expect(response.body).to.have.property("data");
-        done(error);
-      });
-  });
-
   it("User who is not admin should be unauthorized", (done) => {
     router()
       .get("/api/admins/get-user/2")
@@ -81,7 +48,6 @@ describe("Users test cases", () => {
         done(error);
       });
   });
-
 
   it("User should be able to get user as long as he is logged in", (done) => {
     router()
@@ -96,19 +62,59 @@ describe("Users test cases", () => {
       });
   });
 
-  it("Testing internal server error", (done) => {
+  it("User should be able to update user as long as he is logged in", (done) => {
     router()
       .put("/api/users/update-profile")
-      .set('Authorization', `Bearer ${token}+2`)
+      .set('Authorization', `Bearer ${token}`)
       .send({
         fname: "Jane",
         lname: "Doene",
-        nid:"1920786767665547"
+        driver_licence:["A"]
       })
       .end((error, response) => {
-        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response).to.have.status(OK);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.an("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  before((done) => {
+    router()
+      .post("/api/auth/signin")
+      .send({
+        email: "peter@demo.com",
+        password: "peter!123$",
+        device_id:"MC-123"
+      })
+      .end((error, response) => {
+        adminToken = response.body.data.access_token;
+        done(error);
+      });
+  });
+
+  it("User who is admin should be able to get users by id", (done) => {
+    router()
+      .get("/api/admins/get-user/2")
+      .set('Authorization', `Bearer ${adminToken}`)
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  it("User who is admin should get error for users by id who does not exist", (done) => {
+    router()
+      .get("/api/admins/get-user/999")
+      .set('Authorization', `Bearer ${adminToken}`)
+      .end((error, response) => {
+        expect(response).to.have.status(NOT_FOUND);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
         done(error);
       });
   });

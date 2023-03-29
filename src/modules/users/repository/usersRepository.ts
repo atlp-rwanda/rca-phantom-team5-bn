@@ -13,9 +13,8 @@ const getUserByEmail = async (email: string) => {
 };
 
 const updateUser = async (user_id: number, data: any) => {
-  if(await users.update(data, { where: { id: user_id }})){
+  await users.update(data, { where: { id: user_id }})
     return await users.findOne({ where: { id:user_id } });
-  }
-  return "Something went wrong";
 };
+
 export default { getUsers, getUserById, getUserByEmail, updateUser };

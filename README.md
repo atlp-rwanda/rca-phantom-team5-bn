@@ -34,9 +34,6 @@ https://github.com/atlp-rwanda/rca-phantom-team5-bn
 ## POSTMAN COLLECTION URL
 https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 
-## POSTMAN COLLECTION URL
-https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
-
 
 #### TABLE OF API ENDPOINTS SPECIFICATION AND DESCRIPTION
 

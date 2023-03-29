@@ -195,7 +195,7 @@
         ]
       }
     },
-    "/stops/gettop/{id}": {
+    "/stops/getStop/{id}": {
       "get": {
         "tags": [
           "Stop Routes"
