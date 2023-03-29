@@ -278,7 +278,7 @@
           "example": "your-email@gmail.com"
         },
         "driver_licence": {
-          "type": "string",
+          "type": "array",
           "required": true,
           "example": "['A','B','C','D','E','F']"
         },
