@@ -21,7 +21,11 @@ https://github.com/atlp-rwanda/rca-phantom-team5-bn
 ## COMPLETED FEATURES
 
 - Initial Endpoint.
+- Register Endpoint.
 - Signin Endpoint.
+- Get profile Endpoint.
+- Get all users profile for admins and super admin Endpoint.
+- Update profile Endpoint.
 
 ## POSTMAN COLLECTION URL
 https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
@@ -35,4 +39,6 @@ https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 | 1  | GET    | /api/any-etc                         | 200 OK       | public      | Handle all intial or wrong GET requests    |
 | 2  | POST   | /api/auth/signin                     | 200 OK       | public      | signin a user with email and password      |
 | 3  | POST   | /api/auth/register-user              | 201 CREATED  | privated    | register user & generate password in email |
-| 3  | PUT    | /api/users/update-profile/:id        | 200 OK       | public      | update user names, email and password      |
+| 4  | GET    | /api/users/get-profile               | 200 OK       | privated    | view user profile                          |
+| 5  | GET    | /api/users/get-user/:id              | 200 OK       | privated    | admin and super admin can view users by id |
+| 6  | PUT    | /api/users/update-profile            | 200 OK       | privated    | update user profile                        |
