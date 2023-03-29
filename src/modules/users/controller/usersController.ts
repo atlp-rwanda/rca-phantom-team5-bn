@@ -4,6 +4,28 @@ import { INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from 'http-status'
 import responseUtil from '../../../utils/responseUtil'
 import usersRepository from '../repository/usersRepository'
 
+const getProfile = async (req: any, res: Response) => {
+    try {
+        const data = await usersRepository.getUserById(req.user.id)
+        responseUtil.handleSuccess(OK, 'Success', data)
+        return responseUtil.response(res)
+    } catch (error: any) {
+        responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString())
+        return responseUtil.response(res)
+    }
+}
+
+const  updateProfile = async (req: any, res: Response) =>{
+    try {
+        const data = await usersRepository.updateUser(req.user.id, req.body);
+        responseUtil.handleSuccess(OK, 'Success', data);
+        return responseUtil.response(res);
+    } catch (error: any) {
+        responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+        return responseUtil.response(res);
+    }
+}
+
 const getUsers = async (req: Request, res: Response) => {
     try {
         const data = await usersRepository.getUsers()
@@ -30,26 +52,4 @@ const getUserById = async (req: Request, res: Response) => {
     }
 }
 
-const getProfile = async (req: any, res: Response) => {
-    try {
-        const data = await usersRepository.getUserById(req.user.id)
-        responseUtil.handleSuccess(OK, 'Success', data)
-        return responseUtil.response(res)
-    } catch (error: any) {
-        responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString())
-        return responseUtil.response(res)
-    }
-}
-
-const  updateProfile = async (req: any, res: Response) =>{
-    try {
-        const data = await usersRepository.updateUser(req.user.id, req.body);
-        responseUtil.handleSuccess(OK, 'Success', data);
-        return responseUtil.response(res);
-    } catch (error: any) {
-        responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
-        return responseUtil.response(res);
-    }
-}
-
-export default { getUsers, getUserById, updateProfile, getProfile }
+export default { updateProfile, getProfile, getUsers, getUserById }
