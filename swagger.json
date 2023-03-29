@@ -252,7 +252,7 @@
         "driver_licence": {
           "type": "string",
           "required": true,
-          "example": "[A,B,C,D,E,F]"
+          "example": "['A','B','C','D','E','F']"
         },
         "nid": {
           "type": "string",
