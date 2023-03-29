@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-const Joi = require("joi");
-const passwordComplexity = require("joi-password-complexity");
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+import Joi from 'joi';
+import passwordComplexity from 'joi-password-complexity';
 
 // user schema
 
@@ -24,7 +24,7 @@ userSchema.methods.generateAuthToken = () => {
 
 const User = mongoose.model("users", userSchema);
 
-const validate = (data) => {
+const validate = (data: string) => {
   const schema = Joi.object({
     firstname: Joi.string().required().label("Firstname"),
     lastname: Joi.string().required().label("Lastname"),

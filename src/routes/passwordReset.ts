@@ -3,12 +3,13 @@ const { User } = require("../modules/users");
 const Token = require("../modules/token");
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
-const Joi = require("joi");
-const passwordComplexity = require("joi-password-complexity");
-const bcrypt = require("bcrypt");
+import Joi from 'joi';
+import passwordComplexity from 'joi-password-complexity';
+import bcrypt from 'bcrypt';
+import { Request, Response } from 'express';
 
 // send password link
-router.post("/", async (req, res) => {
+router.post("/", async (req: Request, res: Response) => {
   try {
     const emailSchema = Joi.object({
       email: Joi.string().email().required().label("Email"),
@@ -45,7 +46,7 @@ router.post("/", async (req, res) => {
 });
 
 // verify password reset link
-router.get("/:id/:token", async (req, res) => {
+router.get("/:id/:token", async (req: Request, res: Response) => {
   try {
     const user = await User.findOne({ _id: req.params.id });
     if (!user) return res.status(400).send({ message: "Invalid link" });
@@ -63,7 +64,7 @@ router.get("/:id/:token", async (req, res) => {
 });
 
 //  set new password
-router.post("/:id/:token", async (req, res) => {
+router.post("/:id/:token", async (req: Request, res: Response) => {
   try {
     const passwordSchema = Joi.object({
       password: passwordComplexity().required().label("Password"),

@@ -1,11 +1,12 @@
 const router = require("express").Router();
 const { User, validate } = require("../modules/users");
-const bcrypt = require("bcrypt");
-const Joi = require("joi");
+import bcrypt from 'bcrypt';
+import Joi from 'joi';
+import { Request, Response } from 'express';
 
 // register user
 
-router.post("/", async (req, res) => {
+router.post("/", async (req: Request, res: Response) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send({ message: error.details[0].message });
   const user = await User.findOne({ email: req.body.email });
