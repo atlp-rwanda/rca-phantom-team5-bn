@@ -1,6 +1,5 @@
 'use strict'
 import { Model } from 'sequelize'
-
 interface RoutesAttributes {
 
     createdAt: Date;
@@ -11,9 +10,7 @@ interface RoutesAttributes {
     end: string;
     stops: Array<string>;
 }
-
 module.exports = (sequelize: any, DataTypes: any) => {
-
     class routes extends Model<RoutesAttributes> 
         implements RoutesAttributes {
             createdAt!: Date;
@@ -24,8 +21,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
             end!: string;
             stops!: Array<string>;
     }
-    
-    routes.init(
+     routes.init(
         {
             createdAt: { field: 'createdAt', type: DataTypes.DATE },
             updatedAt: { field: 'updatedAt', type: DataTypes.DATE },
@@ -43,6 +39,5 @@ module.exports = (sequelize: any, DataTypes: any) => {
             modelName: 'routes',
         }
     )
-
     return routes
 }
