@@ -14,25 +14,26 @@ describe("Buses test cases", () => {
     router()
       .get("/api/buses/buses")
       .end((error, response) => {
-        expect(response).to.have.status(OK)
-        expect(response.body).to.be.a("object")
-        expect(response.body.message).to.be.a("string")
-        expect(response.body).to.have.property("data")
-        done(error)
-      })
-  })
-
-
-  it("Should be able to get a bus by bus id", (done) => {
-    router()
-      .get("/api/buses/bus/1")
-      .end((error, response) => {
-        expect(response).to.have.status(OK)
-        expect(response.body.message).to.be.a("string")
-        done(error)
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
       });
   });
 
+  
+  it("Should be able to get a bus", (done) => {
+    router()
+      .get("/api/buses/bus/1")
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
 
   it("Should be able to update bus given id", (done) => {
     router()
@@ -46,6 +47,7 @@ describe("Buses test cases", () => {
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
         expect(response.body).to.have.property("data");
         done(error);
@@ -65,7 +67,8 @@ describe("Buses test cases", () => {
           agencyId:1
       })
       .end((error, response) => {
-        expect(response).to.have.status(BAD_REQUEST);
+        expect(response).to.have.status(NOT_FOUND);
+        expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.an("string");
         done(error);
       });
@@ -84,6 +87,7 @@ describe("Buses test cases", () => {
       })
       .end((error, response) => {
         expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.an("string");
         done(error);
       });
@@ -103,6 +107,7 @@ describe("Buses test cases", () => {
       })
       .end((error, response) => {
         expect(response).to.have.status(CREATED);
+        expect(response.body).to.be.a('object');
         expect(response.body.message).to.be.a('string');
         expect(response.body).to.have.property('data');
         done(error);
@@ -115,8 +120,20 @@ describe("Buses test cases", () => {
       .delete("/api/buses/delete/1")
       .end((err, res) => {
         expect(res).to.have.status(OK);
+        expect(res.body).to.be.a('object');
         expect(res.body.message).to.be.a('string');
         expect(res.body).to.have.property('data');
+        done(err);
+      });
+  });
+
+
+  it('should return a 404 if bus is not found', (done) => {
+    router()
+      .delete("/api/buses/delete/12345678")
+      .end((err, res) => {
+        expect(res).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(res.body.error).to.be.a("string");
         done(err);
       });
   });

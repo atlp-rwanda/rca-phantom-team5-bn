@@ -1,4 +1,3 @@
-import { NOT_FOUND } from 'http-status';
 import { Request, Response } from 'express';
  import busesRepository from '../repository/busesRepository';
 
@@ -23,7 +22,7 @@ export const deleteBus = async (req: Request, res: Response) =>{
         responseUtil.handleSuccess(OK, 'Success', data);
         return responseUtil.response(res);
     } catch (error: any) {
-        responseUtil.handleError(NOT_FOUND, error.toString());
+        responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
         return responseUtil.response(res);
     }
 }

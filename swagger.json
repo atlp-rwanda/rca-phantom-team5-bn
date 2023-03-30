@@ -587,9 +587,55 @@
           "example": "1920786767665547"
         }
       }
+    },
+    "Buses": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "required":true,
+          "example": "Toyota Corolla"
+        },
+        "available_sits": {
+          "type": "number",
+          "required":true,
+          "example": 5
+        },
+        "model": {
+          "type": "string",
+          "required": true,
+          "example": "XLi"
+        },
+        "plate_number": {
+          "type": "string",
+          "required": true,
+          "example": "ABC-123"
+        },
+        "agencyId": {
+          "type": "number",
+          "required": true,
+          "example": 1
+        }
+      }
+    },
+
+
+    "Agencies": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "required":true,
+          "example": "Stella Express"
+        },
+        "location": {
+          "type": "string",
+          "required":true,
+          "example": "Stella Express"
+        }
+
+      }
     }
-
-
 
   }
 
