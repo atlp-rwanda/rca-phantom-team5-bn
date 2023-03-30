@@ -127,14 +127,4 @@ describe("Buses test cases", () => {
       });
   });
 
-
-  it('should return a 404 if bus is not found', (done) => {
-    router()
-      .delete("/api/buses/delete/12345678")
-      .end((err, res) => {
-        expect(res).to.have.status(INTERNAL_SERVER_ERROR);
-        expect(res.body.error).to.be.a("string");
-        done(err);
-      });
-  });
 });

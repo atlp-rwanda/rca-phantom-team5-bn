@@ -1,11 +1,12 @@
 import chaihttp from 'chai-http';
 import chai, { expect } from 'chai';
-import { NOT_FOUND, BAD_REQUEST, CREATED, OK, INTERNAL_SERVER_ERROR, CONFLICT } from 'http-status';
+import { NOT_FOUND, BAD_REQUEST, CREATED, OK, INTERNAL_SERVER_ERROR, CONFLICT, UNAUTHORIZED } from 'http-status';
 
 import app from '../../../index'
 
 chai.use(chaihttp);
 const router = () => chai.request(app);
+
 
 
 describe('Authentication test cases', () => {
@@ -59,7 +60,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
 });
 
 // register user
-  it('register operater does not require driver_licence (bad request)', (done) => {
+  it('register operater does not require driver_licence (BAD_REQUEST)', (done) => {
     router()
       .post('/api/auth/register-user')
       .set('Authorization', `Bearer ${access_token}`)
@@ -67,7 +68,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
         role: 'operator',
         fname: 'dad',
         lname: 'diane',
-        driver_licence:"C",
+        driver_licence: ["C"],
         nid: '1967984947289789',
         email:'dad@demo.com',
         password:'dad!123$'
@@ -85,11 +86,11 @@ it('Signin should have three properties: email, password, device_id', (done) => 
       .post('/api/auth/register-user')
       .set('Authorization', `Bearer ${access_token}`)
       .send({
-        role: 'operator',
-        fname: 'dad',
-        lname: 'diane',
-        nid: '1967988947289786',
-        email:'jane@demo.com',
+       role: 'operator',
+       fname: 'Jane',
+       lname: 'Doene',
+       nid: '8967988947289789',
+       email:'jane@demo.com',   
       })
       .end((error, response) => {
         expect(response).to.have.status(CONFLICT);
@@ -146,7 +147,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
         role: 'driver',
         fname: 'aad',
         lname: 'aiane',
-        driver_licence:"A",
+        driver_licence:["A"],
         nid: '7367788947289129',
         email:'aad@demo.com',
         
@@ -159,6 +160,33 @@ it('Signin should have three properties: email, password, device_id', (done) => 
         done(error);
       });
   });
+
+  //logout
+
+  it('logout success', (done) => {
+    router()
+      .delete('/api/auth/logout')
+      .set('Authorization', `Bearer ${access_token}`)
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        done(error);
+      });
+  });
+
+  it('logout should return an error message on incorrect token', (done) => {
+    router()
+      .delete('/api/auth/logout')
+      .set('Authorization', `Bearer ${access_token}`)
+      .end((error, response) => {
+        expect(response).to.have.status(UNAUTHORIZED);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        done(error);
+      });
+  });
+  
 })
 
 

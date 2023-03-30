@@ -1,22 +1,30 @@
 import chaihttp from "chai-http";
 import chai, { expect } from "chai";
-import {
-  NOT_FOUND,
-  BAD_REQUEST,
-  CREATED,
-  OK,
-  INTERNAL_SERVER_ERROR,
-} from "http-status";
-import models from "../../../database/models/index";
+import {NOT_FOUND, OK, UNAUTHORIZED } from "http-status";
 
 import app from "../../../index";
-import { hashPassword } from "../../../utils/passwordUtils";
 
 chai.use(chaihttp);
-const router = () => chai.request(app);
-const { users } = models;
+const router = () => chai.request(app)
 
 describe("Users test cases", () => {
+    let token = '';
+    let adminToken = '';
+
+    beforeEach((done) => {
+      router()
+        .post("/api/auth/signin")
+        .send({
+          email: "demo@demo.com",
+          password: "$321!pass!123$",
+          device_id:"MC-123"
+        })
+        .end((error, response) => {
+          token = response.body.data.access_token;
+          done(error);
+        });
+    });
+  
   it("User should be able to get users", (done) => {
     router()
       .get("/api/users/get-users")
@@ -29,10 +37,22 @@ describe("Users test cases", () => {
       });
   });
 
-  
-  it("User should be able to get user", (done) => {
+  it("User who is not admin should be unauthorized", (done) => {
     router()
-      .get("/api/users/get-user")
+      .get("/api/admins/get-user/2")
+      .set('Authorization', `Bearer ${token}`)
+      .end((error, response) => {
+        expect(response).to.have.status(UNAUTHORIZED);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        done(error);
+      });
+  });
+
+  it("User should be able to get user as long as he is logged in", (done) => {
+    router()
+      .get("/api/users/get-profile")
+      .set('Authorization', `Bearer ${token}`)
       .end((error, response) => {
         expect(response).to.have.status(OK);
         expect(response.body).to.be.a("object");
@@ -42,15 +62,42 @@ describe("Users test cases", () => {
       });
   });
 
-  it("User should be able to update user given id", (done) => {
+  it("User should be able to update user as long as he is logged in", (done) => {
     router()
-      .put("/api/users/update-profile/1")
+      .put("/api/users/update-profile")
+      .set('Authorization', `Bearer ${token}`)
       .send({
         fname: "Jane",
         lname: "Doene",
-        email: "your-email@gmail.com",
-        password: "$321!pass!123$",
+        driver_licence:["A"]
       })
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.an("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  before((done) => {
+    router()
+      .post("/api/auth/signin")
+      .send({
+        email: "peter@demo.com",
+        password: "peter!123$",
+        device_id:"MC-123"
+      })
+      .end((error, response) => {
+        adminToken = response.body.data.access_token;
+        done(error);
+      });
+  });
+
+  it("User who is admin should be able to get users by id", (done) => {
+    router()
+      .get("/api/admins/get-user/2")
+      .set('Authorization', `Bearer ${adminToken}`)
       .end((error, response) => {
         expect(response).to.have.status(OK);
         expect(response.body).to.be.a("object");
@@ -60,36 +107,14 @@ describe("Users test cases", () => {
       });
   });
 
-  it("User should not be able to update user who does not exist", (done) => {
+  it("User who is admin should get error for users by id who does not exist", (done) => {
     router()
-      .put("/api/users/update-profile/1234567")
-      .send({
-        fname: "Jane",
-        lname: "Doene",
-        email: "your-email@gmail.com",
-        password: "$321!pass!123$",
-      })
+      .get("/api/admins/get-user/999")
+      .set('Authorization', `Bearer ${adminToken}`)
       .end((error, response) => {
         expect(response).to.have.status(NOT_FOUND);
         expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.an("string");
-        done(error);
-      });
-  });
-
-  it("Testing internal server error", (done) => {
-    router()
-      .put("/api/users/update-profile/y7)")
-      .send({
-        fname: "Jane",
-        lname: "Doene",
-        email: "your-email@gmail.com",
-        password: "$321!pass!123$",
-      })
-      .end((error, response) => {
-        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.an("string");
+        expect(response.body.message).to.be.a("string");
         done(error);
       });
   });
