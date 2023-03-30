@@ -26,10 +26,10 @@ https://github.com/atlp-rwanda/rca-phantom-team5-bn
 - Get profile Endpoint.
 - Get all users profile for admins and super admin Endpoint.
 - Update profile Endpoint.
-- Get all stops Endpoint
-- Update a stop Endpoint
-- Delete a stop Endpoint
-- Get a stop by id Endpoint 
+- Get all routes Endpoint
+- Update a route Endpoint
+- Delete a route Endpoint
+- Get a route by id Endpoint 
 
 ## POSTMAN COLLECTION URL
 https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
@@ -47,9 +47,9 @@ https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 | 5  | GET    | /api/users/get-profile               | 200 OK       | privated    | view user profile                          |
 | 6  | GET    | /api/users/get-user/:id              | 200 OK       | privated    | admin and super admin can view users by id |
 | 7  | PUT    | /api/users/update-profile            | 200 OK       | privated    | update user profile                        |
-| 8  | GET    | /api/stops/getStops                  | 200 OK       | public      | Retrieve all stops                         |
-| 9  | GET    | /api/stops/getStop/:id               | 200 OK       | public      | Retrieve a stop by a given ID              |
-| 10 | POST   | /api/stops/createStop                | 201 CREATED  | public      | Create a new stop                          |
-| 11 | PUT    | /api/stops/updateStop/:id            | 200 OK       | public      | Update a stop of a given ID                |
-| 12 | DELETE | /api/stops/deleteStop/:id            | 200 OK       | public      | Delete a stop of a given ID                |
+| 8  | GET    | /api/routes/get-routes               | 200 OK       | public      | Retrieve all routes                        |
+| 9  | GET    | /api/routes/get-route/:id            | 200 OK       | public      | Retrieve a route by a given ID             |
+| 10 | POST   | /api/routes/createRoutes             | 201 CREATED  | public      | Create a new route                         |
+| 11 | PUT    | /api/routes/updateRoute/:id          | 200 OK       | public      | Update a route of a given ID               |
+| 12 | DELETE | /api/routes/deleteRoute/:id          | 200 OK       | public      | Delete a route of a given ID               |
 

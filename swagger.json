@@ -10,6 +10,14 @@
     }
   },
   "host": "localhost:3000",
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "JWT authentication using the Bearer scheme. Enter the JWT token in the format 'Bearer {token}'."
+    }
+  },
   "basePath": "/api",
   "tags": [
     {
@@ -19,10 +27,20 @@
     {
       "name": "Auth Routes",
       "description": "Authentication endpoints | POST Route"
-    }, {
-      "name": "Stop Routes",
-      "description": "Stops/Routes endpoints | POST Route"
+    },
+    {
+      "name": "User Routes",
+      "description": "User endpoints | Put Route"
+    },
+    {
+      "name": "Admin Routes",
+      "description": "Admin endpoints | GET Route"
+    },
+    {
+      "name": "Routes Routes",
+      "description": "Routes endpoints | GET Route"
     }
+
   ],
   "schemes": [
     "http",
@@ -51,7 +69,6 @@
         }
       }
     },
-
     "/auth/signin": {
       "post": {
         "tags": [
@@ -77,12 +94,13 @@
             "type": "object",
             "required": true,
             "description": "Body Request",
-            "schema": { "$ref": "#/definitions/Signin" }
+            "schema": {
+              "$ref": "#/definitions/Signin"
+            }
           }
         ]
       }
     },
-
     "/auth/register-user": {
       "post": {
         "tags": [
@@ -90,6 +108,11 @@
         ],
         "summary": " (Register User With POST Route)",
         "description": "By the use of this POST endpoint, you will be able to register a user account",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "201": {
             "description": "CREATED."
@@ -105,157 +128,270 @@
             "type": "object",
             "required": true,
             "description": "Body Request",
-            "schema": { "$ref": "#/definitions/Users" }
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description":"parsing a session/token in the hearder authorization with Bearer Session. Ex: ( Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6Me )"
+          }
+
+        ]
+      }
+    },
+    "/auth/logout": {
+      "delete": {
+        "summary": "Log out a user",
+        "description": "Logs out the currently authenticated user.",
+        "tags": [
+          "Auth Routes"
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description":"parsing a session/token in the hearder authorization with Bearer Session. Ex: ( Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6Me )"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success."
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          }
+        }
+      }
+    },
+
+    "/users/get-profile": {
+      "get": {
+        "tags": [
+          "User Routes"
+        ],
+        "summary": " (Get user profile With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get a user profile",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "401": {
+            "description": "UNAUTHORIZED."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/users/update-profile": {
+      "put": {
+        "tags": [
+          "User Routes"
+        ],
+        "summary": " (Update User With PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update a user account",
+        "security":[
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "401": {
+            "description": "UNAUTHORIZED."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "user Id"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description":"parsing a session/token in the hearder authorization with Bearer Session. Ex: ( Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6Me )"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": {
+              "$ref": "#/definitions/UpdateProfile"
+            }
+          }
+        ]
+      }
+    },
+    "/admins/get-user/{id}": {
+      "get": {
+        "tags": [
+          "Admin Routes"
+        ],
+        "summary": " (Get user profile using his/her id With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get a user profile as long as you have his/her id",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "401": {
+            "description": "UNAUTHORIZED."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "user Id"
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
           }
         ]
       }
     },
 
-    "/stops/getStops": {
+    "/routes/get-routes":{
       "get": {
-        "tags": [
-          "Stop Routes"
+        "tags":[
+          "Routes Routes"
         ],
-        "summary" : " (Get All Stops With GET Route)",
-        "description": "By use of this GET endpoint, you'll be able to get all stops",
+        "summary": "(Get all the routes with GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get all routes",
         "responses": {
           "200": {
             "description": "OK."
           },
           "500": {
-            "description": "Internal Server Error."
+            "description":"BAD_REQUEST."
           }
         }
       }
-      
     },
-    "/stops/updateStop/{id}": {
-      "put": {
+    "routes/get-route/{id}":{
+      "get":{
         "tags": [
-          "Stop Routes"
+          "Routes Routes"
         ],
-        "summary": " (Update Stop With PUT Route)",
-        "description": "By the use of this PUT endpoint, you will be able to update a stop",
-        "responses": {
+        "summary": " (Get a single route with GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to retrieve a single route",
+        "responses":{
           "200": {
             "description": "OK."
           },
-          "400": {
-            "description": "BAD_REQUEST."
-          },
           "404": {
             "description": "NOT_FOUND."
-          }
-        },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "stop id"
           },
-          {
-            "in": "body",
-            "name": "body",
-            "type": "object",
-            "required": true,
-            "description": "Body Request",
-            "schema": { "$ref": "#/definitions/Stop" }
+          "500": {
+            "description":"BAD_REQUEST."
           }
-        ]
+        }
       }
     },
-    "/stops/deleteStop/{id}": {
-      "delete": {
+    "routes/createRoutes":{
+      "post":{
         "tags": [
-          "Stop Routes"
+          "Routes Routes"
         ],
-        "summary": " (Delete Stop With DELETE Route)",
-        "description": "By the use of this DELETE endpoint, you will be able to delete a stop",
-        "responses": {
+        "summary": " (Post a  route with POST Route)",
+        "description": "By the use of this POST endpoint, you will be able to create a route",
+        "responses":{
           "200": {
             "description": "OK."
           },
-          "400": {
-            "description": "BAD_REQUEST."
-          },
-          "404": {
-            "description": "NOT_FOUND."
+          "500": {
+            "description":"BAD_REQUEST."
           }
-        },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "stop id"
-          }
-        ]
+        }
       }
     },
-    "/stops/getStop/{id}": {
-      "get": {
+    "routes/updateRoute/{id}":{
+      "put":{
         "tags": [
-          "Stop Routes"
+          "Routes Routes"
         ],
-        "summary": " (Retrieve Stop With GET Route)",
-        "description": "By the use of this GET endpoint, you will be able to get a single stop",
-        "responses": {
+        "summary": " (Update a route with PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update a route",
+        "responses":{
           "200": {
             "description": "OK."
           },
-          "400": {
-            "description": "BAD_REQUEST."
-          },
           "404": {
             "description": "NOT_FOUND."
+          },
+          "500": {
+            "description":"BAD_REQUEST."
           }
-        },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "stop id"
-          }
-        ]
+        }
       }
     },
-    "/stops/createStop": {
-      "post": {
+    "routes/deleteRoute/{id}":{
+      "delete":{
         "tags": [
-          "Stop Routes"
+          "Routes Routes"
         ],
-        "summary": " (Create Stop With POST Route)",
-        "description": "By the use of this POST endpoint, you will be able to create a stop",
-        "responses": {
-          "201": {
-            "description": "CREATED."
-          },
-          "400": {
-            "description": "BAD_REQUEST."
+        "summary": " (Delete a route with DELETE Route)",
+        "description": "By the use of this DELETE endpoint, you will be able to delete a route",
+        "responses":{
+          "200": {
+            "description": "OK."
           },
           "404": {
             "description": "NOT_FOUND."
+          },
+          "500": {
+            "description":"BAD_REQUEST."
           }
-        },
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "type": "object",
-            "required": true,
-            "description": "Body Request",
-            "schema": { "$ref": "#/definitions/Stop" }
-          }
-        ]
+        }
       }
     }
   },
-  
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "Bearer",
+        "bearerFormat": "JWT",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
   "definitions": {
     "Users": {
       "type": "object",
@@ -278,7 +414,7 @@
           "example": "your-email@gmail.com"
         },
         "driver_licence": {
-          "type": "string",
+          "type": "array",
           "required": true,
           "example": "['A','B','C','D','E','F']"
         },
@@ -309,15 +445,47 @@
         }
       }
     },
-    "Stops" : {
+    "UpdateProfile": {
       "type": "object",
       "properties": {
-        "stop_name": {
+        "fname": {
+          "type": "string",
+          "example": "John"
+        },
+        "lname": {
+          "type": "string",
+          "example": "Doe"
+        },
+        "driver_licence": {
           "type": "string",
           "required": true,
-          "example": "Kimicanga"
+          "example": ""
         }
       }
+    },
+    "Routes":{
+      "type":"object",
+      "properties": {
+        "route_name":{
+          "type":"string",
+          "required": true,
+          "example": "Kimironko-Town"
+        },
+        "start":{
+          "type":"string",
+          "required": true,
+          "example": "Kimironko"
+        },
+        "end":{
+          "type":"string",
+          "required": true,
+          "example": "Town"
+        },
+        "stops":{
+          "type":"array",
+          "example": "['Rando','KBC','KH']"
         }
+      }
+    }
   }
 }

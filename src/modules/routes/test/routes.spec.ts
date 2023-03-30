@@ -4,28 +4,27 @@ import chaiHttp from "chai-http";
 import { NOT_FOUND, BAD_REQUEST, CREATED, OK, INTERNAL_SERVER_ERROR } from 'http-status';
 import models from "../../../database/models/index";
 import app from "../../../index";
-import stopsRepository from "../repository/stopsRepository";
-const {stops} = models;
+import routesRepository from "../repository/routesRepository";
+const {routes} = models;
 
 chai.use(chaiHttp);
 const router = () => chai.request(app);
-// const mockStops = [
-//   { id: 1, stop_name: 'Stop 1' },
-//   { id: 2, stop_name: 'Stop 2' },
-//   { id: 3, stop_name: 'Stop 3' },
-// ];
 
-describe('true or false', () => {
-  // beforeEach(() => {
-  //   sinon.stub(stopsRepository, 'getStops').resolves(mockStops);
-  // });
-
-  // afterEach(() => {
-  //   sinon.restore();
-  // });
-    it('User should be able to get stops', (done) =>{
+describe('Routes Test Cases', () => {
+    it('Should be able to get Routes', (done) =>{
         router()
-         .get('/api/stops/getStops')
+         .get('/api/routes/get-routes')
+         .end((error, response)=>{
+            expect(response).to.have.status(OK);
+            expect(response.body).to.be.a('object');
+            expect(response.body.message).to.be.a('string');
+            expect(response.body).to.have.property('data');
+            done(error);
+         });
+    }); 
+    it('Should be able to get a route by id', (done) =>{
+        router()
+         .get('/api/routes/get-route/1')
          .end((error, response)=>{
             expect(response).to.have.status(OK);
             expect(response.body).to.be.a('object');
@@ -35,39 +34,21 @@ describe('true or false', () => {
          });
     });
 
-    
-    it('User should be able to get a stop by id', (done) =>{
-        router()
-         .get('/api/stops/getStop')
-         .end((error, response)=>{
-            expect(response).to.have.status(OK);
-            expect(response.body).to.be.a('object');
-            expect(response.body.message).to.be.a('string');
-            expect(response.body).to.have.property('data');
-            done(error);
-         });
-    });
-
-    it('User should be able to get a stop by name', (done) =>{
-        router()
-         .get('/api/stops/stop')
-         .end((error, response)=>{
-            expect(response).to.have.status(OK);
-            expect(response.body).to.be.a('object');
-            expect(response.body.message).to.be.a('string');
-            expect(response.body).to.have.property('data');
-            done(error);
-         });
-    });
-
-    it('User should be able to update a stop', (done) =>{
-        const stop = new stops({
+    it('Should be able to update a route', (done) =>{
+        const route = new routes({
             id:1,
-            stop_name: 'Kibagabaga'});
+            route_name: 'Kibagabaga-Kacyiru',
+            start: 'Kibagabaga',
+            end: 'Kacyiru',
+            stops: ['KCC','Rando']
+        });
         router()
-         .put('/api/stops/updateStop/1')
+         .put('/api/routes/updateRoute/1')
          .send({
-            stop_name: 'Kibagabaga'
+            route_name: 'Kibagabaga-Kacyiru',
+            start: 'Kibagabaga',
+            end: 'Kacyiru',
+            stops: ['KCC','Rando']
          })
          .end((error, response)=>{
             expect(response).to.have.status(OK);
@@ -77,12 +58,15 @@ describe('true or false', () => {
             done(error);
          });
     });
-    
-    it('User should be able to create a stop', (done) =>{
+
+    it('Should be able to create a route', (done) =>{
         router()
-         .post('/api/stops/createStop')
+         .post('/api/routes/createRoutes')
          .send({
-            stop_name: 'Gatenga'
+            route_name: 'Kimironko-Kacyiru',
+            start: 'Kimironko',
+            end: 'Kacyiru',
+            stops: ['Kimironko Market','KBC','KCC']
          })
          .end((error, response)=>{
             expect(response).to.have.status(OK);
@@ -93,9 +77,9 @@ describe('true or false', () => {
          });
     });
 
-    it('User should be able to delete a stop', (done) =>{
+    it('Should be able to delete a route', (done) =>{
         router()
-         .delete('/api/stops/deleteStop/1')
+         .delete('/api/routes/deleteRoute/1')
          .end((error, response)=>{
             expect(response).to.have.status(OK);
             expect(response.body).to.be.a('object');
@@ -105,9 +89,9 @@ describe('true or false', () => {
          });
     });
 
-      it('Testing internal server error for deleting non-existent stop', (done) => {
+    it('Testing internal server error for deleting non-existent route', (done) => {
         router()
-          .delete('/api/stops/deleteStop/999')
+          .delete('/api/routes/deleteRoute/999')
           .end((error, response) => {
             expect(response).to.have.status(INTERNAL_SERVER_ERROR);
             expect(response.body).to.be.a('object');
@@ -116,31 +100,15 @@ describe('true or false', () => {
           });
       });
 
-      it('Testing internal server error for getting a non-existent stop', (done) => {
-        sinon.stub(stopsRepository, 'getStop').throws();
+      it('Testing internal server error for getting a non-existent route', (done) => {
+        sinon.stub(routesRepository, 'getRoute').throws();
         router()
-          .get('/api/stops/getStop/999')
+          .get('/api/routes/get-route/999')
           .end((error, response) => {
             expect(response).to.have.status(INTERNAL_SERVER_ERROR);
             expect(response.body).to.be.a('object');
             expect(response.body.message).to.be.an('string');
             done(error);
           });
-      });
-
-  
-    it('Testing internal server error for creating an existent stop', (done) =>{
-      router()
-       .post('/api/stops/createStop')
-       .send({
-          stop_name: 'Gatenga'
-       })
-       .end((error, response)=>{
-        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
-        expect(response.body).to.be.a('object');
-        expect(response.body.message).to.be.an('string');
-        done(error);
-       });
-  });
-
+      });    
 })
