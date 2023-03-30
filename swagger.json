@@ -247,7 +247,6 @@
         ]
       }
     },
-
     "/admins/get-user/{id}": {
       "get": {
         "tags": [
@@ -277,7 +276,7 @@
         ],
         "security": [
           {
-            "bearerAuth": []
+            "jwt": []
           }
         ]
       }
