@@ -1,13 +1,16 @@
 import { Router } from 'express'
-import bussesController from "../modules/buses/controller/busesController"
+
+import { authorizationToken } from '../middlewares/authMiddleware'
+import busesController from "../modules/buses/controller/busesController"
+import { validateCreateBus,validateUpdateBus } from '../modules/buses/validator/busValidator'
 
 const busRouter=Router()
 
-busRouter.get("/buses",bussesController.findAllBuses)
-busRouter.get("/bus/:id",bussesController.findBus)
-busRouter.post("/create",bussesController.createBus)
-busRouter.delete("/delete/:id",bussesController.deleteBus)
-busRouter.put("/update/:id",bussesController.updateBus)
+busRouter.get("/get-buses", busesController.getBuses)
+busRouter.get("/get-bus/:id", busesController.getBus)
+busRouter.post("/create-bus", authorizationToken, validateCreateBus , busesController.createBus)
+busRouter.delete("/delete-bus/:id", authorizationToken, busesController.deleteBus)
+busRouter.put("/update-bus/:id", authorizationToken , validateUpdateBus , busesController.updateBus)
 
 
 export default busRouter

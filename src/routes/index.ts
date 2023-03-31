@@ -3,7 +3,6 @@ import authRouter from './authRouter'
 import usersRouter from './usersRouter'
 import routesRouter from './authRouter'
 import busRouter from './busesRouters'
-import agenciesRouter from './agenciesRouter'
 import adminsRouter from './adminsRouter'
 
 const router = Router()
@@ -11,7 +10,6 @@ router.use('/auth', authRouter)
 router.use('/users', usersRouter)
 router.use('/routes', routesRouter)
 router.use("/buses",busRouter)
-router.use("/agencies",agenciesRouter)
 router.use('/admins', adminsRouter)
 
 export default router

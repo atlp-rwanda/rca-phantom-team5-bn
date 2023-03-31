@@ -1,10 +1,10 @@
 import {Model} from "sequelize"
 interface BusesAttributes {
    id: number;
-   name: string;
-   available_sits: number;
-   model: string;
    plate_number: string;
+   name: string;
+   model: string;
+   available_sits:number
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -15,13 +15,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
         declare available_sits: number;
         declare model: string;
         declare plate_number: string;
-        static associate(models: any) {
-              buses.belongsToMany(models.agencies, {
-                foreignKey: 'agencyId',
-                as: 'agency',
-                through: ""
-              })
-          }
       }
   
 buses.init(
@@ -31,7 +24,16 @@ buses.init(
       autoIncrement: true,
       primaryKey: true,
     },
+    plate_number: {
+      type: DataTypes,
+      allowNull: false,
+      unique:true
+    },
     name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    model: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -39,15 +41,7 @@ buses.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    model: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    plate_number: {
-      type: DataTypes,
-      allowNull: false,
-      unique:true
-    }
+
   },
   {
     sequelize,
