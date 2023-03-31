@@ -11,7 +11,7 @@
   },
   "host": "localhost:3000",
   "securityDefinitions": {
-    "bearerAuth": {
+    "jwt": {
       "type": "apiKey",
       "name": "Authorization",
       "in": "header",
@@ -204,11 +204,6 @@
         ],
         "summary": " (Update User With PUT Route)",
         "description": "By the use of this PUT endpoint, you will be able to update a user account",
-        "security":[
-          {
-            "bearerAuth": []
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK."
@@ -225,20 +220,6 @@
         },
         "parameters": [
           {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "user Id"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description":"parsing a session/token in the hearder authorization with Bearer Session. Ex: ( Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6Me )"
-          },
-          {
             "in": "body",
             "name": "body",
             "type": "object",
@@ -247,6 +228,11 @@
             "schema": {
               "$ref": "#/definitions/UpdateProfile"
             }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
           }
         ]
       }
@@ -303,7 +289,7 @@
         }
       }
     },
-    "routes/get-route/{id}":{
+    "/routes/get-route/{id}":{
       "get":{
         "tags": [
           "Routes Routes"
@@ -320,10 +306,19 @@
           "500": {
             "description":"BAD_REQUEST."
           }
-        }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "route Id"
+          }
+        ]
       }
     },
-    "routes/createRoutes":{
+    "/routes/create-routes":{
       "post":{
         "tags": [
           "Routes Routes"
@@ -334,13 +329,30 @@
           "200": {
             "description": "OK."
           },
-          "500": {
+          "400": {
             "description":"BAD_REQUEST."
           }
-        }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": {
+              "$ref": "#/definitions/Routes"
+            }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
       }
     },
-    "routes/updateRoute/{id}":{
+    "/routes/update-route/{id}":{
       "put":{
         "tags": [
           "Routes Routes"
@@ -354,13 +366,37 @@
           "404": {
             "description": "NOT_FOUND."
           },
-          "500": {
+          "400": {
             "description":"BAD_REQUEST."
           }
-        }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "route Id"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": {
+              "$ref": "#/definitions/Routes"
+            }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
       }
     },
-    "routes/deleteRoute/{id}":{
+    "/routes/delete-route/{id}":{
       "delete":{
         "tags": [
           "Routes Routes"
@@ -374,10 +410,24 @@
           "404": {
             "description": "NOT_FOUND."
           },
-          "500": {
+          "400": {
             "description":"BAD_REQUEST."
           }
-        }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "route Id"
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
       }
     }
   },
@@ -416,7 +466,7 @@
         "driver_licence": {
           "type": "array",
           "required": true,
-          "example": "['A','B','C','D','E','F']"
+          "example": "[\"A\",\"B\",\"C\",\"D\",\"E\",\"F\"]"
         },
         "nid": {
           "type": "string",
@@ -483,7 +533,7 @@
         },
         "stops":{
           "type":"array",
-          "example": "['Rando','KBC','KH']"
+          "example": "[\"Rando\",\"KBC\",\"KH\"]"
         }
       }
     }

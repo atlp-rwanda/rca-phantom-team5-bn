@@ -49,7 +49,7 @@ https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 | 7  | PUT    | /api/users/update-profile            | 200 OK       | privated    | update user profile                        |
 | 8  | GET    | /api/routes/get-routes               | 200 OK       | public      | Retrieve all routes                        |
 | 9  | GET    | /api/routes/get-route/:id            | 200 OK       | public      | Retrieve a route by a given ID             |
-| 10 | POST   | /api/routes/createRoutes             | 201 CREATED  | public      | Create a new route                         |
-| 11 | PUT    | /api/routes/updateRoute/:id          | 200 OK       | public      | Update a route of a given ID               |
-| 12 | DELETE | /api/routes/deleteRoute/:id          | 200 OK       | public      | Delete a route of a given ID               |
+| 10 | POST   | /api/routes/create-routes            | 201 CREATED  | privated    | Create a new route                         |
+| 11 | PUT    | /api/routes/update-route/:id         | 200 OK       | privated    | Update a route of a given ID               |
+| 12 | DELETE | /api/routes/delete-route/:id         | 200 OK       | privated    | Delete a route of a given ID               |
 
