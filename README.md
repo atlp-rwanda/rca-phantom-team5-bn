@@ -40,7 +40,8 @@ https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 
 |NO  | VERBS  | ENDPOINTS                            | STATUS       | ACCESS      | DESCRIPTION                                |
 |----|--------|--------------------------------------|--------------|-------------|--------------------------------------------|
-| 1  | GET    | /api/any-etc                         | 200 OK       | public      | Handle all intial or wrong GET requests    |
+| 1  | GET    | /api/any-etc                         | 200 OK   
+    | public      | Handle all intial or wrong GET requests    |
 | 2  | POST   | /api/auth/signin                     | 200 OK       | public      | signin a user with email and password      |
 | 3  | POST   | /api/auth/register-user              | 201 CREATED  | privated    | register user & generate password in email |
 | 4  | DELETE | /api/auth/logout                     | 200 OK       | public      | logout authanticated user                  |

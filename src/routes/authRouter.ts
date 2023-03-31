@@ -8,7 +8,8 @@ const routesRouter = Router();
 routesRouter
 	.post('/register-user',userAuthorization(['admin','super_admin']), validRegisterUser, authController.registerUsers)
 	.delete('/logout', authorizationToken, authController.logout)
-	.post('/signin', validSignIn, authController.signIn);
+	.post('/signin', validSignIn, authController.signIn)
+	.put('/reset-password',authorizationToken ,authController.resetUserPassword);
 	
 export default routesRouter;
  

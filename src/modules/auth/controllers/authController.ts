@@ -4,7 +4,7 @@ import { BAD_REQUEST, CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK,CONFLICT } f
 import sendEmail from "../../../services/mailService";
 import responseUtil from "../../../utils/responseUtil";
 import authRepository from "../repository/authRepository";
-import {  comparePassword } from "../../../utils/passwordUtils";
+import {  comparePassword, hashPassword } from "../../../utils/passwordUtils";
 import usersRepository from "../../users/repository/usersRepository";
 
 const registerUsers = async (req:Request,res:Response) => {
@@ -74,4 +74,17 @@ const logout = async (req: any, res: Response) => {
   }
 };
 
-export default { registerUsers, signIn, logout };
+const  resetUserPassword = async (req: any, res: Response) =>{
+  try {
+      const password = hashPassword(req.body.password)
+      const data = await authRepository.resetPassword(req.user.id,password);
+      responseUtil.handleSuccess(OK, 'Success', data);
+      return responseUtil.response(res);
+  } catch (error: any) {
+      responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+      return responseUtil.response(res);
+  }
+}
+
+
+export default { registerUsers, signIn, logout , resetUserPassword};
