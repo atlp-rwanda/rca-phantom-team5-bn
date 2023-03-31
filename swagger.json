@@ -282,6 +282,7 @@
       }
     },
 
+
     "/users/update-profile/{id}": {
       "put": {
         "tags": [
@@ -622,6 +623,7 @@
        "schema": { "$ref": "#/definitions/Agencies" }
       }
     },
+
     "/users/update-profile/{id}": {
       "put": {
         "tags": [
