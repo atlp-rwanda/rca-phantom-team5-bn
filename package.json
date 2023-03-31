@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "deleteOnetable": "tsc && npx sequelize db:migrate:undo --name 20230311000000-create-users.js",
-    "createOnetable": "tsc && npx sequelize-cli db:migrate --to create-buses.js",
+    "createOnetable": "tsc && npx sequelize-cli db:migrate --to 20230311000000-create-users.js",
     "deleteAllTables": "tsc && npx sequelize db:migrate:undo:all",
     "createAllTables": "tsc && npx sequelize db:migrate",
     "deleteAllSeeds": "tsc && npx sequelize db:seed:undo:all",

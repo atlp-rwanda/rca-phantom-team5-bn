@@ -46,6 +46,7 @@ buses.init(
     plate_number: {
       type: DataTypes,
       allowNull: false,
+      unique:true
     }
   },
   {
