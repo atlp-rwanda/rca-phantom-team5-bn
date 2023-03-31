@@ -35,7 +35,12 @@
     {
       "name": "Admin Routes",
       "description": "Admin endpoints | GET Route"
+    },
+    {
+      "name": "Routes Routes",
+      "description": "Routes endpoints | GET Route"
     }
+
   ],
   "schemes": [
     "http",
@@ -192,7 +197,6 @@
         ]
       }
     },
-   
     "/users/update-profile": {
       "put": {
         "tags": [
@@ -280,6 +284,101 @@
           }
         ]
       }
+    },
+
+    "/routes/get-routes":{
+      "get": {
+        "tags":[
+          "Routes Routes"
+        ],
+        "summary": "(Get all the routes with GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get all routes",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "500": {
+            "description":"BAD_REQUEST."
+          }
+        }
+      }
+    },
+    "routes/get-route/{id}":{
+      "get":{
+        "tags": [
+          "Routes Routes"
+        ],
+        "summary": " (Get a single route with GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to retrieve a single route",
+        "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          },
+          "500": {
+            "description":"BAD_REQUEST."
+          }
+        }
+      }
+    },
+    "routes/createRoutes":{
+      "post":{
+        "tags": [
+          "Routes Routes"
+        ],
+        "summary": " (Post a  route with POST Route)",
+        "description": "By the use of this POST endpoint, you will be able to create a route",
+        "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "500": {
+            "description":"BAD_REQUEST."
+          }
+        }
+      }
+    },
+    "routes/updateRoute/{id}":{
+      "put":{
+        "tags": [
+          "Routes Routes"
+        ],
+        "summary": " (Update a route with PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update a route",
+        "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          },
+          "500": {
+            "description":"BAD_REQUEST."
+          }
+        }
+      }
+    },
+    "routes/deleteRoute/{id}":{
+      "delete":{
+        "tags": [
+          "Routes Routes"
+        ],
+        "summary": " (Delete a route with DELETE Route)",
+        "description": "By the use of this DELETE endpoint, you will be able to delete a route",
+        "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          },
+          "500": {
+            "description":"BAD_REQUEST."
+          }
+        }
+      }
     }
   },
   "components": {
@@ -361,6 +460,30 @@
           "type": "string",
           "required": true,
           "example": ""
+        }
+      }
+    },
+    "Routes":{
+      "type":"object",
+      "properties": {
+        "route_name":{
+          "type":"string",
+          "required": true,
+          "example": "Kimironko-Town"
+        },
+        "start":{
+          "type":"string",
+          "required": true,
+          "example": "Kimironko"
+        },
+        "end":{
+          "type":"string",
+          "required": true,
+          "example": "Town"
+        },
+        "stops":{
+          "type":"array",
+          "example": "['Rando','KBC','KH']"
         }
       }
     }
