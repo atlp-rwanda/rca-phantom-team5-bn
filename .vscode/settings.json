@@ -1,0 +1,8 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/github-workflow.json": "file:///c%3A/Users/H.Y/Documents/Projects/rca-phantom-team5-bn/.github/workflows/deploy.yml"
+    },
+    "cSpell.words": [
+        "Collora"
+    ]
+}

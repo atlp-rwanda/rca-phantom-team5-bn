@@ -5,7 +5,7 @@ import {NOT_FOUND, OK, UNAUTHORIZED } from "http-status";
 import app from "../../../index";
 
 chai.use(chaihttp);
-const router = () => chai.request(app);
+const router = () => chai.request(app)
 
 describe("Users test cases", () => {
     let token = '';
@@ -62,7 +62,7 @@ describe("Users test cases", () => {
       });
   });
 
-  it("User should be able to update user as long as he is logged in", (done) => {
+  it("User should be able to update user as long as logged in", (done) => {
     router()
       .put("/api/users/update-profile")
       .set('Authorization', `Bearer ${token}`)

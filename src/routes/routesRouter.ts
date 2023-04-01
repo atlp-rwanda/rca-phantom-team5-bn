@@ -1,6 +1,6 @@
 import { Router } from "express";
 import routesController from "../modules/routes/controller/routesController";
-import { userAuthorization } from "../middlewares/authMiddleware";
+import { userAuthorization } from "../middlewares/middleware";
 import { validateCreateRoute, validateUpdateRoute } from "../modules/routes/validator/routesValidator";
 
 const  routeRouter = Router()

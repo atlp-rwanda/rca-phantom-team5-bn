@@ -1,4 +1,3 @@
-'use strict'
 import { Model } from 'sequelize'
 
 interface UsersAttributes {
