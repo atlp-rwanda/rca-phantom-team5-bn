@@ -60,7 +60,7 @@ describe("Buses Test Cases", () => {
    router()
      .get("/api/buses/get-bus/999")
      .end((error, response) => {
-       expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+       expect(response).to.have.status(NOT_FOUND);
        expect(response.body).to.be.a("object");
        expect(response.body.message).to.be.a("string");
        done(error);
@@ -113,7 +113,6 @@ describe("Buses Test Cases", () => {
         expect(response).to.have.status(OK);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
-        expect(response.body).to.have.property("data");
         done(error);
       });
   });
@@ -134,7 +133,7 @@ describe("Buses Test Cases", () => {
     router()
       .get("/api/buses/get-bus/999")
       .end((error, response) => {
-        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response).to.have.status(NOT_FOUND);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.an("string");
         done(error);

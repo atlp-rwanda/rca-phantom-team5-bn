@@ -62,7 +62,7 @@ describe("Users test cases", () => {
       });
   });
 
-  it("User should be able to update user as long as he is logged in", (done) => {
+  it("User should be able to update user as long as logged in", (done) => {
     router()
       .put("/api/users/update-profile")
       .set('Authorization', `Bearer ${token}`)

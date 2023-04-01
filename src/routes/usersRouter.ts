@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { authorizationToken } from '../middlewares/authMiddleware'
+import { authorizationToken } from '../middlewares/middleware'
 import usersController from '../modules/users/controller/usersController'
 import { validateUpdateUser } from '../modules/users/validator/userValidator'
 

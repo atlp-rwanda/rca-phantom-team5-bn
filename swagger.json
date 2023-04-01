@@ -9,7 +9,9 @@
       "email": ""
     }
   },
+
   "host": "localhost:3003",
+
   "securityDefinitions": {
     "jwt": {
       "type": "apiKey",
@@ -18,7 +20,9 @@
       "description": "JWT authentication using the Bearer scheme. Enter the JWT token in the format 'Bearer {token}'."
     }
   },
+
   "basePath": "/api",
+
   "tags": [
     {
       "name": "Initial Route",
@@ -37,18 +41,22 @@
       "description": "Admin endpoints | GET Route"
     }
   ],
+
   "schemes": [
     "http",
     "https"
   ],
+
   "consumes": [
     "application/json",
     "none"
   ],
+
   "produces": [
     "application/json",
     "none"
   ],
+
   "paths": {
     "/": {
       "get": {
@@ -64,6 +72,7 @@
         }
       }
     },
+
     "/auth/signin": {
       "post": {
         "tags": [
@@ -96,6 +105,7 @@
         ]
       }
     },
+
     "/auth/register-user": {
       "post": {
         "tags": [
@@ -138,6 +148,7 @@
         ]
       }
     },
+
     "/auth/logout": {
       "delete": {
         "summary": "Log out a user",
@@ -247,6 +258,7 @@
         ]
       }
     },
+
     "/admins/get-user/{id}": {
       "get": {
         "tags": [
@@ -281,7 +293,169 @@
         ]
       }
     },
+    
+    "/routes/create-routes":{
+      "post":{
+        "tags": [
+          "Routes Routes"
+        ],
+        "summary": " (Post a  route with POST Route)",
+        "description": "By the use of this POST endpoint, you will be able to create a route",
+        "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description":"BAD_REQUEST."
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": {
+              "$ref": "#/definitions/Routes"
+            }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
 
+    "/routes/get-routes":{
+      "get": {
+        "tags":[
+          "Routes Routes"
+        ],
+        "summary": "(Get all the routes with GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get all routes",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "500": {
+            "description":"BAD_REQUEST."
+          }
+        }
+      }
+    },
+
+    "/routes/get-route/{id}":{
+      "get":{
+        "tags": [
+          "Routes Routes"
+        ],
+        "summary": " (Get a single route with GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to retrieve a single route",
+        "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          },
+          "500": {
+            "description":"BAD_REQUEST."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "route Id"
+          }
+        ]
+      }
+    },
+
+    "/routes/update-route/{id}":{
+      "put":{
+        "tags": [
+          "Routes Routes"
+        ],
+        "summary": " (Update a route with PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update a route",
+        "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          },
+          "400": {
+            "description":"BAD_REQUEST."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "route Id"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": {
+              "$ref": "#/definitions/Routes"
+            }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+
+    "/routes/delete-route/{id}":{
+      "delete":{
+        "tags": [
+          "Routes Routes"
+        ],
+        "summary": " (Delete a route with DELETE Route)",
+        "description": "By the use of this DELETE endpoint, you will be able to delete a route",
+        "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          },
+          "400": {
+            "description":"BAD_REQUEST."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "route Id"
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
 
     "/buses/create-bus": {
       "post": {
@@ -311,6 +485,59 @@
         "security": [
           {
             "jwt": []
+          }
+        ]
+      }
+    },
+
+    "/buses/get-buses": {
+      "get": {
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": " (Get all buses With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get all buses",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+         "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+       "schema": { "$ref": "#/definitions/Buses" }
+      }
+    },
+
+    "/buses/get-bus/{id}": {
+      "get": {
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": " (Get Bus With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get a bus",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Bus Id",
+            "schema": { "$ref": "#/definitions/Buses" }
           }
         ]
       }
@@ -358,7 +585,6 @@
       }
     },
 
-
     "/buses/delete-bus/{id}": {
       "delete": {
         "tags": [
@@ -392,58 +618,6 @@
             "jwt": []
           }
         ]
-      }
-    },
-
-    "/buses/get-bus/{id}": {
-      "get": {
-        "tags": [
-          "Bus Routes"
-        ],
-        "summary": " (Get Bus With GET Route)",
-        "description": "By the use of this GET endpoint, you will be able to get a bus",
-        "responses": {
-          "200": {
-            "description": "OK."
-          },
-          "400": {
-            "description": "BAD_REQUEST."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          }
-        },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "Bus Id",
-            "schema": { "$ref": "#/definitions/Buses" }
-          }
-        ]
-      }
-    },
-    "/buses/buses": {
-      "get": {
-        "tags": [
-          "Bus Routes"
-        ],
-        "summary": " (Get all buses With GET Route)",
-        "description": "By the use of this GET endpoint, you will be able to get all buses",
-        "responses": {
-          "200": {
-            "description": "OK."
-          },
-          "400": {
-         "description": "BAD_REQUEST."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          }
-        },
-       "schema": { "$ref": "#/definitions/Buses" }
       }
     },
 
@@ -490,171 +664,9 @@
           }
         ]
       }
-    },
-
-
-
-
-    "/routes/get-routes":{
-      "get": {
-        "tags":[
-          "Routes Routes"
-        ],
-        "summary": "(Get all the routes with GET Route)",
-        "description": "By the use of this GET endpoint, you will be able to get all routes",
-        "responses": {
-          "200": {
-            "description": "OK."
-          },
-          "500": {
-            "description":"BAD_REQUEST."
-          }
-        }
-      }
-    },
-    "/routes/get-route/{id}":{
-      "get":{
-        "tags": [
-          "Routes Routes"
-        ],
-        "summary": " (Get a single route with GET Route)",
-        "description": "By the use of this GET endpoint, you will be able to retrieve a single route",
-        "responses":{
-          "200": {
-            "description": "OK."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          },
-          "500": {
-            "description":"BAD_REQUEST."
-          }
-        },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "route Id"
-          }
-        ]
-      }
-    },
-    "/routes/create-routes":{
-      "post":{
-        "tags": [
-          "Routes Routes"
-        ],
-        "summary": " (Post a  route with POST Route)",
-        "description": "By the use of this POST endpoint, you will be able to create a route",
-        "responses":{
-          "200": {
-            "description": "OK."
-          },
-          "400": {
-            "description":"BAD_REQUEST."
-          }
-        },
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "type": "object",
-            "required": true,
-            "description": "Body Request",
-            "schema": {
-              "$ref": "#/definitions/Routes"
-            }
-          }
-        ],
-        "security": [
-          {
-            "jwt": []
-          }
-        ]
-      }
-    },
-    "/routes/update-route/{id}":{
-      "put":{
-        "tags": [
-          "Routes Routes"
-        ],
-        "summary": " (Update a route with PUT Route)",
-        "description": "By the use of this PUT endpoint, you will be able to update a route",
-        "responses":{
-          "200": {
-            "description": "OK."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          },
-          "400": {
-            "description":"BAD_REQUEST."
-          }
-        },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "route Id"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "type": "object",
-            "required": true,
-            "description": "Body Request",
-            "schema": {
-              "$ref": "#/definitions/Routes"
-            }
-          }
-        ],
-        "security": [
-          {
-            "jwt": []
-          }
-        ]
-      }
-    },
-    "/routes/delete-route/{id}":{
-      "delete":{
-        "tags": [
-          "Routes Routes"
-        ],
-        "summary": " (Delete a route with DELETE Route)",
-        "description": "By the use of this DELETE endpoint, you will be able to delete a route",
-        "responses":{
-          "200": {
-            "description": "OK."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          },
-          "400": {
-            "description":"BAD_REQUEST."
-          }
-        },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "route Id"
-          }
-        ],
-        "security": [
-          {
-            "jwt": []
-          }
-        ]
-      }
     }
-  
   },
+
   "components": {
     "securitySchemes": {
       "bearerAuth": {
@@ -666,6 +678,7 @@
       }
     }
   },
+
   "definitions": {
     "Users": {
       "type": "object",
@@ -699,6 +712,7 @@
         }
       }
     },
+
     "Signin": {
       "type": "object",
       "properties": {
@@ -719,6 +733,7 @@
         }
       }
     },
+
     "UpdateProfile": {
       "type": "object",
       "properties": {
@@ -737,47 +752,20 @@
         }
       }
     },
-    "Buses": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "required":true,
-          "example": "Toyota Corolla"
-        },
-        "available_sits": {
-          "type": "number",
-          "required":true,
-          "example": 5
-        },
-        "model": {
-          "type": "string",
-          "required": true,
-          "example": "XLi"
-        },
-        "plate_number": {
-          "type": "string",
-          "required": true,
-          "example": "ABC-123"
-        }
-      }
-    },
+
     "Routes":{
       "type":"object",
       "properties": {
         "route_name":{
           "type":"string",
-          "required": true,
           "example": "Kimironko-Town"
         },
         "start":{
           "type":"string",
-          "required": true,
           "example": "Kimironko"
         },
         "end":{
           "type":"string",
-          "required": true,
           "example": "Town"
         },
         "stops":{
@@ -785,7 +773,28 @@
           "example": "[\"Rando\",\"KBC\",\"KH\"]"
         }
       }
+    },
+
+    "Buses": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Toyota Corolla"
+        },
+        "available_sits": {
+          "type": "number",
+          "example": 5
+        },
+        "model": {
+          "type": "string",
+          "example": "XLi"
+        },
+        "plate_number": {
+          "type": "string",
+          "example": "ABC-123"
+        }
+      }
     }
   }
-
-   }
+  }

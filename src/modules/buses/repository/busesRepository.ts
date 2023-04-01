@@ -1,50 +1,33 @@
 import models from '../../../database/models/index'
 const { buses } = models
 
+const getBusById = async (id: number) => {
+  return await buses.findOne({ where: { id } });
+};
+
+const getBusByPlateNumber = async (plate_number: string) => {
+  return await buses.findOne({ where: { plate_number } });
+};
+
 const getBuses = async (page = 1, limit = 2) => {
   const offset = (page - 1) * limit;
-  const data = await buses.findAndCountAll({limit,offset})
+  const data = await buses.findAndCountAll({ limit, offset })
   return data
 }
 
+const deleteBus = async (id: number) => {
+  await buses.destroy({where: { id:id },force: true});
+}
+const createBus = async (busData: any) => {
+  const bus= await buses.create(busData)
+  return bus;
+}
+const updateBus = async (busId: number, busData: any) => {
+  await buses.update( busData, {
+    where:{ id : busId }
+  })
 
-const getABus = async (id: number) => {
-    const data = await buses.findOne({ where: { id } })
-    return data
-  }
+  return await getBusById(busId);
+}
 
-
-  const deleteBus = async (id:number) => {
-      const result = await buses.destroy({where: { id:id },force: true});
-
-      if (result) {
-        const bus = await buses.findOne({ where: { id } })
-        return bus
-      }else{
-        throw new Error('Bus not found')
-      }
-  }
-  
-  const createBus=async(busData:any)=>{
-   try {
-    const bus= await buses.create(busData)
-    return bus;
-   } catch (error:any) {
-    throw new Error(error)
-   }
-  }
-  
-
-  const updateBus=async(busId:number,busData:any)=>{
-    try {
-      const[affectedCount]= await buses.update(busData,{
-        where:{id:busId}
-      })
-      return affectedCount;
-    } catch (error:any) {
-      throw new Error('Bus not found')
-
-    }
-  }
-
-export default { getBuses, getABus,deleteBus, createBus,updateBus}
+export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus,updateBus}

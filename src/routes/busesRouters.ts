@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { authorizationToken,userAuthorization } from '../middlewares/authMiddleware'
+import { userAuthorization } from '../middlewares/middleware'
 import busesController from "../modules/buses/controller/busesController"
 import { validateCreateBus,validateUpdateBus } from '../modules/buses/validator/busValidator'
 
