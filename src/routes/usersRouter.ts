@@ -7,7 +7,6 @@ const usersRouter = Router()
 
 usersRouter
 	.get('/get-users', usersController.getUsers)
-     //.get('/get-users/:id', usersController.getUser)
 	.put('/update-profile/:id', validateUpdateUser, usersController.updateProfile)
 	.put('/update-profile/:id', authorizationToken, validateUpdateUser, usersController.updateProfile)
 	.get('/get-profile', authorizationToken, usersController.getProfile)
