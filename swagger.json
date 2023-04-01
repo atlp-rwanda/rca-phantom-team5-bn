@@ -283,48 +283,7 @@
     },
 
 
-    "/users/update-profile/{id}": {
-      "put": {
-        "tags": [
-          "User Routes"
-        ],
-        "summary": " (Update User With PUT Route)",
-        "description": "By the use of this PUT endpoint, you will be able to update a user account",
-        "responses": {
-          "200": {
-            "description": "OK."
-          },
-          "400": {
-            "description": "BAD_REQUEST."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          }
-        },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "user Id"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "type": "object",
-            "required": true,
-            "description": "Body Request",
-            "schema": { "$ref": "#/definitions/UpdateProfile" }
-          }
-        ]
-      }
-    },
-
-
-
-
-    "/buses/create": {
+    "/buses/create-bus": {
       "post": {
         "tags": [
           "Bus Routes"
@@ -357,7 +316,7 @@
       }
     },
 
-    "/buses/update/{id}": {
+    "/buses/update-bus/{id}": {
       "put": {
         "tags": [
           "Bus Routes"
@@ -400,7 +359,7 @@
     },
 
 
-    "/buses/delete/{id}": {
+    "/buses/delete-bus/{id}": {
       "delete": {
         "tags": [
           "Bus Routes"
@@ -436,7 +395,7 @@
       }
     },
 
-    "/buses/bus/{id}": {
+    "/buses/get-bus/{id}": {
       "get": {
         "tags": [
           "Bus Routes"
@@ -646,11 +605,6 @@
           "type": "string",
           "required": true,
           "example": "ABC-123"
-        },
-        "agencyId": {
-          "type": "number",
-          "required": true,
-          "example": 1
         }
       }
     }

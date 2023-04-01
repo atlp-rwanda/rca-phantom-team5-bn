@@ -1,49 +1,81 @@
-import chaihttp from "chai-http";
 import chai, { expect } from "chai";
-import { NOT_FOUND,BAD_REQUEST,CREATED,OK,INTERNAL_SERVER_ERROR,} from "http-status";
+import sinon from "sinon";
+import chaiHttp from "chai-http";
+import {
+  NOT_FOUND,
+  BAD_REQUEST,
+  CREATED,
+  OK,
+  INTERNAL_SERVER_ERROR,
+} from "http-status";
 import models from "../../../database/models/index";
-
 import app from "../../../index";
-
-chai.use(chaihttp);
-const router = () => chai.request(app);
 const { buses } = models;
 
-describe("Buses test cases", () => {
-  it("Should be able to get buses", (done) => {
-    router()
-      .get("/api/buses/buses")
-      .end((error, response) => {
-        expect(response).to.have.status(OK);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.a("string");
-        expect(response.body).to.have.property("data");
-        done(error);
-      });
-  });
+chai.use(chaiHttp);
+const router = () => chai.request(app);
 
-  
-  it("Should be able to get a bus", (done) => {
-    router()
-      .get("/api/buses/bus/1")
-      .end((error, response) => {
-        expect(response).to.have.status(OK);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.a("string");
-        expect(response.body).to.have.property("data");
-        done(error);
-      });
-  });
+describe("Buses Test Cases", () => {
+  let token = "";
 
-  it("Should be able to update bus given id", (done) => {
+  beforeEach((done) => {
     router()
-      .put("/api/buses/update/1")
+      .post("/api/auth/signin")
       .send({
-        name: 'Toyota Corolla',
+        email: "jane@demo.com",
+        password: "jane!123$",
+        device_id: "MC-123",
+      })
+      .end((error, response) => {
+        token = response.body.data.access_token;
+        done(error);
+      });
+  });
+
+  it("Should be able to get Buses", (done) => {
+    router()
+      .get("/api/buses/get-buses")
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  it("Should be able to get a bus by id", (done) => {
+    router()
+      .get("/api/buses/get-bus/1")
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  it("Should be bring an not found error for get a bus by id if id does not exist", (done) => {
+   router()
+     .get("/api/buses/get-bus/999")
+     .end((error, response) => {
+       expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+       expect(response.body).to.be.a("object");
+       expect(response.body.message).to.be.a("string");
+       done(error);
+     });
+ });
+
+  it("Should be able to update a bus", (done) => {
+    router()
+      .put("/api/buses/update-bus/1")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        plate_number:"RAC123D",
+        name: "Toyota Corolla",
+        modal: "XLi",
         available_sits: 5,
-        model: 'XLi',
-        plate_number: 'ABC-123',
-        agencyId:1
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);
@@ -54,56 +86,15 @@ describe("Buses test cases", () => {
       });
   });
 
-
-
-  it("Should not be able to update bus which does not exist", (done) => {
+  it('Create a bus successfully', (done) => {
     router()
-      .put("/api/buses/update/1234567")
+      .post('/api/buses/create-bus')
+      .set('Authorization', `Bearer ${token}`)
       .send({
-          name: 'Range Rovers',
+          name: "Toyota Corolla",
           available_sits: 5,
-          model: 'XL',
-          plate_number: 'ABC-123',
-          agencyId:1
-      })
-      .end((error, response) => {
-        expect(response).to.have.status(NOT_FOUND);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.an("string");
-        done(error);
-      });
-  });
-
-
-  it("Testing internal server error", (done) => {
-    router()
-      .put("/api/buses/update/zt7)")
-      .send({
-        name: 'Toyota Corolla',
-        available_sits: 5,
-        model: 'XLi',
-        plate_number: 'ABC-123',
-        agencyId:1
-      })
-      .end((error, response) => {
-        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.an("string");
-        done(error);
-      });
-  });
-
-
-
-  it('Should be able to create Bus successful', (done) => {
-    router()
-      .post('/api/buses/create')
-      .send({
-        name: 'Toyota Corolla',
-        available_sits: 5,
-        model: 'XLi',
-        plate_number: 'ABC-123',
-        agencyId:1
+          model: "XLi",
+          plate_number: "ABC-123"
       })
       .end((error, response) => {
         expect(response).to.have.status(CREATED);
@@ -114,17 +105,39 @@ describe("Buses test cases", () => {
       });
   });
 
-
-  it('should delete a bus with given id', (done) => {
+  it("Should be able to delete a bus", (done) => {
     router()
-      .delete("/api/buses/delete/1")
-      .end((err, res) => {
-        expect(res).to.have.status(OK);
-        expect(res.body).to.be.a('object');
-        expect(res.body.message).to.be.a('string');
-        expect(res.body).to.have.property('data');
-        done(err);
+      .delete("/api/buses/delete-bus/1")
+      .set("Authorization", `Bearer ${token}`)
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
       });
   });
 
+  it("Testing internal server error for deleting non-existent bus", (done) => {
+    router()
+      .delete("/api/buses/delete-bus/999")
+      .set("Authorization", `Bearer ${token}`)
+      .end((error, response) => {
+        expect(response).to.have.status(NOT_FOUND);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.an("string");
+        done(error);
+      });
+  });
+
+  it("Testing internal server error for getting a non-existent bus", (done) => {
+    router()
+      .get("/api/buses/get-bus/999")
+      .end((error, response) => {
+        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.an("string");
+        done(error);
+      });
+  });
 });

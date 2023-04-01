@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { INTERNAL_SERVER_ERROR, OK,BAD_REQUEST,CREATED } from 'http-status'
+import { INTERNAL_SERVER_ERROR, OK,BAD_REQUEST,CREATED,NOT_FOUND } from 'http-status'
 
 import responseUtil from '../../../utils/responseUtil'
 import busesRepository from '../repository/busesRepository';
@@ -13,7 +13,8 @@ import busesRepository from '../repository/busesRepository';
     responseUtil.handleError(INTERNAL_SERVER_ERROR, err.toString())
     return responseUtil.response(res)
   }
-};
+}
+
 export const getBuses = async (req: Request,res: Response) => {
   try {
     const page:any = req.query.page || 1
@@ -33,7 +34,7 @@ export const getBus = async (req: Request, res: Response) => {
     const data = await busesRepository.getABus(id);
 
     if (!data) {
-      responseUtil.handleError(BAD_REQUEST, "Bus with that ID  doesn't exist");
+      responseUtil.handleError(INTERNAL_SERVER_ERROR, "Bus with that ID  doesn't exist");
       return responseUtil.response(res);
     }
 
@@ -66,7 +67,7 @@ export const deleteBus = async (req: Request, res: Response) =>{
         responseUtil.handleSuccess(OK, 'Success', data);
         return responseUtil.response(res);
     } catch (error: any) {
-        responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+        responseUtil.handleError(NOT_FOUND, error.toString());
         return responseUtil.response(res);
     }
 }
