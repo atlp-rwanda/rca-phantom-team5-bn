@@ -348,6 +348,11 @@
             "description": "Body Request",
             "schema": { "$ref": "#/definitions/Buses" }
           }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
         ]
       }
     },
@@ -385,6 +390,11 @@
             "description": "Body Request",
             "schema": { "$ref": "#/definitions/Buses" }
           }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
         ]
       }
     },
@@ -416,6 +426,11 @@
             "required": true,
             "description": "Bus Id",
             "schema": { "$ref": "#/definitions/Buses" }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
           }
         ]
       }
