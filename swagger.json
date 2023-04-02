@@ -514,7 +514,7 @@
        "schema": { "$ref": "#/definitions/Buses" }
       }
     },
-
+    
     "/buses/get-bus/{id}": {
       "get": {
         "tags": [
@@ -522,62 +522,6 @@
         ],
         "summary": " (Get Bus With GET Route)",
         "description": "By the use of this GET endpoint, you will be able to get a bus",
-        "responses": {
-
-          "200": {
-            "description": "OK."
-          },
-          "400": {
-         "description": "BAD_REQUEST."
-            "description": "BAD_REQUEST."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          }
-        },
-
-       "schema": { "$ref": "#/definitions/Buses" }
-      }
-    },
-
-    "/buses/get-bus/{id}": {
-      "get": {
-        "tags": [
-          "Bus Routes"
-        ],
-        "summary": " (Get Bus With GET Route)",
-        "description": "By the use of this GET endpoint, you will be able to get a bus",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "Bus Id",
-            "schema": { "$ref": "#/definitions/Buses" }
-          }
-        ]
-      }
-    },
-
-    "/buses/update-bus/{id}": {
-      "put": {
-        "tags": [
-          "Bus Routes"
-        ],
-        "summary": " (Update Bus With PUT Route)",
-        "description": "By the use of this PUT endpoint, you will be able to update a bus",
-        "responses": {
-          "200": {
-            "description": "OK."
-          },
-          "400": {
-            "description": "BAD_REQUEST."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          }
-        },
         "parameters": [
           {
             "in": "path",
