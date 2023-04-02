@@ -4,10 +4,10 @@ import { Request, Response, NextFunction } from "express";
 
 const validateCreateRoute = (  req: Request,  res: Response,  next: NextFunction) => {
   const bodySchema = Joi.object({
-    route_name: Joi.string(),
-    start: Joi.string(),
-    end: Joi.string(),
-    stops: Joi.array().min(1).items(Joi.string()),
+    route_name: Joi.string().required(),
+    start: Joi.string().required(),
+    end: Joi.string().required(),
+    stops: Joi.array().min(1).items(Joi.string()).required(),
   }).options({ abortEarly: false });
   return validateSchema(bodySchema, req.body, res, next);
 };

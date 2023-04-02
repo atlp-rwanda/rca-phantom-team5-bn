@@ -9,7 +9,11 @@
       "email": ""
     }
   },
-  "host": "localhost:3000",
+  
+  "host-loc": "localhost:3000",
+  "host-live": "localhost:3000",
+  "host": "phatom-team-5.herokuapp.com",
+
   "securityDefinitions": {
     "jwt": {
       "type": "apiKey",
@@ -18,7 +22,9 @@
       "description": "JWT authentication using the Bearer scheme. Enter the JWT token in the format 'Bearer {token}'."
     }
   },
+
   "basePath": "/api",
+
   "tags": [
     {
       "name": "Initial Route",
@@ -35,25 +41,24 @@
     {
       "name": "Admin Routes",
       "description": "Admin endpoints | GET Route"
-    },
-    {
-      "name": "Routes Routes",
-      "description": "Routes endpoints | GET Route"
     }
-
   ],
+
   "schemes": [
     "http",
     "https"
   ],
+
   "consumes": [
     "application/json",
     "none"
   ],
+
   "produces": [
     "application/json",
     "none"
   ],
+
   "paths": {
     "/": {
       "get": {
@@ -69,6 +74,7 @@
         }
       }
     },
+
     "/auth/signin": {
       "post": {
         "tags": [
@@ -101,6 +107,7 @@
         ]
       }
     },
+
     "/auth/register-user": {
       "post": {
         "tags": [
@@ -143,6 +150,7 @@
         ]
       }
     },
+
     "/auth/logout": {
       "delete": {
         "summary": "Log out a user",
@@ -197,6 +205,7 @@
         ]
       }
     },
+   
     "/users/update-profile": {
       "put": {
         "tags": [
@@ -204,6 +213,11 @@
         ],
         "summary": " (Update User With PUT Route)",
         "description": "By the use of this PUT endpoint, you will be able to update a user account",
+        "security":[
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK."
@@ -220,6 +234,20 @@
         },
         "parameters": [
           {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "user Id"
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description":"parsing a session/token in the hearder authorization with Bearer Session. Ex: ( Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6Me )"
+          },
+          {
             "in": "body",
             "name": "body",
             "type": "object",
@@ -229,14 +257,10 @@
               "$ref": "#/definitions/UpdateProfile"
             }
           }
-        ],
-        "security": [
-          {
-            "jwt": []
-          }
         ]
       }
     },
+
     "/admins/get-user/{id}": {
       "get": {
         "tags": [
@@ -271,53 +295,7 @@
         ]
       }
     },
-
-    "/routes/get-routes":{
-      "get": {
-        "tags":[
-          "Routes Routes"
-        ],
-        "summary": "(Get all the routes with GET Route)",
-        "description": "By the use of this GET endpoint, you will be able to get all routes",
-        "responses": {
-          "200": {
-            "description": "OK."
-          },
-          "500": {
-            "description":"BAD_REQUEST."
-          }
-        }
-      }
-    },
-    "/routes/get-route/{id}":{
-      "get":{
-        "tags": [
-          "Routes Routes"
-        ],
-        "summary": " (Get a single route with GET Route)",
-        "description": "By the use of this GET endpoint, you will be able to retrieve a single route",
-        "responses":{
-          "200": {
-            "description": "OK."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          },
-          "500": {
-            "description":"BAD_REQUEST."
-          }
-        },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "route Id"
-          }
-        ]
-      }
-    },
+    
     "/routes/create-routes":{
       "post":{
         "tags": [
@@ -352,6 +330,55 @@
         ]
       }
     },
+
+    "/routes/get-routes":{
+      "get": {
+        "tags":[
+          "Routes Routes"
+        ],
+        "summary": "(Get all the routes with GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get all routes",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "500": {
+            "description":"BAD_REQUEST."
+          }
+        }
+      }
+    },
+
+    "/routes/get-route/{id}":{
+      "get":{
+        "tags": [
+          "Routes Routes"
+        ],
+        "summary": " (Get a single route with GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to retrieve a single route",
+        "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          },
+          "500": {
+            "description":"BAD_REQUEST."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "route Id"
+          }
+        ]
+      }
+    },
+
     "/routes/update-route/{id}":{
       "put":{
         "tags": [
@@ -396,6 +423,7 @@
         ]
       }
     },
+
     "/routes/delete-route/{id}":{
       "delete":{
         "tags": [
@@ -429,8 +457,208 @@
           }
         ]
       }
+    },
+
+    "/buses/create-bus": {
+      "post": {
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": "(Create a new bus with POST route}",
+        "description": "By the use of this POST endpoint, you will be able to a new bus",
+        "responses": {
+          "201": {
+            "description": "CREATED."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/Buses" }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+
+    "/buses/get-buses": {
+      "get": {
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": " (Get all buses With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get all buses",
+        "responses": {
+
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+         "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+       "schema": { "$ref": "#/definitions/Buses" }
+      }
+    },
+    
+    "/buses/get-bus/{id}": {
+      "get": {
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": " (Get Bus With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get a bus",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Bus Id",
+            "schema": { "$ref": "#/definitions/Buses" }
+          }
+        ]
+      }
+    },
+
+    "/buses/update-bus/{id}": {
+      "put": {
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": " (Update Bus With PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update a bus",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Bus Id"
+          },{
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/Buses" }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+
+    "/buses/delete-bus/{id}": {
+      "delete": {
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": " (Delete Bus With DELETE Route)",
+        "description": "By the use of this DELETE endpoint, you will be able to delete a bus",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Bus Id",
+            "schema": { "$ref": "#/definitions/Buses" }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+
+    "/users/update-profile/{id}": {
+      "put": {
+        "tags": [
+          "User Routes"
+        ],
+        "summary": " (Update User With PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update a user account",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "401": {
+            "description": "UNAUTHORIZED."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "user Id"
+          },{
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/UpdateProfile" }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
     }
   },
+
   "components": {
     "securitySchemes": {
       "bearerAuth": {
@@ -442,6 +670,7 @@
       }
     }
   },
+
   "definitions": {
     "Users": {
       "type": "object",
@@ -466,7 +695,7 @@
         "driver_licence": {
           "type": "array",
           "required": true,
-          "example": "[\"A\",\"B\",\"C\",\"D\",\"E\",\"F\"]"
+          "example": "['A','B','C','D','E','F']"
         },
         "nid": {
           "type": "string",
@@ -475,6 +704,7 @@
         }
       }
     },
+
     "Signin": {
       "type": "object",
       "properties": {
@@ -495,6 +725,7 @@
         }
       }
     },
+
     "UpdateProfile": {
       "type": "object",
       "properties": {
@@ -506,29 +737,27 @@
           "type": "string",
           "example": "Doe"
         },
-        "driver_licence": {
+        "nid": {
           "type": "string",
           "required": true,
-          "example": ""
+          "example": "1920786767665547"
         }
       }
     },
+
     "Routes":{
       "type":"object",
       "properties": {
         "route_name":{
           "type":"string",
-          "required": true,
           "example": "Kimironko-Town"
         },
         "start":{
           "type":"string",
-          "required": true,
           "example": "Kimironko"
         },
         "end":{
           "type":"string",
-          "required": true,
           "example": "Town"
         },
         "stops":{
@@ -536,6 +765,28 @@
           "example": "[\"Rando\",\"KBC\",\"KH\"]"
         }
       }
+    },
+
+    "Buses": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Toyota Corolla"
+        },
+        "available_sits": {
+          "type": "number",
+          "example": 5
+        },
+        "model": {
+          "type": "string",
+          "example": "XLi"
+        },
+        "plate_number": {
+          "type": "string",
+          "example": "ABC-123"
+        }
+      }
     }
   }
-}
+  }
