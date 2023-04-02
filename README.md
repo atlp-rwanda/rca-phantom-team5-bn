@@ -9,7 +9,7 @@ ELEVATE THE PUBLIC TRANSPORT EXPERIENCE
 
 #### Hosted Swagger Documentation
 
-https://phatom-team-5.onrender.com/api-docs 
+https://phatom-team-5.herokuapp.com/api/api-docs
 
 #### Github Repository For Phantom Backend
 
