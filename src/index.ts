@@ -13,6 +13,7 @@ const port = process.env.PORT || 3003
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
+
 app.use('/api', routes)
 app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
