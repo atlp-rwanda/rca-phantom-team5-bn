@@ -15,6 +15,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
         declare available_sits: number;
         declare model: string;
         declare plate_number: string;
+        static associate(models: any) {
+          buses.belongsToMany(models.routes, { through: 'buses_routes',  foreignKey: 'bus_id' })
+      }
       }
   
 buses.init(

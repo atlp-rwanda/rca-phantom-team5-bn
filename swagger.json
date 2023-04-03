@@ -41,6 +41,10 @@
     {
       "name": "Admin Routes",
       "description": "Admin endpoints | GET Route"
+    },
+    {
+      "name": "Buses Routes",
+      "description": "Buses endpoints | GET Route"
     }
   ],
 
@@ -462,7 +466,7 @@
     "/buses/create-bus": {
       "post": {
         "tags": [
-          "Bus Routes"
+          "Buses Routes"
         ],
         "summary": "(Create a new bus with POST route}",
         "description": "By the use of this POST endpoint, you will be able to a new bus",
@@ -613,41 +617,52 @@
       }
     },
 
-    "/users/update-profile/{id}": {
-      "put": {
+    "/busesRoutes/assigned-bus": {
+      "get": {
         "tags": [
-          "User Routes"
+          "Buses Routes"
         ],
-        "summary": " (Update User With PUT Route)",
-        "description": "By the use of this PUT endpoint, you will be able to update a user account",
+        "summary": " (Get assign a Bus to a Route With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to assign a bus to a route",
         "responses": {
           "200": {
             "description": "OK."
           },
           "400": {
             "description": "BAD_REQUEST."
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+
+    "/busesRoutes/assign-bus": {
+      "post": {
+        "tags": [
+          "Buses Routes"
+        ],
+        "summary": " (Assign a Bus to a Route With POST Route)",
+        "description": "By the use of this POST endpoint, you will be able to assign a bus to a route",
+        "responses": {
+          "200": {
+            "description": "OK."
           },
-          "401": {
-            "description": "UNAUTHORIZED."
-          },
-          "404": {
-            "description": "NOT_FOUND."
+          "400": {
+            "description": "BAD_REQUEST."
           }
         },
         "parameters": [
           {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "user Id"
-          },{
             "in": "body",
             "name": "body",
             "type": "object",
             "required": true,
             "description": "Body Request",
-            "schema": { "$ref": "#/definitions/UpdateProfile" }
+            "schema": { "$ref": "#/definitions/BusesRoutes" }
           }
         ],
         "security": [
@@ -785,6 +800,19 @@
         "plate_number": {
           "type": "string",
           "example": "ABC-123"
+        }
+      }
+    },
+    "BusesRoutes": {
+      "type": "object",
+      "bus_id": {
+        "name": {
+          "type": "number",
+          "example": 2
+        },
+        "route_id": {
+          "type": "number",
+          "example": 2
         }
       }
     }
