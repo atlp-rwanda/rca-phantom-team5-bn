@@ -111,7 +111,7 @@ const  resetUserPassword = async (req: any, res: Response) =>{
       const user = await authRepository.getUserById(req.params.userId) 
       const passwordHashed = hashPassword(req.body.password)
       const newpass={password:passwordHashed};
-      const data = await authRepository.resetPassword(req.params.userId,newpass);
+      const data = await usersRepository.updateUser(req.params.userId,newpass);
       sendEmail("https://phatom-team-5.herokuapp.com/api/auth/signin"," ",user.email,"Password Reset success","");
       responseUtil.handleSuccess(OK, 'Success', data);
       return responseUtil.response(res);
