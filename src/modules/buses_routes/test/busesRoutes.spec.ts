@@ -61,6 +61,22 @@ describe("Buses assignment to routes Test Cases", () => {
       });
   });
 
+  it("Should be able to get an error for assigning an already assigned bus", (done) => {
+    router()
+      .post("/api/busesRoutes/assign-bus")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        bus_id:2,
+        route_id: 3
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(BAD_REQUEST);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        done(error);
+      });
+  });
+
   it("Should be able to get an error for none-existing bus or route id for assignment creation", (done) => {
     router()
       .post("/api/busesRoutes/assign-bus")
@@ -70,10 +86,60 @@ describe("Buses assignment to routes Test Cases", () => {
         route_id: 999
       })
       .end((error, response) => {
-        expect(response).to.have.status(BAD_REQUEST);
+        expect(response).to.have.status(NOT_FOUND);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
         done(error);
       });
   });
+
+  it("Should be able to change the route of a bus", (done) => {
+    router()
+      .put("/api/busesRoutes/change-bus-route")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        bus_id:2,
+        route_id: 2
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  it("Should be able to get an error for changing a bus route which has never been assigned before", (done) => {
+    router()
+      .put("/api/busesRoutes/change-bus-route")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        bus_id:3,
+        route_id: 2
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(NOT_FOUND);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        done(error);
+      });
+  });
+
+  it("Should be able to get an error for changing a bus or route which does not exist", (done) => {
+    router()
+      .put("/api/busesRoutes/change-bus-route")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        bus_id:999,
+        route_id: 999
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(NOT_FOUND);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        done(error);
+      });
+  });
+  
 });

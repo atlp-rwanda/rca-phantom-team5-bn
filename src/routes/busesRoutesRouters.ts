@@ -8,5 +8,6 @@ const busesRoutesRouter = Router()
 busesRoutesRouter
 	.post('/assign-bus', userAuthorization(['operator']), validBusesRoutes, busesRoutesController.createBusToRoute)
 	.get('/assigned-bus', userAuthorization(['operator']), busesRoutesController.listAssignments)
+	.put('/change-bus-route', userAuthorization(['operator']), validBusesRoutes, busesRoutesController.updateRouteOfBus)
 																
 export default busesRoutesRouter
