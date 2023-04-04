@@ -611,51 +611,6 @@
           }
         ]
       }
-    },
-
-    "/users/update-profile/{id}": {
-      "put": {
-        "tags": [
-          "User Routes"
-        ],
-        "summary": " (Update User With PUT Route)",
-        "description": "By the use of this PUT endpoint, you will be able to update a user account",
-        "responses": {
-          "200": {
-            "description": "OK."
-          },
-          "400": {
-            "description": "BAD_REQUEST."
-          },
-          "401": {
-            "description": "UNAUTHORIZED."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          }
-        },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "user Id"
-          },{
-            "in": "body",
-            "name": "body",
-            "type": "object",
-            "required": true,
-            "description": "Body Request",
-            "schema": { "$ref": "#/definitions/UpdateProfile" }
-          }
-        ],
-        "security": [
-          {
-            "jwt": []
-          }
-        ]
-      }
     }
   },
 
@@ -737,10 +692,10 @@
           "type": "string",
           "example": "Doe"
         },
-        "nid": {
+        "driver_licence": {
           "type": "string",
           "required": true,
-          "example": "1920786767665547"
+          "example": ""
         }
       }
     },

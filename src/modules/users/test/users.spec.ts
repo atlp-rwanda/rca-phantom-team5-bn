@@ -68,8 +68,7 @@ describe("Users test cases", () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         fname: "Jane",
-        lname: "Doene",
-        driver_licence:["A"]
+        lname: "Doene"
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);
