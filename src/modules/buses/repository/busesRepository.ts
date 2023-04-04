@@ -12,7 +12,6 @@ const getBusByPlateNumber = async (plate_number: string) => {
 const getBuses = async (page = 1, limit = 2, route_id: number) => {
 
   const offset = (page - 1) * limit;
-  console.log("comming from repository ",route_id);
   if (route_id !== undefined) {
    const data = await buses.findAndCountAll({ where: { route_id }, limit, offset})
    return data;

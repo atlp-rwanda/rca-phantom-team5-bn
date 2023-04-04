@@ -7,7 +7,6 @@ const createRoutes = async (data: any) => {
 };
 
 const getRoutes = async (page = 1, limit = 2) => {
-  console.log(routes)
   const offset = (page - 1) * limit;
   const data = await routes.findAndCountAll({ limit, offset });
   return data;

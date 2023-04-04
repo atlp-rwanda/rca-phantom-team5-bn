@@ -27,12 +27,10 @@ export const getBuses = async (req: Request,res: Response) => {
     const page:any = req.query.page || 1
     const limit:any = req.query.limit || 2;
     const route_id: any = req.query.route_id;
-    console.log(route_id);
    const data = await busesRepository.getBuses(page, limit, route_id);
     responseUtil.handleSuccess(OK, 'Success', data)
     return responseUtil.response(res);
   } catch (error: any) {
-    console.log(error)
     responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
     return responseUtil.response(res);    
   }
