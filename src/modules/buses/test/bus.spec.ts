@@ -10,7 +10,6 @@ import {
 } from "http-status";
 import models from "../../../database/models/index";
 import app from "../../../index";
-const { buses } = models;
 
 chai.use(chaiHttp);
 const router = () => chai.request(app);
@@ -76,6 +75,7 @@ describe("Buses Test Cases", () => {
         name: "Toyota Corolla",
         modal: "XLi",
         available_sits: 5,
+        driverId: 1
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);
@@ -94,7 +94,8 @@ describe("Buses Test Cases", () => {
           name: "Toyota Corolla",
           available_sits: 5,
           model: "XLi",
-          plate_number: "ABC-123"
+          plate_number: "ABC-123",
+          driverId: 1
       })
       .end((error, response) => {
         expect(response).to.have.status(CREATED);

@@ -7,6 +7,7 @@ const busOne = {
   available_sits: 5,
   model: 'XLi',
   plate_number: 'ABC-123',
+  driverId: 1
 
 }
 const up = (queryInterface: QueryInterface) => queryInterface.bulkInsert('buses', [busOne])

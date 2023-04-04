@@ -8,4 +8,5 @@ module.exports = { async up(queryInterface: QueryInterface) { await queryInterfa
     name: { type: DataTypes.STRING },
     available_sits: { type: DataTypes.INTEGER },
     model: { type: DataTypes.STRING },
+    driverId: { type: DataTypes.INTEGER, allowNull: false, references: { model: 'users',key: 'id' }}
 }) }, async down(queryInterface: QueryInterface) { await queryInterface.dropTable('buses') }, }

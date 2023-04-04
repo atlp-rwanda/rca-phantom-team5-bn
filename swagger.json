@@ -522,6 +522,18 @@
         ],
         "summary": " (Get Bus With GET Route)",
         "description": "By the use of this GET endpoint, you will be able to get a bus",
+        "responses": {
+
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+         "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
         "parameters": [
           {
             "in": "path",
@@ -785,6 +797,10 @@
         "plate_number": {
           "type": "string",
           "example": "ABC-123"
+        },
+        "driverId": {
+          "type": "number",
+          "example": 1
         }
       }
     }

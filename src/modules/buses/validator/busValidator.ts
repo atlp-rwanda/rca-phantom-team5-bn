@@ -8,6 +8,7 @@ const validateCreateBus = (  req: Request,  res: Response,  next: NextFunction) 
     name: Joi.string().required(),
     model: Joi.string().required(),
     available_sits: Joi.number().required(),
+    driverId: Joi.number().required()
   }).options({ abortEarly: false });
   return validateSchema(bodySchema, req.body, res, next);
 };
@@ -16,8 +17,9 @@ const validateUpdateBus = (  req: Request,  res: Response,  next: NextFunction) 
     const bodySchema = Joi.object({
       plate_number: Joi.string(),
       name: Joi.string(),
-      modal: Joi.string(),
+      model: Joi.string(),
       available_sits: Joi.number(),
+      driverId: Joi.number()
     }).options({ abortEarly: false });
     return validateSchema(bodySchema, req.body, res, next);
   };

@@ -30,4 +30,4 @@ const updateBus = async (busId: number, busData: any) => {
   return await getBusById(busId);
 }
 
-export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus,updateBus}
+export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus,updateBus }

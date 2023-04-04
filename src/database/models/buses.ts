@@ -4,7 +4,8 @@ interface BusesAttributes {
    plate_number: string;
    name: string;
    model: string;
-   available_sits:number
+   available_sits: number,
+   driverId: number
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -15,8 +16,16 @@ module.exports = (sequelize: any, DataTypes: any) => {
         declare available_sits: number;
         declare model: string;
         declare plate_number: string;
-      }
-  
+        declare driverId: number;
+    
+      static associate(models:any) {
+      buses.belongsTo(models.users, {
+        foreignKey: 'driverId',
+        as: 'driver',
+      });
+    }
+  }
+
 buses.init(
   {
     id: {
@@ -27,7 +36,7 @@ buses.init(
     plate_number: {
       type: DataTypes,
       allowNull: false,
-      unique:true
+      unique: true
     },
     name: {
       type: DataTypes.STRING,
@@ -41,6 +50,10 @@ buses.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    driverId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
 
   },
   {

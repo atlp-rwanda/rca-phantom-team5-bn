@@ -25,8 +25,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
            declare nid: string;
            declare email: string;
            declare password: string;
-  static associate(models: any) {
-                users.hasMany(models.users_sessions, { as: 'users_sessions', foreignKey: 'user_id' })
+    static associate (models: any) {
+      users.hasMany(models.users_sessions, { as: 'users_sessions', foreignKey: 'user_id' }),
+      users.hasMany(models.buses, {foreignKey: 'driverId', as: 'buses' });
             }
         }
     
