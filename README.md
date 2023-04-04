@@ -35,9 +35,6 @@ https://github.com/atlp-rwanda/rca-phantom-team5-bn
 - Get one bus Endpoint
 - Update a bus Endpoint
 - Delete a bus Endpoint
-- Assign a bus to a route Endpoint
-- Get all assigned bus and their routes Endpoint
-- change a bus route Endpoint
 
 ## POSTMAN COLLECTION URL
 https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
@@ -65,8 +62,5 @@ https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 | 15 | GET    | /api/buses/get-bus/:id               | 200 OK       | public      | get one bus by bus id                      |
 | 16 | UPDATE | /api/buses/update-bus/:id            | 200 OK       | privated    | update a bus by bus id                     |
 | 17 | DELETE | /api/buses/delete-bus/:id            | 200 OK       | privated    | delete by by bus id                        |
-| 18 | GET    | /api/busesRoutes/assigned-bus        | 200 OK       | privated    | Get assign a Bus                           |
-| 19 | POST   | /api/busesRoutes/assign-bus          | 200 OK       | privated    | Assign a Bus to a Route                    |
-| 20 | PUT    | /api/busesRoutes/change-bus-route    | 200 OK       | privated    | change a Bus route                         |
 
 

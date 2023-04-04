@@ -9,9 +9,16 @@ const getBusByPlateNumber = async (plate_number: string) => {
   return await buses.findOne({ where: { plate_number } });
 };
 
-const getBuses = async (page = 1, limit = 2) => {
+const getBuses = async (page = 1, limit = 2, route_id: number) => {
+
   const offset = (page - 1) * limit;
-  const data = await buses.findAndCountAll({ limit, offset })
+  console.log("comming from repository ",route_id);
+  if (route_id !== undefined) {
+   const data = await buses.findAndCountAll({ where: { route_id }, limit, offset})
+   return data;
+  }
+  
+  const data = await buses.findAndCountAll({ limit, offset})
   return data
 }
 
