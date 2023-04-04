@@ -14,6 +14,7 @@ const validateCreateBus = (  req: Request,  res: Response,  next: NextFunction) 
 
 const validateUpdateBus = (  req: Request,  res: Response,  next: NextFunction) => {
     const bodySchema = Joi.object({
+      route_id: Joi.number(),
       plate_number: Joi.string(),
       name: Joi.string(),
       modal: Joi.string(),

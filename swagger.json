@@ -41,6 +41,14 @@
     {
       "name": "Admin Routes",
       "description": "Admin endpoints | GET Route"
+    },
+    {
+      "name": "Buses Routes",
+      "description": "Buses endpoints | GET Route"
+    },
+    {
+      "name": "BusRoutes Routes",
+      "description": "BusRoutes endpoints | GET Route"
     }
   ],
 
@@ -462,7 +470,7 @@
     "/buses/create-bus": {
       "post": {
         "tags": [
-          "Bus Routes"
+          "Buses Routes"
         ],
         "summary": "(Create a new bus with POST route}",
         "description": "By the use of this POST endpoint, you will be able to a new bus",
@@ -740,6 +748,19 @@
         "plate_number": {
           "type": "string",
           "example": "ABC-123"
+        }
+      }
+    },
+    "BusesRoutes": {
+      "type": "object",
+      "bus_id": {
+        "name": {
+          "type": "number",
+          "example": 2
+        },
+        "route_id": {
+          "type": "number",
+          "example": 2
         }
       }
     }
