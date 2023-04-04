@@ -43,12 +43,9 @@ const deleteUserSession =async(user_id: string)=>{
    await users_sessions.destroy({ where: { user_id } }) 
 }
 
-const resetPassword = async (user_id: number, password: any) => {
-  await users.update(password, { where: { id: user_id }})
+const resetPassword = async (user_id: number, data: any) => {
+  await users.update(data, { where: { id: user_id }})
     return await users.findOne({ where: { id:user_id } });
 };
-
-
-
 
 export default { getUserByEmail, getUserByNid, getUserById, registerUsers, getUserSessionByUserId, createUserSession, deleteUserSession,resetPassword}

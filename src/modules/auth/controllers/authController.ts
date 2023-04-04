@@ -74,10 +74,36 @@ const logout = async (req: any, res: Response) => {
   }
 };
 
+
+
+const resetPasswordEmail = async (req: any, res: Response) =>{
+  try{
+  const emailExist = await authRepository.getUserByEmail(req.body.email);
+  if (!emailExist) {
+    responseUtil.handleError(BAD_REQUEST, 'Email Not found');
+    return responseUtil.response(res);
+  }
+    const userSession: any = { user_id: emailExist.id, device_id: req.body.device_id };
+    await authRepository.createUserSession(userSession);
+    const link = `${process.env.BASE_URL}/password-reset/${emailExist.id}/${userSession.access_token}`;
+    await sendEmail(link," ",req.body.email,"Reset Password Link","");
+    responseUtil.handleError(OK, 'password reset link sent to your email: '+ req.body.email);
+    return responseUtil.response(res);
+}catch (error: any) {
+  responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+  return responseUtil.response(res);
+}
+
+}
+
 const  resetUserPassword = async (req: any, res: Response) =>{
   try {
-      const password = hashPassword(req.body.password)
-      const data = await authRepository.resetPassword(req.user.id,password);
+   
+      const user = await authRepository.getUserById(req.params.userId) 
+      const passwordHashed = hashPassword(req.body.password)
+      const newpass={password:passwordHashed};
+      const data = await authRepository.resetPassword(req.params.userId,newpass);
+      sendEmail("https://phatom-team-5.herokuapp.com/api/auth/signin"," ",user.email,"Password Reset success","");
       responseUtil.handleSuccess(OK, 'Success', data);
       return responseUtil.response(res);
   } catch (error: any) {
@@ -87,4 +113,4 @@ const  resetUserPassword = async (req: any, res: Response) =>{
 }
 
 
-export default { registerUsers, signIn, logout , resetUserPassword};
+export default { registerUsers, signIn, logout ,resetPasswordEmail,resetUserPassword};
