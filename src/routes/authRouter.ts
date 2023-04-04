@@ -9,7 +9,7 @@ routesRouter
 	.post('/register-user',userAuthorization(['admin','super_admin']), validRegisterUser, authController.registerUsers)
 	.delete('/logout', authorizationToken, authController.logout)
 	.post('/signin', validSignIn, authController.signIn)
-	.post('/reset-email',authController.resetPasswordEmail)
+	.post('/password-reset',authController.resetPasswordEmail)
 	.put('/password-reset/:userId/:token',authController.resetUserPassword);
 	
 export default routesRouter;

@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
-import { BAD_REQUEST, CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK,CONFLICT } from "http-status";
+import { BAD_REQUEST, CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK,CONFLICT, UNAUTHORIZED } from "http-status";
 
 import sendEmail from "../../../services/mailService";
 import responseUtil from "../../../utils/responseUtil";
 import authRepository from "../repository/authRepository";
 import {  comparePassword, hashPassword } from "../../../utils/passwordUtils";
 import usersRepository from "../../users/repository/usersRepository";
+import { verifyToken } from "../../../utils/jwtUtil";
+
 
 const registerUsers = async (req:Request,res:Response) => {
   try{
@@ -98,7 +100,14 @@ const resetPasswordEmail = async (req: any, res: Response) =>{
 
 const  resetUserPassword = async (req: any, res: Response) =>{
   try {
-   
+    // token validation
+    const access_token = req.params.token
+    const decodedToken = verifyToken(access_token, process.env.SECRET_KEY as string);
+    const userSession = await authRepository.getUserSessionByUserId(decodedToken.user_id);
+    if (!userSession) {
+      responseUtil.handleError(UNAUTHORIZED, "Invalid token Retry to reset password again from start");
+      return responseUtil.response(res);
+    }
       const user = await authRepository.getUserById(req.params.userId) 
       const passwordHashed = hashPassword(req.body.password)
       const newpass={password:passwordHashed};
