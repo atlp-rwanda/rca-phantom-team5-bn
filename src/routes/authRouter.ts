@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import authController from '../modules/auth/controllers/authController';
-import { authorizationToken, userAuthorization } from '../middlewares/authMiddleware';
+import { authorizationToken, userAuthorization } from '../middlewares/middleware';
 import { validRegisterUser, validSignIn } from '../modules/auth/validation/authValidator';
 
 const routesRouter = Router();

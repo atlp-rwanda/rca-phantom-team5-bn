@@ -9,7 +9,7 @@ ELEVATE THE PUBLIC TRANSPORT EXPERIENCE
 
 #### Hosted Swagger Documentation
 
-https://unavailable.com/api/documentation
+https://phatom-team-5.herokuapp.com/api/api-docs
 
 #### Github Repository For Phantom Backend
 
@@ -26,9 +26,15 @@ https://github.com/atlp-rwanda/rca-phantom-team5-bn
 - Get profile Endpoint.
 - Get all users profile for admins and super admin Endpoint.
 - Update profile Endpoint.
-
-## POSTMAN COLLECTION URL
-https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
+- Get all routes Endpoint
+- Update a route Endpoint
+- Delete a route Endpoint
+- Get a route by id Endpoint
+- Create bus Endpoint
+- Get all buses Endpoint
+- Get one bus Endpoint
+- Update a bus Endpoint
+- Delete a bus Endpoint
 
 ## POSTMAN COLLECTION URL
 https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
@@ -46,4 +52,15 @@ https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 | 5  | GET    | /api/users/get-profile               | 200 OK       | privated    | view user profile                          |
 | 6  | GET    | /api/users/get-user/:id              | 200 OK       | privated    | admin and super admin can view users by id |
 | 7  | PUT    | /api/users/update-profile            | 200 OK       | privated    | update user profile                        |
+| 8  | GET    | /api/routes/get-routes               | 200 OK       | public      | Retrieve all routes                        |
+| 9  | GET    | /api/routes/get-route/:id            | 200 OK       | public      | Retrieve a route by a given ID             |
+| 10 | POST   | /api/routes/create-routes            | 201 CREATED  | privated    | Create a new route                         |
+| 11 | PUT    | /api/routes/update-route/:id         | 200 OK       | privated    | Update a route of a given ID               |
+| 12 | DELETE | /api/routes/delete-route/:id         | 200 OK       | privated    | Delete a route of a given ID               |
+| 13 | POST   | /api/buses/create-bus                | 2001 CREATED | privated    | create a bus                               |
+| 14 | GET    | /api/buses/get-buses                 | 200 OK       | public      | get all buses                              |
+| 15 | GET    | /api/buses/get-bus/:id               | 200 OK       | public      | get one bus by bus id                      |
+| 16 | UPDATE | /api/buses/update-bus/:id            | 200 OK       | privated    | update a bus by bus id                     |
+| 17 | DELETE | /api/buses/delete-bus/:id            | 200 OK       | privated    | delete by by bus id                        |
+
 

@@ -1,7 +1,8 @@
-'use strict'
 import { Model } from 'sequelize'
 
 interface UsersAttributes {
+    created_at: Date;
+    updated_at: Date;
     role: string;
     fname: string;
     lname: string;
@@ -14,6 +15,9 @@ interface UsersAttributes {
 module.exports = (sequelize: any, DataTypes: any) => {
     class users extends Model<UsersAttributes> 
         implements UsersAttributes {
+
+            declare created_at: Date;
+            declare updated_at: Date;
            declare role: string;
            declare fname: string;
            declare lname: string;
@@ -22,15 +26,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
            declare email: string;
            declare password: string;
   static associate(models: any) {
-                users.hasMany(models.users_sessions, {
-                    as: 'users_sessions',
-                    foreignKey: 'user_id',
-                })
+                users.hasMany(models.users_sessions, { as: 'users_sessions', foreignKey: 'user_id' })
             }
         }
     
     users.init(
         {
+            created_at: { field: 'created_at', type: DataTypes.DATE },
+            updated_at: { field: 'updated_at', type: DataTypes.DATE },
             role: { type: DataTypes.STRING },
             fname: { type: DataTypes.STRING },
             lname: { type: DataTypes.STRING },
