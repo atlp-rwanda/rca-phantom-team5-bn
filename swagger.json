@@ -700,10 +700,10 @@
           "type": "string",
           "example": "Doe"
         },
-        "nid": {
+        "driver_licence": {
           "type": "string",
           "required": true,
-          "example": "1920786767665547"
+          "example": ""
         }
       }
     },
