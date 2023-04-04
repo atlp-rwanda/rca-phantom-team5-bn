@@ -7,13 +7,16 @@ import * as swaggerDocument from '../swagger.json'
 
 dotenv.config()
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3003
+
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
+
 app.use('/api', routes)
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
 
 app.get('**', (req: Request, res: Response) => res.status(200).json({
     status: 200,
