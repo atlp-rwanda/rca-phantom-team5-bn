@@ -9,7 +9,6 @@ const busOne = {
   plate_number: 'ABC-1234',
 
 }
-
 const busTwo = {
   createdAt: new Date(),
   updatedAt: new Date(),

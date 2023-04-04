@@ -25,7 +25,7 @@ import busesRoutesRepository from '../repository/busesRoutesRepository';
   }
 }
 
-const getAssignments = async (req: Request, res: Response) => {
+const listAssignments = async (req: Request, res: Response) => {
   try {
       const page:any = req.query.page || 1;
       const limit:any = req.query.limit || 3;
@@ -38,4 +38,4 @@ const getAssignments = async (req: Request, res: Response) => {
   }
 };
 
-export default { createBusToRoute, getAssignments }
+export default { createBusToRoute, listAssignments }

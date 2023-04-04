@@ -8,7 +8,6 @@ const routeOne = {
   end: 'Town',
   stops: ['Rando','RDB','KBC','KH']
 }
-
 const routetwo = {
   createdAt: new Date(),
   updatedAt: new Date(),
