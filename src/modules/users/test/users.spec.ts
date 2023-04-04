@@ -54,9 +54,10 @@ describe("Users test cases", () => {
       .get("/api/users/get-profile")
       .set('Authorization', `Bearer ${token}`)
       .end((error, response) => {
-        expect(response).to.have.status(UNAUTHORIZED);
+        expect(response).to.have.status(OK);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
         done(error);
       });
   });
@@ -67,8 +68,7 @@ describe("Users test cases", () => {
       .set('Authorization', `Bearer ${token}`)
       .send({
         fname: "Jane",
-        lname: "Doene",
-        driver_licence:["A"]
+        lname: "Doene"
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);
