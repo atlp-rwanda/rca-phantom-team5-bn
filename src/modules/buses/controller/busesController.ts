@@ -23,8 +23,9 @@ import busesRepository from '../repository/busesRepository';
 export const getBuses = async (req: Request,res: Response) => {
   try { 
     const page:any = req.query.page || 1
-    const limit:any = req.query.limit || 10;
-   const data = await busesRepository.getBuses(page,limit);
+    const limit: any = req.query.limit || 10;
+    const router_id:any=req.query.router_id
+   const data = await busesRepository.getBuses(page,limit,router_id);
     responseUtil.handleSuccess(OK, 'Success', data)
     return responseUtil.response(res);
   } catch (error: any) {
