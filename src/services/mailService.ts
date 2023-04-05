@@ -49,8 +49,7 @@ const sendEmail = async (url:string, name:string, to:string, action:string,pass:
             <tr valign='top'>
               <td align=''>
                 <table> <h2 style='color: #233862'> ${name} Reset Password</h2> </table>
-                <table> <p> You can use the link below to reset your ,
-                  sign in password to phantom transport
+                <table> <p> You can use the link below to reset your password to phantom transport
                  </p> </table>
                 <table> <p>Follow this link <a href='${url}'>${url}</a> </p></table>
                   <p>Best regards,<br>Phantom Transport</p>    

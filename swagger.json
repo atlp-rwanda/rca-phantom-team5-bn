@@ -13,6 +13,7 @@
   "host-loc": "localhost:3000",
   "host-live": "localhost:3000",
   "host": "phatom-team-5.herokuapp.com",
+ 
 
   "securityDefinitions": {
     "jwt": {
@@ -151,7 +152,7 @@
       }
     },
     
-    "/auth/password-reset": {
+    "/auth/reset-password-email": {
       "post": {
         "tags": [
           "Auth Routes"
@@ -182,7 +183,7 @@
     },
 
     
-    "/auth/password-reset/{token}": {
+    "/auth/reset-password/{token}": {
       "put": {
         "tags": [
           "Auth Routes"
@@ -748,6 +749,11 @@
       "type": "object",
       "properties": {
         "password": {
+          "type": "string",
+          "required": true,
+          "example": "your-new password"
+        },
+        "confirm_password": {
           "type": "string",
           "required": true,
           "example": "your-new password"
