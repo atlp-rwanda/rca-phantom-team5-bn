@@ -167,7 +167,8 @@ it('Signin should have three properties: email, password, device_id', (done) => 
     router()
       .put(`/api/auth/reset-password/${access_token}`)
       .send({       
-        password:"peter!123$"       
+        password:"peter!123$",
+        confirm_password:"peter!123$"      
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);
@@ -179,6 +180,24 @@ it('Signin should have three properties: email, password, device_id', (done) => 
   
   //logout
 
+  it('Signin should return a user_session on successful signin', (done) => {
+    router()
+      .post('/api/auth/signin')
+      .send({
+      email: 'peter@demo.com',
+      password: 'peter!123$',
+      device_id: 'MC-123',
+      })
+      .end((error, response) => {
+        access_token = response.body.data.access_token
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.have.property('data');
+        done(error);
+      });
+  });
+  
   it('logout success', (done) => {
     router()
       .delete('/api/auth/logout')
