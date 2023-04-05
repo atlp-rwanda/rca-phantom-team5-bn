@@ -44,7 +44,4 @@ const deleteUserSession =async(user_id: string)=>{
 }
 
 
-
-
-
 export default { getUserByEmail, getUserByNid, getUserById, registerUsers, getUserSessionByUserId, createUserSession, deleteUserSession}
