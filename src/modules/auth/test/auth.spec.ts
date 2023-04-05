@@ -162,23 +162,21 @@ it('Signin should have three properties: email, password, device_id', (done) => 
   });
 
 
-  // reset password
-
- 
-  // it('Reset password success', (done) => {
-  //   router()
-  //     .put(`/api/auth/password-reset/3/${access_token}`)
-  //     .set('Authorization', `Bearer ${access_token}`)
-  //     .send({       
-  //       password:"289129"       
-  //     })
-  //     .end((error, response) => {
-  //       expect(response).to.have.status(OK);
-  //       expect(response.body).to.be.a('object');
-  //       expect(response.body.message).to.be.a('string');
-  //       done(error);
-  //     });
-  // }); 
+  // reset password 
+  it('Reset password success', (done) => {
+    router()
+      .put(`/api/auth/password-reset/3/${access_token}`)
+      .send({       
+        password:"peter!123$"       
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        done(error);
+      });
+  }); 
+  
   //logout
 
   it('logout success', (done) => {
