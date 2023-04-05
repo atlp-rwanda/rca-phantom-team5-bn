@@ -182,7 +182,7 @@
     },
 
     
-    "/auth/password-reset/{id}/{token}": {
+    "/auth/password-reset/{token}": {
       "put": {
         "tags": [
           "Auth Routes"
@@ -199,14 +199,6 @@
         },
     
         "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "user Id in the link sent"            
-          },
-          
           {
             "in": "path",
             "name": "token",
@@ -758,7 +750,7 @@
         "password": {
           "type": "string",
           "required": true,
-          "example": "your-email@gmail.com"
+          "example": "your-new password"
         }
       }
     },

@@ -165,7 +165,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
   // reset password 
   it('Reset password success', (done) => {
     router()
-      .put(`/api/auth/password-reset/3/${access_token}`)
+      .put(`/api/auth/password-reset/${access_token}`)
       .send({       
         password:"peter!123$"       
       })

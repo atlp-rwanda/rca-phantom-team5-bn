@@ -10,7 +10,7 @@ routesRouter
 	.delete('/logout', authorizationToken, authController.logout)
 	.post('/signin', validSignIn, authController.signIn)
 	.post('/password-reset',authController.resetPasswordEmail)
-	.put('/password-reset/:userId/:token',authController.resetUserPassword);
+	.put('/password-reset/:token',authController.resetUserPassword);
 	
 export default routesRouter;
  

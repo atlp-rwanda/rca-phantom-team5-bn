@@ -87,7 +87,7 @@ const resetPasswordEmail = async (req: any, res: Response) =>{
   }
     const userSession: any = { user_id: emailExist.id, device_id: req.body.device_id };
     await authRepository.createUserSession(userSession);
-    const link = `${process.env.BASE_URL}/password-reset/${emailExist.id}/${userSession.access_token}`;
+    const link = `${process.env.BASE_URL}/password-reset/${userSession.access_token}`;
     await sendEmail(link," ",req.body.email,"Reset Password Link","");
     responseUtil.handleError(OK, 'password reset link sent to your email: '+ req.body.email);
     return responseUtil.response(res);
@@ -108,10 +108,10 @@ const  resetUserPassword = async (req: any, res: Response) =>{
       responseUtil.handleError(UNAUTHORIZED, "Invalid token Retry to reset password again from start");
       return responseUtil.response(res);
     }
-      const user = await authRepository.getUserById(req.params.userId) 
+      const user = await authRepository.getUserById(decodedToken.user_id) 
       const passwordHashed = hashPassword(req.body.password)
       const newpass={password:passwordHashed};
-      const data = await usersRepository.updateUser(req.params.userId,newpass);
+      const data = await usersRepository.updateUser(decodedToken.user_id,newpass);
       sendEmail("https://phatom-team-5.herokuapp.com/api/auth/signin"," ",user.email,"Password Reset success","");
       responseUtil.handleSuccess(OK, 'Success', data);
       return responseUtil.response(res);
