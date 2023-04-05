@@ -21,11 +21,11 @@ const findUsersWithDriverRole = async (req: Request, res: Response) => {
     return responseUtil.response(res);
   }
 }
-const assignDriverToBus = async (req: Request, res: Response) => {
+const assignDriverToBus = async (req: any, res: Response) => {
   try {
-      const { busId, driverId } = req.body;
+      const {driverId } = req.body;
     
-    const bus = await assignBusesToDrivers.setDriver(driverId, busId);
+    const bus = await assignBusesToDrivers.setDriver(driverId, req.params.id);
     if (!bus) {
        responseUtil.handleError(NOT_FOUND, "There is no bus to update");
       return responseUtil.response(res);

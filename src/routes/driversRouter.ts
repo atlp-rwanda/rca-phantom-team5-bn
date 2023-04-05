@@ -1,9 +1,10 @@
 import { Router } from 'express'
 import { userAuthorization } from '../middlewares/middleware'
 import assignBusesToDrivers from '../modules/buses_drivers/controller/assignBusesToDrivers'
-const operatorRouter = Router()
+import { validateAssignBusToDriver } from '../modules/buses_drivers/validator/assignBusToDriverValidator'
+const driverRouter = Router()
 
-operatorRouter.get("/get-drivers", userAuthorization(['operator']), assignBusesToDrivers.findUsersWithDriverRole)
-operatorRouter.post("/assign-driver-to-bus", userAuthorization(['operator']), assignBusesToDrivers.assignDriverToBus)
+driverRouter.get("/get-drivers", userAuthorization(['operator']), assignBusesToDrivers.findUsersWithDriverRole)
+driverRouter.post("/assign-driver-to-bus/bus/:id", validateAssignBusToDriver,  assignBusesToDrivers.assignDriverToBus)
 
-export default operatorRouter;
+export default driverRouter;

@@ -28,9 +28,9 @@ const setDriver = async (driverId: string, busId: number) => {
   }
 
    await buses.update({ driverId: driverId }, { where: { id: busId } });
-   await users.update({ is_assigned: true }, { where: { id: driverId } });
+  await users.update({ is_assigned: true }, { where: { id: driverId } });
 
-  return bus
+   return bus
 
  }
 
