@@ -41,6 +41,14 @@
     {
       "name": "Admin Routes",
       "description": "Admin endpoints | GET Route"
+    },
+    {
+      "name": "Buses Routes",
+      "description": "Buses endpoints | GET Route"
+    },
+    {
+      "name": "BusRoutes Routes",
+      "description": "BusRoutes endpoints | GET Route"
     }
   ],
 
@@ -533,7 +541,7 @@
     "/buses/create-bus": {
       "post": {
         "tags": [
-          "Bus Routes"
+          "Buses Routes"
         ],
         "summary": "(Create a new bus with POST route}",
         "description": "By the use of this POST endpoint, you will be able to a new bus",
@@ -682,51 +690,6 @@
           }
         ]
       }
-    },
-
-    "/users/update-profile/{id}": {
-      "put": {
-        "tags": [
-          "User Routes"
-        ],
-        "summary": " (Update User With PUT Route)",
-        "description": "By the use of this PUT endpoint, you will be able to update a user account",
-        "responses": {
-          "200": {
-            "description": "OK."
-          },
-          "400": {
-            "description": "BAD_REQUEST."
-          },
-          "401": {
-            "description": "UNAUTHORIZED."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          }
-        },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "user Id"
-          },{
-            "in": "body",
-            "name": "body",
-            "type": "object",
-            "required": true,
-            "description": "Body Request",
-            "schema": { "$ref": "#/definitions/UpdateProfile" }
-          }
-        ],
-        "security": [
-          {
-            "jwt": []
-          }
-        ]
-      }
     }
   },
 
@@ -833,10 +796,10 @@
           "type": "string",
           "example": "Doe"
         },
-        "nid": {
+        "driver_licence": {
           "type": "string",
           "required": true,
-          "example": "1920786767665547"
+          "example": ""
         }
       }
     },
@@ -881,6 +844,19 @@
         "plate_number": {
           "type": "string",
           "example": "ABC-123"
+        }
+      }
+    },
+    "BusesRoutes": {
+      "type": "object",
+      "bus_id": {
+        "name": {
+          "type": "number",
+          "example": 2
+        },
+        "route_id": {
+          "type": "number",
+          "example": 2
         }
       }
     }

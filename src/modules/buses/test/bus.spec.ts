@@ -94,7 +94,7 @@ describe("Buses Test Cases", () => {
           name: "Toyota Corolla",
           available_sits: 5,
           model: "XLi",
-          plate_number: "ABC-123"
+          plate_number: "ABC-1234"
       })
       .end((error, response) => {
         expect(response).to.have.status(CREATED);

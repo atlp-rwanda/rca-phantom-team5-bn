@@ -4,7 +4,6 @@ const { users } = models;
 const getUsers = async () => {
   return await users.findAll({ order: [["id", "ASC"]] });
 };
-
 const getUserById = async (id: string) => {
   return await users.findOne({ where: { id } });
 };

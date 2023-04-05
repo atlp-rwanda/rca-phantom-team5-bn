@@ -5,7 +5,7 @@ const busOne = {
   updatedAt: new Date(),
   name: 'Toyota Corolla',
   available_sits: 5,
-  model: 'XLi',
+  model: 'XLiu',
   plate_number: 'ABC-123',
 
 }
