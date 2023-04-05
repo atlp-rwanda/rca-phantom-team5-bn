@@ -20,6 +20,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
             declare start: string;
             declare end: string;
             declare stops: Array<string>;
+            static associate(models: any) {
+                routes.hasMany(models.buses, { as: 'buses', foreignKey: 'route_id' })
+            }
     }
      routes.init(
         {

@@ -30,7 +30,7 @@ const userAuthorization = (roles: any) => {
         return ResponseUtil.response(res);
       }
 
-      req.admin = user;
+      req.user = user;
       next();
     } catch (error: any) {
       ResponseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());

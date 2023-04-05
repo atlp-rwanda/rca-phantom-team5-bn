@@ -1,6 +1,7 @@
 import {Model} from "sequelize"
 interface BusesAttributes {
    id: number;
+   route_id: number;
    plate_number: string;
    name: string;
    model: string;
@@ -12,6 +13,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
   class buses extends Model<BusesAttributes>
       implements BusesAttributes {
         declare id: number;
+        declare route_id: number;
         declare name: string;
         declare available_sits: number;
         declare model: string;
@@ -23,15 +25,20 @@ module.exports = (sequelize: any, DataTypes: any) => {
         foreignKey: 'driverId',
         as: 'driver',
       });
+          buses.belongsTo(models.routes, { as: 'routes', foreignKey: 'route_id' })
     }
   }
-
+  
 buses.init(
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+    },
+    route_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     },
     plate_number: {
       type: DataTypes,

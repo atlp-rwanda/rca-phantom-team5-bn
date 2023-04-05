@@ -19,19 +19,20 @@ import busesRepository from '../repository/busesRepository';
     return responseUtil.response(res)
   }
 }
+
 export const getBuses = async (req: Request,res: Response) => {
-  try {
+  try { 
     const page:any = req.query.page || 1
     const limit:any = req.query.limit || 10;
    const data = await busesRepository.getBuses(page,limit);
     responseUtil.handleSuccess(OK, 'Success', data)
     return responseUtil.response(res);
   } catch (error: any) {
-    console.log(error)
     responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
     return responseUtil.response(res);    
   }
 };
+
 export const getBus = async (req: any, res: Response) => {
   try {
     const data = await busesRepository.getBusById(req.params.id);
@@ -48,6 +49,7 @@ export const getBus = async (req: any, res: Response) => {
     return responseUtil.response(res);
   }
 }
+
 export const updateBus = async (req:any, res:Response) => {
   try {
     const bus = await busesRepository.getBusById(req.params.id);
@@ -64,6 +66,7 @@ export const updateBus = async (req:any, res:Response) => {
     return responseUtil.response(res);
   }
 }
+
 export const deleteBus = async (req: any, res: Response) => {
     try {
       const bus = await busesRepository.getBusById(req.params.id);
