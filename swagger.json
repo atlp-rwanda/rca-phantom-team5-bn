@@ -295,7 +295,68 @@
         ]
       }
     },
-    
+
+     "/drivers/get-drivers":{
+    "get":{
+       "tags":[
+          "Drivers Routes"
+        ],
+      "summary": "Get all drivers",
+      "description": "Returns a list of all users with role driver",
+      "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description":"BAD_REQUEST."
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+  }
+  },
+
+   "/drivers/assign-driver-to-bus":{
+      "post":{
+        "tags": [
+          "Drivers Routes"
+        ],
+        "summary": " (Assign bus ro driver with POST Route)",
+        "description": "By the use of this POST endpoint, you will be able to assign buses to driver",
+        "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description":"BAD_REQUEST."
+          },
+            "500": {
+            "description":"INTERNAL SERVER ERROR"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": {
+              "$ref": "#/definitions/AssignBusesToDrivers"
+            }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+
     "/routes/create-routes":{
       "post":{
         "tags": [
@@ -797,6 +858,19 @@
         "plate_number": {
           "type": "string",
           "example": "ABC-123"
+        },
+        "driverId": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+      "AssignBusesToDrivers": {
+      "type": "object",
+      "properties": {
+        "busId": {
+          "type": "number",
+          "example": 1
         },
         "driverId": {
           "type": "number",

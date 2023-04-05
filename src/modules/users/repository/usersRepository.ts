@@ -17,11 +17,5 @@ const updateUser = async (user_id: number, data: any) => {
     return await users.findOne({ where: { id:user_id } });
 };
 
-const findUsersWithDriverRole = async () => {
-  const drivers = await users.findAll({
-    where: { role: 'driver' }
-  })
-  return drivers;
-}
 
-export default { getUsers, getUserById, getUserByEmail, updateUser, findUsersWithDriverRole };
+export default { getUsers, getUserById, getUserByEmail, updateUser };

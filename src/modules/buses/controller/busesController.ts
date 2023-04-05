@@ -3,7 +3,6 @@ import { INTERNAL_SERVER_ERROR, OK,BAD_REQUEST,CREATED,NOT_FOUND, CONFLICT } fro
 
 import responseUtil from '../../../utils/responseUtil'
 import busesRepository from '../repository/busesRepository';
-import usersRepository from '../../users/repository/usersRepository';
  const createBus = async (req: Request, res: Response) => {
   try {
     const bus = await busesRepository.getBusByPlateNumber(req.body.plate_number)
@@ -82,20 +81,4 @@ export const deleteBus = async (req: any, res: Response) => {
     }
 }
 
-const findUsersWithDriverRole = async (req:any,res:Response) => {
-  try {
-    const drivers = await usersRepository.findUsersWithDriverRole();
-    if (!drivers) {
-      responseUtil.handleError(NOT_FOUND, "No drivers exist");
-      return responseUtil.response(res);
-    }
-
-    responseUtil.handleSuccess(OK, 'Success', drivers)
-    return responseUtil.response(res);
-  } catch (error: any) {
-    responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
-    return responseUtil.response(res);
-  }
-}
-
-export default { createBus, getBuses, getBus, updateBus, deleteBus, findUsersWithDriverRole }
+export default { createBus, getBuses, getBus, updateBus, deleteBus }

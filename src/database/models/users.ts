@@ -9,6 +9,7 @@ interface UsersAttributes {
     driver_licence:Array<string>;
     nid: string;
     email: string;
+    is_assigned: boolean;
     password: string;
 }
 
@@ -24,6 +25,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
            declare driver_licence:Array<string>;
            declare nid: string;
            declare email: string;
+           declare is_assigned: boolean;
            declare password: string;
     static associate (models: any) {
       users.hasMany(models.users_sessions, { as: 'users_sessions', foreignKey: 'user_id' }),
@@ -41,6 +43,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
             driver_licence: { type:DataTypes.ARRAY(DataTypes.STRING)},
             nid: { type: DataTypes.STRING },
             email: { type: DataTypes.STRING },
+            is_assigned: { type: DataTypes.BOOLEAN, defaultValue: false },
             password: { type: DataTypes.STRING },
             
         },

@@ -8,7 +8,7 @@ const validateCreateBus = (  req: Request,  res: Response,  next: NextFunction) 
     name: Joi.string().required(),
     model: Joi.string().required(),
     available_sits: Joi.number().required(),
-    driverId: Joi.number().required()
+    driverId: Joi.number()
   }).options({ abortEarly: false });
   return validateSchema(bodySchema, req.body, res, next);
 };

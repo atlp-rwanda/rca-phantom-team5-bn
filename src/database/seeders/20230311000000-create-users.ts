@@ -10,6 +10,7 @@ const userOne = {
   driver_licence:['A','B','C','D','E','F'],
   nid: '1997988947289789',
   email:'demo@demo.com',
+  is_assigned:false,
   password:hashPassword('$321!pass!123$')
 }
 
@@ -32,7 +33,7 @@ const userThree = {
   lname: 'patrick',
   driver_licence: null,
   nid: '1967988947289789',
-  email:'peter@demo.com',
+  email: 'peter@demo.com',
   password:hashPassword('peter!123$')
 }
 

@@ -73,9 +73,8 @@ describe("Buses Test Cases", () => {
       .send({
         plate_number:"RAC123D",
         name: "Toyota Corolla",
-        modal: "XLi",
-        available_sits: 5,
-        driverId: 1
+        model: "XLi",
+        available_sits: 5
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);
@@ -94,8 +93,7 @@ describe("Buses Test Cases", () => {
           name: "Toyota Corolla",
           available_sits: 5,
           model: "XLi",
-          plate_number: "ABC-123",
-          driverId: 1
+          plate_number: "ABC-123"
       })
       .end((error, response) => {
         expect(response).to.have.status(CREATED);

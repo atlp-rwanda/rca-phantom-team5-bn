@@ -52,7 +52,7 @@ buses.init(
     },
     driverId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     }
 
   },
