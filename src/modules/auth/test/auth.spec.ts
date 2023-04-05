@@ -179,7 +179,6 @@ it('Signin should have three properties: email, password, device_id', (done) => 
   }); 
   
   //logout
-
   it('Signin should return a user_session on successful signin', (done) => {
     router()
       .post('/api/auth/signin')
