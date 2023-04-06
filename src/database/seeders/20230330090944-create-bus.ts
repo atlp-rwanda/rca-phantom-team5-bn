@@ -6,7 +6,7 @@ const busOne = {
   name: 'Toyota Corolla',
   available_sits: 5,
   model: 'XLiu',
-  plate_number: 'ABC-123',
+  plate_number: 'RCA125D',
   driverId: null
 
 }

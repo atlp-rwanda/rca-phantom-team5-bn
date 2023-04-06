@@ -5,6 +5,6 @@ import { validateAssignBusToDriver } from '../modules/buses_drivers/validator/as
 const driverRouter = Router()
 
 driverRouter.get("/get-drivers", userAuthorization(['operator']), assignBusesToDrivers.findUsersWithDriverRole)
-driverRouter.post("/assign-driver-to-bus/bus/:id", validateAssignBusToDriver,  assignBusesToDrivers.assignDriverToBus)
+driverRouter.post("/assign-driver-to-bus/bus/:id",userAuthorization(['operator']), validateAssignBusToDriver,  assignBusesToDrivers.assignDriverToBus)
 
 export default driverRouter;
