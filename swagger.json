@@ -13,6 +13,7 @@
   "host-loc": "localhost:3000",
   "host-live": "localhost:3000",
   "host": "phatom-team-5.herokuapp.com",
+ 
 
   "securityDefinitions": {
     "jwt": {
@@ -45,10 +46,6 @@
     {
       "name": "Buses Routes",
       "description": "Buses endpoints | GET Route"
-    },
-    {
-      "name": "BusRoutes Routes",
-      "description": "BusRoutes endpoints | GET Route"
     }
   ],
 
@@ -146,18 +143,81 @@
             "schema": {
               "$ref": "#/definitions/Users"
             }
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description":"parsing a session/token in the hearder authorization with Bearer Session. Ex: ( Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6Me )"
           }
-
         ]
       }
     },
+    
+    "/auth/reset-password-email": {
+      "post": {
+        "tags": [
+          "Auth Routes"
+        ],
+        "summary": " (Send Reset Password Link User With POST Route)",
+        "description": "By the use of this POST endpoint, you will be able to Send Reset Password Link User Email",
+        "responses": {
+          "201": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": {
+              "$ref": "#/definitions/ResetPassword"
+            }
+          }
+        ]
+      }
+    },
+
+    
+    "/auth/reset-password/{token}": {
+      "put": {
+        "tags": [
+          "Auth Routes"
+        ],
+        "summary": " (Reset User password  With PUT Route)",
+        "description": "By the use of this POST endpoint, you will be able to reset password",
+        "responses": {
+          "201": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          }
+        },
+    
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "type": "string",
+            "required": true,
+            "description": "Token in the Link sent"
+          }
+          ,{
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": {
+              "$ref": "#/definitions/NewPassword"
+            }
+          }
+        ]
+      }
+    },
+
+
 
     "/auth/logout": {
       "delete": {
@@ -241,20 +301,6 @@
           }
         },
         "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "user Id"
-          },
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description":"parsing a session/token in the hearder authorization with Bearer Session. Ex: ( Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6Me )"
-          },
           {
             "in": "body",
             "name": "body",
@@ -741,6 +787,35 @@
       }
     },
 
+
+
+    
+    "ResetPassword": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "required": true,
+          "example": "your-email@gmail.com"
+        }
+      }
+    },
+     "NewPassword": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "required": true,
+          "example": "your-new password"
+        },
+        "confirm_password": {
+          "type": "string",
+          "required": true,
+          "example": "your-new password"
+        }
+      }
+    },
+
     "Signin": {
       "type": "object",
       "properties": {
@@ -749,6 +824,7 @@
           "required": true,
           "example": "your-email@gmail.com"
         },
+      
         "password": {
           "type": "string",
           "required": true,

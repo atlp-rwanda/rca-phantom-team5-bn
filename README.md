@@ -37,6 +37,7 @@ https://github.com/atlp-rwanda/rca-phantom-team5-bn
 - Get one bus Endpoint
 - Update a bus Endpoint
 - Delete a bus Endpoint
+- Reset Password Endpoint
 
 ## POSTMAN COLLECTION URL
 https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
@@ -69,5 +70,8 @@ https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 | 17 | GET    | /api/buses/get-bus/:id               | 200 OK       | public      | get one bus by bus id                      |
 | 18 | UPDATE | /api/buses/update-bus/:id            | 200 OK       | privated    | update a bus by bus id                     |
 | 19 | DELETE | /api/buses/delete-bus/:id            | 200 OK       | privated    | delete by by bus id                        |
+| 20 | POST   | /api/auth/password-reset             | 200 OK       | public      | Send Reset Password Email                  | 
+| 21 | POST   | /api/auth/password-reset/:id/:token  | 200 OK       | public      |  Reset password                            |  
+
 
 
