@@ -8,11 +8,10 @@ const findUsersWithDriverRole = async (page = 1, limit = 3, is_assigned: boolean
   const offset = (page - 1) * limit;
   if (is_assigned !== undefined) {
   const drivers = await users.findAndCountAll({ where: { role: 'driver',is_assigned }, limit, offset })
-  return drivers;
+  return drivers
   }
    const drivers = await users.findAndCountAll({ where: { role: 'driver'}, limit, offset })
-  return drivers;
- 
+  return drivers
 }
 
 const setDriver = async (driverId: string, busId: number) => {
