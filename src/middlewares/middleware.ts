@@ -17,6 +17,7 @@ const userAuthorization = (roles: any) => {
         ResponseUtil.handleError(UNAUTHORIZED, "Invalid token");
         return ResponseUtil.response(res);
       }
+      
       const decodedToken = verifyToken(access_token, process.env.SECRET_KEY as string);
       const userSession = await authRepository.getUserSessionByUserId(decodedToken.user_id);
       if (!userSession) {
@@ -30,7 +31,7 @@ const userAuthorization = (roles: any) => {
         return ResponseUtil.response(res);
       }
 
-      req.admin = user;
+      req.user = user;
       next();
     } catch (error: any) {
       ResponseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());

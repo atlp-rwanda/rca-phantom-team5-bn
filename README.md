@@ -35,6 +35,10 @@ https://github.com/atlp-rwanda/rca-phantom-team5-bn
 - Get one bus Endpoint
 - Update a bus Endpoint
 - Delete a bus Endpoint
+- Reset Password Endpoint
+
+## POSTMAN COLLECTION URL
+https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 
 ## POSTMAN COLLECTION URL
 https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
@@ -45,7 +49,8 @@ https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 
 |NO  | VERBS  | ENDPOINTS                            | STATUS       | ACCESS      | DESCRIPTION                                |
 |----|--------|--------------------------------------|--------------|-------------|--------------------------------------------|
-| 1  | GET    | /api/any-etc                         | 200 OK       | public      | Handle all intial or wrong GET requests    |
+| 1  | GET    | /api/any-etc                         | 200 OK   
+    | public      | Handle all intial or wrong GET requests    |
 | 2  | POST   | /api/auth/signin                     | 200 OK       | public      | signin a user with email and password      |
 | 3  | POST   | /api/auth/register-user              | 201 CREATED  | privated    | register user & generate password in email |
 | 4  | DELETE | /api/auth/logout                     | 200 OK       | public      | logout authanticated user                  |
@@ -62,5 +67,7 @@ https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 | 15 | GET    | /api/buses/get-bus/:id               | 200 OK       | public      | get one bus by bus id                      |
 | 16 | UPDATE | /api/buses/update-bus/:id            | 200 OK       | privated    | update a bus by bus id                     |
 | 17 | DELETE | /api/buses/delete-bus/:id            | 200 OK       | privated    | delete by by bus id                        |
+| 18 | POST   | /api/auth/password-reset             | 200 OK       | public      | Send Reset Password Email                  | 
+| 18 | POST   | /api/auth/password-reset/:id/:token  | 200 OK       | public      |  Reset password                            |  
 
 

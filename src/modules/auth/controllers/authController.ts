@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
-import { BAD_REQUEST, CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK,CONFLICT } from "http-status";
+import { BAD_REQUEST, CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK,CONFLICT, UNAUTHORIZED } from "http-status";
 
+import { verifyToken } from "../../../utils/jwtUtil";
 import sendEmail from "../../../services/mailService";
 import responseUtil from "../../../utils/responseUtil";
 import authRepository from "../repository/authRepository";
-import {  comparePassword } from "../../../utils/passwordUtils";
 import usersRepository from "../../users/repository/usersRepository";
+import {  comparePassword, hashPassword } from "../../../utils/passwordUtils";
+
 
 const registerUsers = async (req:Request,res:Response) => {
   try{
@@ -74,4 +76,47 @@ const logout = async (req: any, res: Response) => {
   }
 };
 
-export default { registerUsers, signIn, logout };
+const resetPasswordEmail = async (req: any, res: Response) =>{
+  try{
+    const emailExist = await authRepository.getUserByEmail(req.body.email);
+    if (!emailExist) {
+      responseUtil.handleError(BAD_REQUEST, 'Email Not found');
+      return responseUtil.response(res);
+    }
+
+    let userSession: any = { user_id: emailExist.id, device_id: req.body.device_id };
+    userSession = await authRepository.createUserSession(userSession);
+
+    const link = `${process.env.BASE_URL}/reset-password/${userSession.access_token}`;
+    await sendEmail(link, " ", req.body.email, "Reset Password Link", "");
+
+    responseUtil.handleError(OK, 'Reset Password Link sent');
+    return responseUtil.response(res);
+}catch (error: any) {
+  responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+  return responseUtil.response(res);
+}
+};
+
+const  resetPassword = async (req: any, res: Response) =>{
+  try {
+      const decodedToken = verifyToken(req.params.token, process.env.SECRET_KEY as string);
+      const userSession = await authRepository.getUserSessionByUserId(decodedToken.user_id);
+      if (!userSession) {
+        responseUtil.handleError(UNAUTHORIZED, "Token is expired");
+        return responseUtil.response(res);
+      }
+
+      const data = await usersRepository.updateUser(decodedToken.user_id, { password: hashPassword(req.body.password) });      
+      authRepository.deleteUserSession(decodedToken.user_id)
+
+      responseUtil.handleSuccess(OK, 'Success', data);
+      return responseUtil.response(res);
+  } catch (error: any) {
+      responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+      return responseUtil.response(res);
+  }
+}
+
+
+export default { registerUsers, signIn, logout, resetPasswordEmail, resetPassword};
