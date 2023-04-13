@@ -1,22 +1,12 @@
 import chai, { expect } from "chai";
-import sinon from "sinon";
 import chaiHttp from "chai-http";
-import {
-  NOT_FOUND,
-  BAD_REQUEST,
-  CREATED,
-  OK,
-  INTERNAL_SERVER_ERROR,
-} from "http-status";
-import models from "../../../database/models/index";
+import { NOT_FOUND, CREATED, OK } from "http-status";
 import app from "../../../index";
-import routesRepository from "../repository/routesRepository";
-const { routes } = models;
 
 chai.use(chaiHttp);
 const router = () => chai.request(app);
 
-describe("Routes Test Cases", () => {
+describe("Locations Test Cases", () => {
   let token = "";
 
   beforeEach((done) => {
@@ -33,9 +23,9 @@ describe("Routes Test Cases", () => {
       });
   });
 
-  it("Should be able to get Routes", (done) => {
+  it("Should be able to get Locations", (done) => {
     router()
-      .get("/api/routes/get-routes")
+      .get("/api/locations/get-locations")
       .end((error, response) => {
         expect(response).to.have.status(OK);
         expect(response.body).to.be.a("object");
@@ -45,9 +35,9 @@ describe("Routes Test Cases", () => {
       });
   });
 
-  it("Should be able to get a route by id", (done) => {
+  it("Should be able to get a location by id", (done) => {
     router()
-      .get("/api/routes/get-route/1")
+      .get("/api/locations/get-location/1")
       .end((error, response) => {
         expect(response).to.have.status(OK);
         expect(response.body).to.be.a("object");
@@ -57,9 +47,9 @@ describe("Routes Test Cases", () => {
       });
   });
 
-  it("Should be bring an not found error for get a route by id if id does not exist", (done) => {
+  it("Should be bring an not found error for get a location by id if id does not exist", (done) => {
    router()
-     .get("/api/routes/get-route/999")
+     .get("/api/locations/get-location/999")
      .end((error, response) => {
        expect(response).to.have.status(NOT_FOUND);
        expect(response.body).to.be.a("object");
@@ -68,15 +58,12 @@ describe("Routes Test Cases", () => {
      });
  });
 
-  it("Should be able to update a route", (done) => {
+  it("Should be able to update a location", (done) => {
     router()
-      .put("/api/routes/update-route/1")
+      .put("/api/locations/update-location/1")
       .set("Authorization", `Bearer ${token}`)
       .send({
-        route_name: "Kibagabaga-Kacyiru",
-        start: "Kibagabaga",
-        end: "Kacyiru",
-        stops: [2],
+        location_name:"Gatete"
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);
@@ -87,57 +74,64 @@ describe("Routes Test Cases", () => {
       });
   });
 
-  it("Should be able to create a route", (done) => {
+  it('Create a location successfully', (done) => {
     router()
-      .post("/api/routes/create-routes")
-      .set("Authorization", `Bearer ${token}`)
+      .post('/api/locations/create-location')
+      .set('Authorization', `Bearer ${token}`)
       .send({
-        route_name: "Kimironko-Kacyiru",
-        start: "Kimironko",
-        end: "Kacyiru",
-        stops: [1],
-        way_points: [2],
+        location_name: "Gatenga",
+        latitude: "-2.61833",
+        longitude: "29.6294"
       })
       .end((error, response) => {
-        expect(response).to.have.status(OK);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.a("string");
-        expect(response.body).to.have.property("data");
+        expect(response).to.have.status(CREATED);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        expect(response.body).to.have.property('data');
         done(error);
       });
   });
 
-  it("Should be able to delete a route", (done) => {
+  it("Should be able to delete a locations", (done) => {
     router()
-      .delete("/api/routes/delete-route/1")
+      .delete("/api/locations/delete-location/3")
       .set("Authorization", `Bearer ${token}`)
       .end((error, response) => {
         expect(response).to.have.status(OK);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
-        expect(response.body).to.have.property("data");
         done(error);
       });
   });
 
-  it("Testing internal server error for deleting non-existent route", (done) => {
+  it("Testing internal server error for deleting non-existent location", (done) => {
     router()
-      .delete("/api/routes/delete-route/999")
+      .delete("/api/locations/delete-location/999")
       .set("Authorization", `Bearer ${token}`)
       .end((error, response) => {
-        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response).to.have.status(NOT_FOUND);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.an("string");
         done(error);
       });
   });
 
-  it("Testing internal server error for getting a non-existent route", (done) => {
-    sinon.stub(routesRepository, "getRoute").throws();
+  it("Testing internal server error for getting a non-existent location", (done) => {
     router()
-      .get("/api/routes/get-route/999")
+      .get("/api/locations/get-location/999")
       .end((error, response) => {
-        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response).to.have.status(NOT_FOUND);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.an("string");
+        done(error);
+      });
+  });
+
+  it("Testing internal server error for updating a non-existent location", (done) => {
+    router()
+      .get("/api/locations/update-location/999")
+      .end((error, response) => {
+        expect(response).to.have.status(NOT_FOUND);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.an("string");
         done(error);

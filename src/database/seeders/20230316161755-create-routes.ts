@@ -3,18 +3,20 @@ import { QueryInterface  } from 'sequelize'
 const routeOne = {
   createdAt: new Date(),
   updatedAt: new Date(),
-  route_name: 'Kimironko-Town',
-  start: 'Kimironko',
-  end: 'Town',
-  stops: ['Rando','RDB','KBC','KH']
+  route_name: 'Kimironko-Remera',
+  start: 1,
+  end: 2,
+  stops: [1],
+  way_points: [2]
 }
 const routetwo = {
   createdAt: new Date(),
   updatedAt: new Date(),
-  route_name: 'Remera-Town',
-  start: 'Remera',
-  end: 'Town',
-  stops: ['Rando','RDB','KBC','KH']
+  route_name: 'Remera-Kimironko',
+  start: 2,
+  end: 1,
+  stops: [2],
+  way_points: [1]
 }
   
 const up = (queryInterface: QueryInterface) => queryInterface.bulkInsert('routes', [routeOne, routetwo])

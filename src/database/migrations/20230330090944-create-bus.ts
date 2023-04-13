@@ -4,6 +4,7 @@ module.exports = { async up(queryInterface: QueryInterface) { await queryInterfa
     createdAt: { allowNull: false, type: DataTypes.DATE },
     updatedAt: { allowNull: false, type: DataTypes.DATE },
     id: { allowNull: false, autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER },
+    driver_id : { type: DataTypes.INTEGER , allowNull: true, references:{  model: 'users', key: 'id'}},
     route_id : { type: DataTypes.INTEGER , allowNull: true, references:{  model: 'routes', key: 'id'}},
     plate_number: { type: DataTypes.STRING, unique:true, allowNull: false },
     name: { type: DataTypes.STRING },
