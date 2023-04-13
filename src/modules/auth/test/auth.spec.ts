@@ -65,7 +65,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
       .post('/api/auth/register-user')
       .set('Authorization', `Bearer ${access_token}`)
       .send({
-        role_id: 'operator',
+        role: 'operator',
         fname: 'dad',
         lname: 'diane',
         driver_licence: ["C"],
@@ -86,7 +86,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
       .post('/api/auth/register-user')
       .set('Authorization', `Bearer ${access_token}`)
       .send({
-       role_id: 'operator',
+       role: 'operator',
        fname: 'Jane',
        lname: 'Doene',
        nid: '8967988947289789',
@@ -105,7 +105,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
       .post('/api/auth/register-user')
       .set('Authorization', `Bearer ${access_token}`)
       .send({
-        role_id: 'operator',
+        role: 'operator',
         fname: 'dad',
         lname: 'diane',
         nid: '1967988947289789',
@@ -124,7 +124,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
       .post('/api/auth/register-user')
       .set('Authorization', `Bearer ${access_token}`)
       .send({
-        role_id: 'operator',
+        role: 'operator',
         fname: 'ead',
         lname: 'eiane',
         nid: '2367788947289129',
@@ -144,7 +144,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
       .post('/api/auth/register-user')
       .set('Authorization', `Bearer ${access_token}`)
       .send({
-        role_id: 'driver',
+        role: 'driver',
         fname: 'aad',
         lname: 'aiane',
         driver_licence:["A"],

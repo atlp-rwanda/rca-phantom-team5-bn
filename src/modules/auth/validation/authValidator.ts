@@ -5,7 +5,7 @@ import validateSchema from "../../../utils/validateSchema";
 const validRegisterUser = (  req: Request,  res: Response,  next: NextFunction) => {
   const bodySchema = Joi.object({
     email: Joi.string().email().required(),
-    role_id: Joi.string().required().valid('driver', 'operator'),
+    role: Joi.string().required().valid('driver', 'operator'),
     fname: Joi.string().required(),
     lname: Joi.string().required(),
     driver_licence: Joi.array().min(1).max(6).items(Joi.valid('A','B','C','C','D','E','F')),

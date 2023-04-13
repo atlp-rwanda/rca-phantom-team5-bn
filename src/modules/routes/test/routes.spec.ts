@@ -74,9 +74,10 @@ describe("Routes Test Cases", () => {
       .set("Authorization", `Bearer ${token}`)
       .send({
         route_name: "Kibagabaga-Kacyiru",
-        start: "Kibagabaga",
-        end: "Kacyiru",
+        start: 2,
+        end: 1,
         stops: [2],
+        way_points: [1]
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);
@@ -93,8 +94,8 @@ describe("Routes Test Cases", () => {
       .set("Authorization", `Bearer ${token}`)
       .send({
         route_name: "Kimironko-Kacyiru",
-        start: "Kimironko",
-        end: "Kacyiru",
+        start:1,
+        end: 2,
         stops: [1],
         way_points: [2],
       })

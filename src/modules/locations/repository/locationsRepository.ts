@@ -5,26 +5,28 @@ const createLocation = async (data: any) => {
   return await locations.create(data);
 }
 
-const getLocations = async (page = 1, limit = 2) => {
-
+const getLocations = async (page:any, limit: any) => {
+if(page != undefined && limit != undefined){
   const offset = (page - 1) * limit;  
   return  await locations.findAndCountAll({ limit, offset})
+}
+  return await locations.findAll();
 }
 
 const getLocationById = async (id: number) => {
   return await locations.findOne({ where: { id } });
 };
 
-const updatLocation = async (busId: number, busData: any) => {
-  await locations.update( busData, {
-    where:{ id : busId }
+const updatLocation = async (locationId: number, locationData: any) => {
+  await locations.update( locationData, {
+    where:{ id : locationId }
   })
 
-  return await getLocationById(busId);
+  return await getLocationById(locationId);
 }
 
 const deleteLocation = async (id: number) => {
-  await locations.destroy({where: { id:id },force: true});
+  await locations.destroy({where: { id:id }});
 }
 
 export default { createLocation, getLocations, getLocationById, updatLocation, deleteLocation }

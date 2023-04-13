@@ -129,7 +129,7 @@ describe("Locations Test Cases", () => {
 
   it("Testing internal server error for updating a non-existent location", (done) => {
     router()
-      .get("/api/locations/update-location/999")
+      .put("/api/locations/update-location/999")
       .end((error, response) => {
         expect(response).to.have.status(NOT_FOUND);
         expect(response.body).to.be.a("object");

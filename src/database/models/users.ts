@@ -3,7 +3,7 @@ import { Model } from 'sequelize'
 interface UsersAttributes {
     created_at: Date;
     updated_at: Date;
-    role_id: string;
+    role: string;
     fname: string;
     lname: string;
     driver_licence:Array<string>;
@@ -18,7 +18,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
             declare created_at: Date;
             declare updated_at: Date;
-           declare role_id: string;
+           declare role: string;
            declare fname: string;
            declare lname: string;
            declare driver_licence:Array<string>;
@@ -34,7 +34,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         {
             created_at: { field: 'created_at', type: DataTypes.DATE },
             updated_at: { field: 'updated_at', type: DataTypes.DATE },
-            role_id: { type: DataTypes.STRING },
+            role: { type: DataTypes.STRING },
             fname: { type: DataTypes.STRING },
             lname: { type: DataTypes.STRING },
             driver_licence: { type:DataTypes.ARRAY(DataTypes.STRING)},

@@ -5,8 +5,8 @@ import { Request, Response, NextFunction } from "express";
 const validateCreateRoute = (  req: Request,  res: Response,  next: NextFunction) => {
   const bodySchema = Joi.object({
     route_name: Joi.string().required(),
-    start: Joi.string().required(),
-    end: Joi.string().required(),
+    start: Joi.number().required(),
+    end: Joi.number().required(),
     stops: Joi.array().min(1).items(Joi.number()).required(),
     way_points: Joi.array().min(1).items(Joi.number()).required(),
   }).options({ abortEarly: false });
@@ -16,8 +16,8 @@ const validateCreateRoute = (  req: Request,  res: Response,  next: NextFunction
 const validateUpdateRoute = (  req: Request,  res: Response,  next: NextFunction) => {
     const bodySchema = Joi.object({
         route_name: Joi.string(),
-        start: Joi.string(),
-        end: Joi.string(),
+        start: Joi.number(),
+        end: Joi.number(),
         stops: Joi.array().min(1).items(Joi.number()),
         way_points: Joi.array().min(1).items(Joi.number()),
     }).options({ abortEarly: false });

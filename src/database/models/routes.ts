@@ -27,7 +27,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
                 routes.belongsTo(models.locations, { as: 'locations_start', foreignKey: 'start' })
                 routes.belongsTo(models.locations, { as: 'locations_end', foreignKey: 'end' })
                 routes.belongsTo(models.locations, { as: 'locations_stops', foreignKey: 'stops' })
-                routes.belongsTo(models.locations, { as: 'locations_waypoints', foreignKey: 'waypoints' })
+                routes.belongsTo(models.locations, { as: 'locations_way_points', foreignKey: 'way_points' })
             }
     }
      routes.init(

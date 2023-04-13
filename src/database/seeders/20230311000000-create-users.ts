@@ -4,7 +4,7 @@ import { hashPassword } from '../../utils/passwordUtils'
 const userOne = {
   created_at: new Date(),
   updated_at: new Date(),
-  role_id: 'driver',
+  role: 'driver',
   fname: 'john',
   lname: 'Doe',
   driver_licence:['A','B','C','D','E','F'],
@@ -16,7 +16,7 @@ const userOne = {
 const usertwo = {
   created_at: new Date(),
   updated_at: new Date(),
-  role_id: 'operator',
+  role: 'operator',
   fname: 'Jane',
   lname: 'Doene',
   driver_licence: null,
@@ -27,7 +27,7 @@ const usertwo = {
 const userThree = {
   created_at: new Date(),
   updated_at: new Date(),
-  role_id: 'admin',
+  role: 'admin',
   fname: 'peter',
   lname: 'patrick',
   driver_licence: null,
@@ -39,7 +39,7 @@ const userThree = {
 const userFour = {
   created_at: new Date(),
   updated_at: new Date(),
-  role_id: 'super_admin',
+  role: 'super_admin',
   fname: 'blessing',
   lname: 'adeline',
   driver_licence: null,

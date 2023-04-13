@@ -12,7 +12,7 @@ const routeOne = {
 const routetwo = {
   createdAt: new Date(),
   updatedAt: new Date(),
-  route_name: 'Remera-Kimironko',
+  route_name: 'Gikondo-Kibagabaga',
   start: 2,
   end: 1,
   stops: [2],
