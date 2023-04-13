@@ -3,7 +3,7 @@ import generatePassword from 'generate-password'
 
 const generateUserPassword = async ( )=>{
     return await generatePassword.
-    generate({length:10,numbers:true,symbols:true,lowercase:true,uppercase:true})
+    generate({ length:10, numbers:true, symbols:true, lowercase:true, uppercase:true })
  }
  
 const hashPassword = (password: string)=>{
