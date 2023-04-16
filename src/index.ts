@@ -1,3 +1,4 @@
+import cors from 'cors';
 import dotenv from 'dotenv'
 import swaggerUi from 'swagger-ui-express'
 import express, { Request, Response } from 'express'
@@ -14,6 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 
+app.use(cors());
 app.use('/api', routes)
 app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
