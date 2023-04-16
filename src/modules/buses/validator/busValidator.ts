@@ -23,7 +23,14 @@ const validateUpdateBus = (  req: Request,  res: Response,  next: NextFunction) 
       driverId: Joi.number()
     }).options({ abortEarly: false });
     return validateSchema(bodySchema, req.body, res, next);
+};
+  
+const validateAssignBus = (  req: Request,  res: Response,  next: NextFunction) => {
+    const bodySchema = Joi.object({
+      driverId: Joi.number().required(),
+      busId: Joi.number().required()
+    }).options({ abortEarly: false });
+    return validateSchema(bodySchema, req.body, res, next);
   };
 
-
-export { validateCreateBus, validateUpdateBus }
+export { validateCreateBus, validateUpdateBus, validateAssignBus }

@@ -57,8 +57,8 @@ https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 | 4  | DELETE | /api/auth/logout                     | 200 OK       | public      | logout authanticated user                  |
 | 5  | GET    | /api/users/get-profile               | 200 OK       | privated    | view user profile                          |
 | 6  | GET    | /api/users/get-user/:id              | 200 OK       | privated    | admin and super admin can view users by id |
-| 7  | GET    | /api/drivers/get-drivers             | 200 OK       | private     | Operator able to get list of drivers       |
-| 8  | POST   | /api/drivers/assign-driver-to-bus/bus/:id 200 OK    | private     | Operatot able to assign bus to driver      |
+| 7  | GET    | /api/users/get-drivers               | 200 OK       | private     | Operator able to get list of drivers       |
+| 8  | POST   | /api/buses/assign-bus                | 200 OK       | private     | Operatot able to assign bus to driver      |
 | 9  | PUT    | /api/users/update-profile            | 200 OK       | privated    | update user profile                        |
 | 10 | GET    | /api/routes/get-routes               | 200 OK       | public      | Retrieve all routes                        |
 | 11 | GET    | /api/routes/get-route/:id            | 200 OK       | public      | Retrieve a route by a given ID             |

@@ -1,5 +1,5 @@
 import models from '../../../database/models/index'
-const { buses } = models
+const { buses, users } = models
 
 const getBusById = async (id: number) => {
   return await buses.findOne({ where: { id } });
@@ -36,4 +36,18 @@ const updateBus = async (busId: number, busData: any) => {
   return await getBusById(busId);
 }
 
-export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus,updateBus }
+const getUserByIdAndRole = async (id: number, role: string) => {
+    const driver = await users.findOne({ where: { id, role } });
+    return driver
+}
+const assignBus = async (body: any) => {
+  const bus = await buses.getBusById(body.bus_id)
+
+   await buses.update({ driver_id: body.driver_id }, { where: { id: body.bus_id } });
+   await users.update({ is_assigned: true }, { where: { id: body.driver_id } });
+
+   return bus
+
+ }
+
+export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus,updateBus, assignBus, getUserByIdAndRole }

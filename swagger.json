@@ -44,7 +44,11 @@
       "description": "Admin endpoints | GET Route"
     },
     {
-      "name": "Buses Routes",
+      "name": "Routes Routes",
+      "description": "Routes endpoints | GET Route"
+    },
+    {
+      "name": "Bus Routes",
       "description": "Buses endpoints | GET Route"
     }
   ],
@@ -314,6 +318,28 @@
         ]
       }
     },
+     "/users/get-drivers":{
+    "get":{
+       "tags":[
+          "User Routes"
+        ],
+      "summary": "Get all drivers",
+      "description": "Returns a list of all users with role driver",
+      "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description":"BAD_REQUEST."
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+  }
+  },
 
     "/admins/get-user/{id}": {
       "get": {
@@ -340,67 +366,6 @@
             "type": "integer",
             "required": true,
             "description": "user Id"
-          }
-        ],
-        "security": [
-          {
-            "jwt": []
-          }
-        ]
-      }
-    },
-
-     "/drivers/get-drivers":{
-    "get":{
-       "tags":[
-          "Drivers Routes"
-        ],
-      "summary": "Get all drivers",
-      "description": "Returns a list of all users with role driver",
-      "responses":{
-          "200": {
-            "description": "OK."
-          },
-          "400": {
-            "description":"BAD_REQUEST."
-          }
-        },
-        "security": [
-          {
-            "jwt": []
-          }
-        ]
-  }
-  },
-
-   "/drivers/assign-driver-to-bus":{
-      "post":{
-        "tags": [
-          "Drivers Routes"
-        ],
-        "summary": " (Assign bus ro driver with POST Route)",
-        "description": "By the use of this POST endpoint, you will be able to assign buses to driver",
-        "responses":{
-          "200": {
-            "description": "OK."
-          },
-          "400": {
-            "description":"BAD_REQUEST."
-          },
-            "500": {
-            "description":"INTERNAL SERVER ERROR"
-          }
-        },
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "type": "object",
-            "required": true,
-            "description": "Body Request",
-            "schema": {
-              "$ref": "#/definitions/AssignBusesToDrivers"
-            }
           }
         ],
         "security": [
@@ -577,7 +542,7 @@
     "/buses/create-bus": {
       "post": {
         "tags": [
-          "Buses Routes"
+          "Bus Routes"
         ],
         "summary": "(Create a new bus with POST route}",
         "description": "By the use of this POST endpoint, you will be able to a new bus",
@@ -730,6 +695,43 @@
             "required": true,
             "description": "Bus Id",
             "schema": { "$ref": "#/definitions/Buses" }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/buses/assign-bus":{
+      "post":{
+        "tags": [
+          "Bus Routes"
+        ],
+        "summary": " (Assign bus ro driver with POST Route)",
+        "description": "By the use of this POST endpoint, you will be able to assign buses to driver",
+        "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description":"BAD_REQUEST."
+          },
+            "500": {
+            "description":"INTERNAL SERVER ERROR"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": {
+              "$ref": "#/definitions/BusesDrivers"
+            }
           }
         ],
         "security": [
@@ -904,14 +906,14 @@
         }
       }
     },
-      "AssignBusesToDrivers": {
+      "BusesDrivers": {
       "type": "object",
       "properties": {
-        "busId": {
+        "bus_id": {
           "type": "number",
           "example": 1
         },
-        "driverId": {
+        "driver_d": {
           "type": "number",
           "example": 1
         }

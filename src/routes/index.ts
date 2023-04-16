@@ -4,7 +4,6 @@ import usersRouter from './usersRouter'
 import routesRouter from './authRouter'
 import busRouter from './busesRouters'
 import adminsRouter from './adminsRouter'
-import driverRouter from './driversRouter'
 import routeRouter from './routesRouter'
 
 
@@ -15,7 +14,6 @@ router.use('/users', usersRouter)
 router.use('/routes', routesRouter)
 router.use("/buses",busRouter)
 router.use('/admins', adminsRouter)
-router.use("/drivers",driverRouter)
 router.use("/routes", routeRouter)
 
 
