@@ -13,4 +13,10 @@ const getAssignments = async (page = 1, limit = 2) => {
   return data;
 };
 
-export default { assignBusToRoute, getAssignments }
+const getBuses = async (routeId:number) => {
+ 
+  const data = await buses_routes.findAll({where:{route_id:routeId}});
+  return data;
+};
+
+export default { assignBusToRoute, getAssignments, getBuses }

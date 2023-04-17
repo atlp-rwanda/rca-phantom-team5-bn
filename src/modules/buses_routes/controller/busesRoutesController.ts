@@ -37,5 +37,29 @@ const listAssignments = async (req: Request, res: Response) => {
     return responseUtil.response(res);    
   }
 };
+const listBusesInRoute = async (req: Request, res: Response) => {
+  try {
+      const {orgin,destination} = req.body
+      const route = await routesRepository.getRouteByOrginAndDestination(orgin,destination)
+      if(!route){
+        responseUtil.handleError(BAD_REQUEST, 'Route does not exist')
+        return responseUtil.response(res)
+      }
+      const busesInRoute = await busesRoutesRepository.getBuses(route.id);
+      if(!busesInRoute || busesInRoute.length < 1){
+        const data = await busesRoutesRepository.getAssignments(1,3)
+        responseUtil.handleSuccess(OK, 'No buses in this routes', data)
+        return responseUtil.response(res)
+      }
+      const buses = busesInRoute.map(async (bus: any) => {
+        return await busesRepository.getBusById(bus.bus_id)
+      })
+      responseUtil.handleSuccess(OK, 'Success', buses)
+      return responseUtil.response(res);
+  } catch (error: any) {
+    responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+    return responseUtil.response(res);    
+  }
+};
 
-export default { createBusToRoute, listAssignments }
+export default { createBusToRoute, listAssignments, listBusesInRoute }

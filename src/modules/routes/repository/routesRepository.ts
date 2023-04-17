@@ -17,6 +17,10 @@ const getRoute = async (id: number) => {
   const data = await routes.findOne({ where: { id } });
   return data;
 };
+const getRouteByOrginAndDestination = async (origin:string,destintion:string) => {
+  const data = await routes.findOne({ where: { start:origin,end:destintion  } });
+  return data;
+};
 
 const updateRoute = async (route_id: number, data: any) => {
   await routes.update(data, { where: { id: route_id } });
@@ -33,4 +37,4 @@ const deleteRoute = async (id: number) => {
   }
 };
 
-export default { createRoutes, getRoutes, getRoute, updateRoute, deleteRoute };
+export default { createRoutes, getRoutes, getRoute, getRouteByOrginAndDestination, updateRoute, deleteRoute };
