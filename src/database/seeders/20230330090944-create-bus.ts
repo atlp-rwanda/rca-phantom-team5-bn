@@ -3,11 +3,11 @@ import { QueryInterface  } from 'sequelize'
 const busOne = {
   createdAt: new Date(),
   updatedAt: new Date(),
+  driver_id: null,
   name: 'Toyota Corolla',
   available_sits: 5,
   model: 'XLiu',
-  plate_number: 'RCA125D',
-  driverId: null
+  plate_number: 'RCA125D'
 
 }
 const up = (queryInterface: QueryInterface) => queryInterface.bulkInsert('buses', [busOne])

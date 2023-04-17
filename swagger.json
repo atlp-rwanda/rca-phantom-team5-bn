@@ -900,9 +900,9 @@
           "type": "string",
           "example": "ABC-123"
         },
-        "driverId": {
+        "driver_id": {
           "type": "number",
-          "example": 1
+          "example": null
         }
       }
     },
@@ -913,7 +913,7 @@
           "type": "number",
           "example": 1
         },
-        "driver_d": {
+        "driver_id": {
           "type": "number",
           "example": 1
         }
