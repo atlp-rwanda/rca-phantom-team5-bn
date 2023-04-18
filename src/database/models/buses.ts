@@ -2,10 +2,11 @@ import {Model} from "sequelize"
 interface BusesAttributes {
    id: number;
    route_id: number;
+   driver_id: number
    plate_number: string;
    name: string;
    model: string;
-   available_sits:number
+   available_sits: number,
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -13,14 +14,21 @@ module.exports = (sequelize: any, DataTypes: any) => {
       implements BusesAttributes {
         declare id: number;
         declare route_id: number;
+        declare driver_id: number;
         declare name: string;
         declare available_sits: number;
         declare model: string;
         declare plate_number: string;
-        static associate(models: any) {
+        
+    
+      static associate(models:any) {
+      buses.belongsTo(models.users, {
+        foreignKey: 'driver_id',
+        as: 'driver',
+      });
           buses.belongsTo(models.routes, { as: 'routes', foreignKey: 'route_id' })
-      }
-      }
+    }
+  }
   
 buses.init(
   {
@@ -33,10 +41,14 @@ buses.init(
       type: DataTypes.INTEGER,
       allowNull: true
     },
+    driver_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
     plate_number: {
       type: DataTypes,
       allowNull: false,
-      unique:true
+      unique: true
     },
     name: {
       type: DataTypes.STRING,
@@ -50,6 +62,7 @@ buses.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     }
+
   },
   {
     sequelize,
