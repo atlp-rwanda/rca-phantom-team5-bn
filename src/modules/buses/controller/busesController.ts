@@ -97,7 +97,7 @@ const assignBus = async (req: any, res: Response) => {
     }
     const user = await usersRepository.getUserById(req.body.driver_id);
       if (!user) {
-       responseUtil.handleError(NOT_FOUND, "User not found");
+       responseUtil.handleError(NOT_FOUND, "User is not found");
       return responseUtil.response(res);
     }
     if (user.is_assigned === true) {
