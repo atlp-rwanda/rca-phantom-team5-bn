@@ -118,5 +118,27 @@ const  resetPassword = async (req: any, res: Response) =>{
   }
 }
 
+const deleteUsers = async (req: any, res: Response) => {
+  try {
+    const data = await usersRepository.getUserById(req.params.userId)
+    if(!data) {
+        responseUtil.handleError(NOT_FOUND, 'User not found')
+        return responseUtil.response(res)
+    }
 
-export default { registerUsers, signIn, logout, resetPasswordEmail, resetPassword};
+    if((data.role === "super_admin" || data.role === "admin") && req.user.role === "admin"){
+      responseUtil.handleError(NOT_FOUND, 'admin can not delete super admin or admin')
+      return responseUtil.response(res)
+    }
+   
+    await authRepository.deleteUsers(req.params.userId);
+
+    responseUtil.handleSuccess(OK, "Success", {});
+    return responseUtil.response(res);
+  } catch (error: any) {
+    responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+    return responseUtil.response(res);
+  }
+};
+
+export default { registerUsers, signIn, logout, resetPasswordEmail, resetPassword, deleteUsers};

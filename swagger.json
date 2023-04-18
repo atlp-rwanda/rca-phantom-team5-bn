@@ -12,7 +12,7 @@
   
   "host-loc": "localhost:3000",
   "host-live": "localhost:3000",
-  "host": "phatom-team-5.herokuapp.com",
+  "host": "localhost:3000",
  
 
   "securityDefinitions": {
@@ -249,8 +249,43 @@
           }
         }
       }
+    },  
+    
+    "/auth/delete-user/{userId}":{
+      "delete":{
+        "tags": [
+          "Auth Routes"
+        ],
+        "summary": " (Delete a Driver or operator  DELETE Route)",
+        "description": "By the use of this DELETE endpoint, you will be able to delete a driver or operator",
+        "responses":{
+          "200": {
+            "description": "OK."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          },
+          "400": {
+            "description":"BAD_REQUEST."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "type": "integer",
+            "required": true,
+            "description": "user Id"
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
     },
-
+  
     "/users/get-profile": {
       "get": {
         "tags": [
