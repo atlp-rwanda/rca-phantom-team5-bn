@@ -35,6 +35,18 @@ describe("Locations Test Cases", () => {
       });
   });
 
+  it("Should be able to get Locations with limits", (done) => {
+    router()
+      .get("/api/locations/get-locations?limit=10&page=1")
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
   it("Should be able to get a location by id", (done) => {
     router()
       .get("/api/locations/get-location/1")

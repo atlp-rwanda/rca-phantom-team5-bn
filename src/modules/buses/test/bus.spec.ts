@@ -35,6 +35,18 @@ describe("Buses Test Cases", () => {
       });
   });
 
+  it("Should be able to get Buses on a given route", (done) => {
+    router()
+      .get("/api/buses/get-buses?route_id=1")
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
   it("Should be able to get a bus by id", (done) => {
     router()
       .get("/api/buses/get-bus/1")
@@ -67,6 +79,23 @@ describe("Buses Test Cases", () => {
         name: "Toyota Corolla",
         model: "XLi",
         available_sits: 5
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  it("Should be able to assign a bus to a user", (done) => {
+    router()
+      .put("/api/buses/update-bus/1")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        bus_id:1,
+        driver_id: 1
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);
