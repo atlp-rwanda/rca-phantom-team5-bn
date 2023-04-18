@@ -11,7 +11,7 @@ busRouter
     .get("/get-bus/:id", busesController.getBus)
     .post("/create-bus", validateCreateBus, busesController.createBus)
     .delete("/delete-bus/:id", userAuthorization(['operator']), busesController.deleteBus)
-    .post("/assign-bus", validateAssignBus,  busesController.assignBus)
+    .post("/assign-bus", userAuthorization(['operator']), validateAssignBus,  busesController.assignBus)
     .put("/update-bus/:id" ,  userAuthorization(['operator']), validateUpdateBus , busesController.updateBus)
 
 
