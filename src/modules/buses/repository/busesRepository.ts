@@ -41,13 +41,10 @@ const getUserByIdAndRole = async (id: number, role: string) => {
     return driver
 }
 const assignBus = async (body: any) => {
-  const bus = await getBusById(body.bus_id)
-
-   await buses.update({ driver_id: body.driver_id }, { where: { id: body.bus_id } });
-   await users.update({ is_assigned: true }, { where: { id: body.driver_id } });
-
-   return bus
-
- }
+  await buses.update({ driver_id: body.driver_id }, { where: { id: body.bus_id } });
+  await users.update({ is_assigned: true }, { where: { id: body.driver_id } });
+  
+   return await getBusById(body.bus_id)
+}
 
 export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus,updateBus, assignBus, getUserByIdAndRole }

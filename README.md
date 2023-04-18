@@ -54,23 +54,23 @@ https://documenter.getpostman.com/view/8596310/2s93RRxZYQ
 |----|--------|--------------------------------------|--------------|-------------|--------------------------------------------|
 | 1  | GET    | /api/any-etc                         | 200 OK       | public      | Handle all intial or wrong GET requests    |
 | 2  | POST   | /api/auth/signin                     | 200 OK       | public      | signin a user with email and password      |
-| 3  | POST   | /api/auth/register-user              | 201 CREATED  | privated    | register user & generate password in email |
+| 3  | POST   | /api/auth/register-user              | 201 CREATED  | private     | register user & generate password in email |
 | 4  | DELETE | /api/auth/logout                     | 200 OK       | public      | logout authanticated user                  |
-| 5  | GET    | /api/users/get-profile               | 200 OK       | privated    | view user profile                          |
-| 6  | GET    | /api/users/get-user/:id              | 200 OK       | privated    | admin and super admin can view users by id |
+| 5  | GET    | /api/users/get-profile               | 200 OK       | private     | view user profile                          |
+| 6  | GET    | /api/users/get-user/:id              | 200 OK       | private     | admin and super admin can view users by id |
 | 7  | GET    | /api/users/get-drivers               | 200 OK       | private     | Operator able to get list of drivers       |
-| 8  | POST   | /api/buses/assign-bus                | 200 OK       | private     | Operatot able to assign bus to driver      |
-| 9  | PUT    | /api/users/update-profile            | 200 OK       | privated    | update user profile                        |
+| 8  | POST   | /api/buses/assign-bus                | 200 OK       | private     | Operator able to assign bus to driver      |
+| 9  | PUT    | /api/users/update-profile            | 200 OK       | private     | update user profile                        |
 | 10 | GET    | /api/routes/get-routes               | 200 OK       | public      | Retrieve all routes                        |
 | 11 | GET    | /api/routes/get-route/:id            | 200 OK       | public      | Retrieve a route by a given ID             |
-| 12 | POST   | /api/routes/create-routes            | 201 CREATED  | privated    | Create a new route                         |
-| 13 | PUT    | /api/routes/update-route/:id         | 200 OK       | privated    | Update a route of a given ID               |
-| 14 | DELETE | /api/routes/delete-route/:id         | 200 OK       | privated    | Delete a route of a given ID               |
-| 15 | POST   | /api/buses/create-bus                | 2001 CREATED | privated    | create a bus                               |
+| 12 | POST   | /api/routes/create-routes            | 201 CREATED  | private     | Create a new route                         |
+| 13 | PUT    | /api/routes/update-route/:id         | 200 OK       | private     | Update a route of a given ID               |
+| 14 | DELETE | /api/routes/delete-route/:id         | 200 OK       | private     | Delete a route of a given ID               |
+| 15 | POST   | /api/buses/create-bus                | 2001 CREATED | private     | create a bus                               |
 | 16 | GET    | /api/buses/get-buses                 | 200 OK       | public      | get all buses                              |
 | 17 | GET    | /api/buses/get-bus/:id               | 200 OK       | public      | get one bus by bus id                      |
-| 18 | UPDATE | /api/buses/update-bus/:id            | 200 OK       | privated    | update a bus by bus id                     |
-| 19 | DELETE | /api/buses/delete-bus/:id            | 200 OK       | privated    | delete by by bus id                        |
+| 18 | UPDATE | /api/buses/update-bus/:id            | 200 OK       | private     | update a bus by bus id                     |
+| 19 | DELETE | /api/buses/delete-bus/:id            | 200 OK       | private     | delete by by bus id                        |
 | 20 | POST   | /api/auth/password-reset             | 200 OK       | public      | Send Reset Password Email                  | 
 | 21 | POST   | /api/auth/password-reset/:id/:token  | 200 OK       | public      |  Reset password                            |  
 

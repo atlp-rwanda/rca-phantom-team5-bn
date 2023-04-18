@@ -86,23 +86,27 @@ import usersRepository from '../../users/repository/usersRepository';
 }
 const assignBus = async (req: any, res: Response) => {
   try {
-    const busData = await busesRepository.getBusById(req.body.bus_id);
-     if (busData.driver_id!==null) {
-       responseUtil.handleError(NOT_FOUND, "Bus already taken or assigned");
+    const bus = await busesRepository.getBusById(req.body.bus_id);
+      if (!bus) {
+       responseUtil.handleError(NOT_FOUND, "Bus not found");
+      return responseUtil.response(res);
+    }
+     if (bus.driver_id !== null) {
+       responseUtil.handleError(CONFLICT, "Bus already assigned");
        return responseUtil.response(res);
     }
     const user = await usersRepository.getUserById(req.body.driver_id);
-    if (user.is_assigned==true) {
-      responseUtil.handleError(NOT_FOUND, "Driver already assigned a bus");
+      if (!user) {
+       responseUtil.handleError(NOT_FOUND, "User not found");
       return responseUtil.response(res);
     }
-     const busToUpdate = await busesRepository.getBusById(req.body.bus_id);
-     if (!busToUpdate) {
-       responseUtil.handleError(NOT_FOUND, "There is no bus to update");
+    if (user.is_assigned === true) {
+      responseUtil.handleError(CONFLICT, "Driver already assigned a bus");
       return responseUtil.response(res);
     }
-    const bus = await busesRepository.assignBus(req.body);
-     responseUtil.handleSuccess(OK, 'Success', bus)
+
+     const data = await busesRepository.assignBus(req.body);
+     responseUtil.handleSuccess(OK, 'Success', data)
      return responseUtil.response(res);
   } catch (err:any) {
      responseUtil.handleError(INTERNAL_SERVER_ERROR, err.toString());

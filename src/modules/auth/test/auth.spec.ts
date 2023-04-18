@@ -81,7 +81,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
       });
   });
 
-  it('register user email exist (bad request)', (done) => {
+  it('register user email exist (conflict request)', (done) => {
     router()
       .post('/api/auth/register-user')
       .set('Authorization', `Bearer ${access_token}`)
