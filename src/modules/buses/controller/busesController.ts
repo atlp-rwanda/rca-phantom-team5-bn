@@ -101,7 +101,7 @@ const assignBus = async (req: any, res: Response) => {
       return responseUtil.response(res);
     }
     if (user.is_assigned === true) {
-      responseUtil.handleError(CONFLICT, "Driver already assigned  to a bus");
+      responseUtil.handleError(CONFLICT, "Driver already assigned a bus");
       return responseUtil.response(res);
     }
 
