@@ -23,7 +23,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     
       static associate(models:any) {
       buses.belongsTo(models.users, {
-        foreignKey: 'driverId',
+        foreignKey: 'driver_id',
         as: 'driver',
       });
           buses.belongsTo(models.routes, { as: 'routes', foreignKey: 'route_id' })

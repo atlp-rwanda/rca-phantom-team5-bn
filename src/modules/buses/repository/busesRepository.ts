@@ -41,7 +41,7 @@ const getUserByIdAndRole = async (id: number, role: string) => {
     return driver
 }
 const assignBus = async (body: any) => {
-  const bus = await buses.getBusById(body.bus_id)
+  const bus = await getBusById(body.bus_id)
 
    await buses.update({ driver_id: body.driver_id }, { where: { id: body.bus_id } });
    await users.update({ is_assigned: true }, { where: { id: body.driver_id } });

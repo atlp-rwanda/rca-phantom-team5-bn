@@ -29,7 +29,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
            declare password: string;
     static associate (models: any) {
       users.hasMany(models.users_sessions, { as: 'users_sessions', foreignKey: 'user_id' }),
-      users.hasMany(models.buses, {foreignKey: 'driverId', as: 'buses' });
+      users.hasMany(models.buses, {foreignKey: 'driver_id', as: 'buses' });
             }
         }
     

@@ -1,14 +1,6 @@
 import chai, { expect } from "chai";
-import sinon from "sinon";
 import chaiHttp from "chai-http";
-import {
-  NOT_FOUND,
-  BAD_REQUEST,
-  CREATED,
-  OK,
-  INTERNAL_SERVER_ERROR,
-} from "http-status";
-import models from "../../../database/models/index";
+import { NOT_FOUND, CREATED, OK } from "http-status";
 import app from "../../../index";
 
 chai.use(chaiHttp);

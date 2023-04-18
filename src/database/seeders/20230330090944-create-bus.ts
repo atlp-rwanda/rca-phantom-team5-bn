@@ -3,7 +3,6 @@ import { QueryInterface  } from 'sequelize'
 const busOne = {
   createdAt: new Date(),
   updatedAt: new Date(),
-  driver_id: null,
   name: 'Toyota Corolla',
   available_sits: 5,
   model: 'XLiu',
