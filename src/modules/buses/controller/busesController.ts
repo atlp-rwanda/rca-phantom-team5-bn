@@ -88,7 +88,7 @@ const assignBus = async (req: any, res: Response) => {
   try {
     const bus = await busesRepository.getBusById(req.body.bus_id);
       if (!bus) {
-       responseUtil.handleError(NOT_FOUND, "Bus is not found");
+       responseUtil.handleError(NOT_FOUND, "Bus not found");
       return responseUtil.response(res);
     }
      if (bus.driver_id !== null) {
@@ -97,7 +97,7 @@ const assignBus = async (req: any, res: Response) => {
     }
     const user = await usersRepository.getUserById(req.body.driver_id);
       if (!user) {
-       responseUtil.handleError(NOT_FOUND, "User is not found");
+       responseUtil.handleError(NOT_FOUND, "User not found");
       return responseUtil.response(res);
     }
     if (user.is_assigned === true) {
