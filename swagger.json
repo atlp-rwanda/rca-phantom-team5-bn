@@ -319,12 +319,13 @@
         ]
       }
     },
-     "/users/get-drivers":{
+
+    "/users/get-drivers":{
     "get":{
        "tags":[
           "User Routes"
         ],
-      "summary": "Get all drivers",
+      "summary": "Get all drivers by operator with GET route",
       "description": "Returns a list of all users with role driver",
       "responses":{
           "200": {
@@ -858,12 +859,13 @@
         ]
       }
     },
+
     "/buses/assign-bus":{
       "post":{
         "tags": [
           "Bus Routes"
         ],
-        "summary": " (Assign bus ro driver with POST Route)",
+        "summary": " (Assign bus to driver by operator with POST Route)",
         "description": "By the use of this POST endpoint, you will be able to assign buses to driver",
         "responses":{
           "200": {
