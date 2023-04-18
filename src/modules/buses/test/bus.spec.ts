@@ -91,7 +91,7 @@ describe("Buses Test Cases", () => {
 
   it("Should be able to assign a bus to a user", (done) => {
     router()
-      .put("/api/buses/update-bus/1")
+      .post("/api/buses/assign-bus")
       .set("Authorization", `Bearer ${token}`)
       .send({
         bus_id:1,
