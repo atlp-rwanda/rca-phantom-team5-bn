@@ -5,7 +5,7 @@ const getUsers = async () => {
   return await users.findAll({ order: [["id", "ASC"]] });
 };
 
-const getDrivers = async (page = 1, limit = 3, is_assigned: boolean) => {
+const getDrivers = async (page : any, limit : any, is_assigned: boolean) => {
   const offset = (page - 1) * limit;
 
   if (is_assigned !== undefined) 
