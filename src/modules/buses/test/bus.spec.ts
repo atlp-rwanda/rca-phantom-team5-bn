@@ -1,16 +1,7 @@
 import chai, { expect } from "chai";
-import sinon from "sinon";
 import chaiHttp from "chai-http";
-import {
-  NOT_FOUND,
-  BAD_REQUEST,
-  CREATED,
-  OK,
-  INTERNAL_SERVER_ERROR,
-} from "http-status";
-import models from "../../../database/models/index";
+import { NOT_FOUND, CREATED, OK } from "http-status";
 import app from "../../../index";
-const { buses } = models;
 
 chai.use(chaiHttp);
 const router = () => chai.request(app);
@@ -74,8 +65,8 @@ describe("Buses Test Cases", () => {
       .send({
         plate_number:"RAC123D",
         name: "Toyota Corolla",
-        modal: "XLi",
-        available_sits: 5,
+        model: "XLi",
+        available_sits: 5
       })
       .end((error, response) => {
         expect(response).to.have.status(OK);

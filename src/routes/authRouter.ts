@@ -12,6 +12,5 @@ routesRouter
 	.post('/signin', validSignIn, authController.signIn)
 	.post('/reset-password-email', authController.resetPasswordEmail)
 	.put('/reset-password/:token', validResetPassword, authController.resetPassword);
-	
 export default routesRouter;
  
