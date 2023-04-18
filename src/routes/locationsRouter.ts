@@ -10,7 +10,7 @@ locationRouter
     .get("/get-location/:id", locationsController.getLocation)
     .post("/create-location" , validLocation , locationsController.createLocation)
     .delete("/delete-location/:id" , locationsController.deleteLocation)
-    .put("/update-location/:id" , locationsController.updatelocation)
+    .put("/update-location/:id" , locationsController.updateLocation)
 
 
 export default locationRouter

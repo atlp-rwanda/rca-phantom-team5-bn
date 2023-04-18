@@ -42,14 +42,14 @@ export const getLocation = async (req: any, res: Response) => {
   }
 }
 
-export const updatelocation = async (req:any, res:Response) => {
+export const updateLocation = async (req:any, res:Response) => {
   try {
     const location = await locationsRepository.getLocationById(req.params.id);
     if (!location) {
       responseUtil.handleError(NOT_FOUND, "Location with that ID  doesn't exist");
       return responseUtil.response(res);
     }
-    const data = await locationsRepository.updatLocation(req.params.id, req.body)
+    const data = await locationsRepository.updateLocation(req.params.id, req.body)
     responseUtil.handleSuccess(OK, 'Success', data);
     return responseUtil.response(res);
   } catch (error:any) {
@@ -74,4 +74,4 @@ export const deleteLocation = async (req: any, res: Response) => {
     }
 }
 
-export default { createLocation, getLocation, getLocations, updatelocation, deleteLocation }
+export default { createLocation, getLocation, getLocations, updateLocation, deleteLocation }

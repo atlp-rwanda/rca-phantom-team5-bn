@@ -10,5 +10,6 @@ module.exports = { async up(queryInterface: QueryInterface) { await queryInterfa
     driver_licence:{ type: DataTypes.STRING },
     nid:{ type: DataTypes.STRING },
     email: { type: DataTypes.STRING },
+    is_assigned: { type: DataTypes.BOOLEAN, defaultValue: false },
     password: { type: DataTypes.STRING },
 }) }, async down(queryInterface: QueryInterface) { await queryInterface.dropTable('users') }, }

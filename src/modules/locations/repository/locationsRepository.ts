@@ -17,7 +17,7 @@ const getLocationById = async (id: number) => {
   return await locations.findOne({ where: { id } });
 };
 
-const updatLocation = async (locationId: number, locationData: any) => {
+const updateLocation = async (locationId: number, locationData: any) => {
   await locations.update( locationData, {
     where:{ id : locationId }
   })
@@ -29,4 +29,4 @@ const deleteLocation = async (id: number) => {
   await locations.destroy({where: { id:id }});
 }
 
-export default { createLocation, getLocations, getLocationById, updatLocation, deleteLocation }
+export default { createLocation, getLocations, getLocationById, updateLocation, deleteLocation }
