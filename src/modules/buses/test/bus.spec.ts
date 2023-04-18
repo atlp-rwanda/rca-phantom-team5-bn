@@ -133,7 +133,7 @@ describe("Buses Test Cases", () => {
         driver_id: 2
       })
       .end((error, response) => {
-        expect(response).to.have.status(NOT_FOUND);
+        expect(response).to.have.status(CONFLICT);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
         done(error);
@@ -149,7 +149,7 @@ describe("Buses Test Cases", () => {
         driver_id: 1
       })
       .end((error, response) => {
-        expect(response).to.have.status(NOT_FOUND);
+        expect(response).to.have.status(CONFLICT);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
         done(error);
@@ -165,7 +165,7 @@ describe("Buses Test Cases", () => {
         driver_id: 1
       })
       .end((error, response) => {
-        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response).to.have.status(NOT_FOUND);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
         done(error);
