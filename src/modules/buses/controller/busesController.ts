@@ -88,7 +88,7 @@ const assignBus = async (req: any, res: Response) => {
   try {
     const bus = await busesRepository.getBusById(req.body.bus_id);
       if (!bus) {
-       responseUtil.handleError(NOT_FOUND, "Bus not found");
+       responseUtil.handleError(NOT_FOUND, "Bus is not found");
       return responseUtil.response(res);
     }
      if (bus.driver_id !== null) {
