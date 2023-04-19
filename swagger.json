@@ -12,7 +12,7 @@
   
   "host-loc": "localhost:3003",
   "host-live": "localhost:3000",
-  "host": "localhost:3000",
+  "host": "phatom-team-5.herokuapp.com",
  
 
   "securityDefinitions": {
