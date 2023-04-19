@@ -70,6 +70,29 @@ describe("Buses Test Cases", () => {
      });
  });
 
+  it("Should be able to get a buses in the routes by origin and destination", (done) => {
+    router()
+      .get("/api/buses/get-buses/1/2")
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  it("Should be bring an not found error when there is no bus assigned to the routes specified by orgin and destination", (done) => {
+   router()
+     .get("/api/buses/get-buses/1/33")
+     .end((error, response) => {
+       expect(response).to.have.status(NOT_FOUND);
+       expect(response.body).to.be.a("object");
+       expect(response.body.message).to.be.a("string");
+       done(error);
+     });
+ });
+
   it("Should be able to update a bus", (done) => {
     router()
       .put("/api/buses/update-bus/1")
