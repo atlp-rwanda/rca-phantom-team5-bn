@@ -3,6 +3,7 @@ import { QueryInterface  } from 'sequelize'
 const busOne = {
   createdAt: new Date(),
   updatedAt: new Date(),
+  route_id: 1,
   name: 'Toyota Corolla',
   available_sits: 5,
   model: 'XLiu',
@@ -14,6 +15,7 @@ const busTwo = {
   createdAt: new Date(),
   updatedAt: new Date(),
   name: 'BMW',
+  route_id: 1,
   available_sits: 5,
   model: 'XLiu',
   plate_number: 'RCA125C'
