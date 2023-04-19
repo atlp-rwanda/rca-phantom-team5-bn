@@ -23,10 +23,10 @@ import usersRepository from '../../users/repository/usersRepository';
 
  const getBuses = async (req: Request,res: Response) => {
   try { 
-    const page:any = req.query.page || 1
-    const limit: any = req.query.limit || 10;
-    const router_id:any=req.query.router_id
-   const data = await busesRepository.getBuses(page,limit,router_id);
+    const page:any = req.query.page;
+    const limit: any = req.query.limit;
+    const router_id: any = req.query.router_id;
+    const data = await busesRepository.getBuses(page,limit,router_id);
     responseUtil.handleSuccess(OK, 'Success', data)
     return responseUtil.response(res);
   } catch (error: any) {
@@ -80,7 +80,7 @@ import usersRepository from '../../users/repository/usersRepository';
       responseUtil.handleSuccess(OK, 'Success', data);
       return responseUtil.response(res);
     } catch (error: any) {
-      responseUtil.handleError(NOT_FOUND, error.toString());
+      responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
       return responseUtil.response(res);
     }
 }
