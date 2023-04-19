@@ -6,7 +6,7 @@ const createRoutes = async (data: any) => {
   return route;
 };
 
-const getRoutes = async (page = 1, limit = 2) => {
+const getRoutes = async (page :any, limit :any) => {
   const offset = (page - 1) * limit;
   const data = await routes.findAndCountAll({ limit, offset });
   return data;

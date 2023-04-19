@@ -10,11 +10,9 @@ const getBusByPlateNumber = async (plate_number: string) => {
 };
 
 const getBuses = async (page = 1, limit = 2, route_id: number) => {
-
   const offset = (page - 1) * limit;
   if (route_id !== undefined) {
-   const data = await buses.findAndCountAll({ where: { route_id }, limit, offset})
-   return data;
+   return await buses.findAndCountAll({ where: { route_id }, limit, offset})
   }
   
   const data = await buses.findAndCountAll({ limit, offset})
@@ -36,10 +34,6 @@ const updateBus = async (busId: number, busData: any) => {
   return await getBusById(busId);
 }
 
-const getUserByIdAndRole = async (id: number, role: string) => {
-    const driver = await users.findOne({ where: { id, role } });
-    return driver
-}
 const assignBus = async (body: any) => {
   await buses.update({ driver_id: body.driver_id }, { where: { id: body.bus_id } });
   await users.update({ is_assigned: true }, { where: { id: body.driver_id } });
@@ -47,4 +41,4 @@ const assignBus = async (body: any) => {
    return await getBusById(body.bus_id)
 }
 
-export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus,updateBus, assignBus, getUserByIdAndRole }
+export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus,updateBus, assignBus }

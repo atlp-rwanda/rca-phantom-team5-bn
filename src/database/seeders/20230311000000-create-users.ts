@@ -10,7 +10,6 @@ const userOne = {
   driver_licence:['A','B','C','D','E','F'],
   nid: '1997988947289789',
   email:'demo@demo.com',
-  is_assigned:false,
   password:hashPassword('$321!pass!123$')
 }
 
