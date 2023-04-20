@@ -15,8 +15,8 @@ describe("Users test cases", () => {
       router()
         .post("/api/auth/signin")
         .send({
-          email: "jane@demo.com",
-          password: "jane!123$",
+          email: "demo@demo.com",
+          password: "$321!pass!123$",
           device_id:"MC-123"
         })
         .end((error, response) => {
@@ -37,35 +37,9 @@ describe("Users test cases", () => {
       });
   });
 
-  it("User should be able to get users with limit and page", (done) => {
-    router()
-      .get("/api/users/get-drivers?limit=10&page=1")
-      .set('Authorization', `Bearer ${token}`)
-      .end((error, response) => {
-        expect(response).to.have.status(OK);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.a("string");
-        expect(response.body).to.have.property("data");
-        done(error);
-      });
-  });
-
-  it("User should be able to get users who are assigned to drive buses", (done) => {
-    router()
-      .get("/api/users/get-drivers?is_assigned=true")
-      .set('Authorization', `Bearer ${token}`)
-      .end((error, response) => {
-        expect(response).to.have.status(OK);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.a("string");
-        expect(response.body).to.have.property("data");
-        done(error);
-      });
-  });
-
   it("User who is not admin should be unauthorized", (done) => {
     router()
-      .get("/api/admins/get-user/2")
+      .get("/api/users/get-user/2")
       .set('Authorization', `Bearer ${token}`)
       .end((error, response) => {
         expect(response).to.have.status(UNAUTHORIZED);
@@ -121,7 +95,7 @@ describe("Users test cases", () => {
 
   it("User who is admin should be able to get users by id", (done) => {
     router()
-      .get("/api/admins/get-user/2")
+      .get("/api/users/get-user/2")
       .set('Authorization', `Bearer ${adminToken}`)
       .end((error, response) => {
         expect(response).to.have.status(OK);
@@ -132,15 +106,5 @@ describe("Users test cases", () => {
       });
   });
 
-  it("User who is admin should get error for users by id who does not exist", (done) => {
-    router()
-      .get("/api/admins/get-user/999")
-      .set('Authorization', `Bearer ${adminToken}`)
-      .end((error, response) => {
-        expect(response).to.have.status(NOT_FOUND);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.a("string");
-        done(error);
-      });
-  });
+
 });

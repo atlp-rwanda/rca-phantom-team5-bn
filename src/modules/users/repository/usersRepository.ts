@@ -1,4 +1,5 @@
 import models from "../../../database/models/index";
+import authRepository from "../../auth/repository/authRepository";
 const { users } = models;
 
 const getUsers = async () => {
@@ -21,10 +22,15 @@ const getUserById = async (id: string) => {
 const getUserByEmail = async (email: string) => {
   return await users.findOne({ where: { email } });
 };
+
 const updateUser = async (user_id: number, data: any) => {
   await users.update(data, { where: { id: user_id }})
   return await users.findOne({ where: { id:user_id } });
 };
 
+const deleteUsers = async(user_id:string)=>{
+  await authRepository.deleteUserSession(user_id)
+  await users.destroy({ where: {id: user_id}})
+}
 
-export default { getUsers, getDrivers, getUserById, getUserByEmail, updateUser };
+export default { getUsers, getDrivers, getUserById, getUserByEmail, updateUser, deleteUsers };

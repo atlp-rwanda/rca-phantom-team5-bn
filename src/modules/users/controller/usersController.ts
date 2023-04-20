@@ -3,6 +3,7 @@ import { INTERNAL_SERVER_ERROR, NOT_FOUND, OK } from 'http-status'
 
 import responseUtil from '../../../utils/responseUtil'
 import usersRepository from '../repository/usersRepository'
+
 const getProfile = async (req: any, res: Response) => {
     try {
         const data = await usersRepository.getUserById(req.user.id)
@@ -36,7 +37,7 @@ const getUsers = async (req: Request, res: Response) => {
     }
 }
 
-const getUserById = async (req: Request, res: Response) => {
+const getUser = async (req: Request, res: Response) => {
     try {
         const data = await usersRepository.getUserById(req.params.id)
         if(!data) {
@@ -50,6 +51,7 @@ const getUserById = async (req: Request, res: Response) => {
         return responseUtil.response(res)
     }
 }
+
 const getDrivers = async (req: Request, res: Response) => {
   try {
     const page:any = req.query.page || 1
@@ -70,4 +72,26 @@ const getDrivers = async (req: Request, res: Response) => {
   }
 }
 
-export default { updateProfile, getProfile, getUsers, getUserById, getDrivers }
+const deleteUsers = async (req: any, res: Response) => {
+    try {
+      const data = await usersRepository.getUserById(req.params.id)
+      if(!data) {
+          responseUtil.handleError(NOT_FOUND, 'User not found')
+          return responseUtil.response(res)
+      }
+  
+      if((data.role === "super_admin" || data.role === "admin") && req.user.role === "admin"){
+        responseUtil.handleError(NOT_FOUND, 'admin can not delete super admin or admin')
+        return responseUtil.response(res)
+      }
+     
+      await usersRepository.deleteUsers(req.params.id);
+      responseUtil.handleSuccess(OK, "Success", {});
+      return responseUtil.response(res);
+    } catch (error: any) {
+      responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+      return responseUtil.response(res);
+    }
+};
+
+export default { updateProfile, getProfile, getUsers, getUser, getDrivers, deleteUsers }
