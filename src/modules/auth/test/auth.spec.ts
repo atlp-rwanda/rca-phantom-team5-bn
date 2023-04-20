@@ -160,8 +160,18 @@ it('Signin should have three properties: email, password, device_id', (done) => 
         done(error);
       });
   });
-
-
+ 
+  it('Delete user success', (done) => {
+    router()
+      .delete(`/api/users/delete-user/5`)
+      .set('Authorization', `Bearer ${access_token}`)
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        done(error);
+      });
+  }); 
   // reset password 
   it('Reset password success', (done) => {
     router()
@@ -177,7 +187,8 @@ it('Signin should have three properties: email, password, device_id', (done) => 
         done(error);
       });
   }); 
-  
+ 
+
   //logout
   it('Signin should return a user_session on successful signin', (done) => {
     router()
@@ -196,6 +207,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
         done(error);
       });
   });
+ 
   
   it('logout success', (done) => {
     router()
@@ -208,9 +220,6 @@ it('Signin should have three properties: email, password, device_id', (done) => 
         done(error);
       });
   });
-
-
-
 
 
   it('logout should return an error message on incorrect token', (done) => {

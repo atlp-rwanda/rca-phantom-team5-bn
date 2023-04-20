@@ -118,5 +118,4 @@ const  resetPassword = async (req: any, res: Response) =>{
   }
 }
 
-
-export default { registerUsers, signIn, logout, resetPasswordEmail, resetPassword};
+export default { registerUsers, signIn, logout, resetPasswordEmail, resetPassword };
