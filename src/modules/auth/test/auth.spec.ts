@@ -163,7 +163,7 @@ it('Signin should have three properties: email, password, device_id', (done) => 
  
   it('Delete user success', (done) => {
     router()
-      .delete(`/api/auth/delete-user/5`)
+      .delete(`/api/users/delete-user/5`)
       .set('Authorization', `Bearer ${access_token}`)
       .end((error, response) => {
         expect(response).to.have.status(OK);

@@ -8,7 +8,6 @@ const routesRouter = Router();
 routesRouter
 	.post('/register-user', userAuthorization(['admin','super_admin']), validRegisterUser, authController.registerUsers)
 	.delete('/logout', authorizationToken, authController.logout)
-	.delete('/delete-user/:userId', userAuthorization(['admin','super_admin']), authController.deleteUsers)
 	.post('/signin', validSignIn, authController.signIn)
 	.post('/reset-password-email', authController.resetPasswordEmail)
 	.put('/reset-password/:token', validResetPassword, authController.resetPassword);
