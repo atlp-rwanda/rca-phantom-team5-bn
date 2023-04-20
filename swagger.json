@@ -39,10 +39,7 @@
       "name": "User Routes",
       "description": "User endpoints | Put Route"
     },
-    {
-      "name": "Admin Routes",
-      "description": "Admin endpoints | GET Route"
-    },
+
     {
       "name": "Routes Routes",
       "description": "Routes endpoints | GET Route"
@@ -254,8 +251,9 @@
           }
         }
       }
-    },
-
+    },  
+    
+  
     "/users/get-profile": {
       "get": {
         "tags": [
@@ -342,41 +340,40 @@
         ]
   }
   },
-
-    "/admins/get-user/{id}": {
-      "get": {
-        "tags": [
-          "Admin Routes"
-        ],
-        "summary": " (Get user profile using his/her id With GET Route)",
-        "description": "By the use of this GET endpoint, you will be able to get a user profile as long as you have his/her id",
-        "responses": {
-          "200": {
-            "description": "OK."
-          },
-          "401": {
-            "description": "UNAUTHORIZED."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          }
+  "/users/delete-user/{id}":{
+    "delete":{
+      "tags": [
+        "User Routes"
+      ],
+      "summary": " (Delete a Driver or operator  DELETE Route)",
+      "description": "By the use of this DELETE endpoint, you will be able to delete a driver or operator",
+      "responses":{
+        "200": {
+          "description": "OK."
         },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "user Id"
-          }
-        ],
-        "security": [
-          {
-            "jwt": []
-          }
-        ]
-      }
-    },
+        "404": {
+          "description": "NOT_FOUND."
+        },
+        "400": {
+          "description":"BAD_REQUEST."
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "type": "integer",
+          "required": true,
+          "description": "user Id"
+        }
+      ],
+      "security": [
+        {
+          "jwt": []
+        }
+      ]
+    }
+  },
 
     "/routes/create-routes":{
       "post":{
@@ -413,6 +410,8 @@
       }
     },
 
+
+  
     "/routes/get-routes":{
       "get": {
         "tags":[
