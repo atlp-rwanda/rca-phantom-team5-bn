@@ -92,7 +92,7 @@ describe("Buses Test Cases", () => {
 
   it("Should be able to get a buses in the routes by origin and destination", (done) => {
     router()
-      .get("/api/buses/get-buses/2/1")
+      .get("/api/buses/get-buses/2/5")
       .end((error, response) => {
         expect(response).to.have.status(OK);
         expect(response.body).to.be.a("object");
@@ -102,7 +102,7 @@ describe("Buses Test Cases", () => {
       });
   });
 
-  it("Should be bring an not found error when there is no bus assigned to the routes specified by orgin and destination", (done) => {
+  it("Should be bring an not found error when there is no bus assigned to the routes specified by origin and destination", (done) => {
     router()
       .get("/api/buses/get-buses/1/33")
       .end((error, response) => {
@@ -185,7 +185,7 @@ describe("Buses Test Cases", () => {
       .post("/api/buses/assign-bus")
       .set("Authorization", `Bearer ${token}`)
       .send({
-        bus_id: 3,
+        bus_id: 12,
         driver_id: 1
       })
       .end((error, response) => {
