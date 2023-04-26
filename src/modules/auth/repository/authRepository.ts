@@ -36,7 +36,9 @@ const createUserSession = async (data: any) => {
   const access_token = generateToken({user_id: data.user_id}, process.env.SECRET_KEY as string,process.env.EXPIRES_IN as string);
   data.access_token = access_token;
   const userSession = await users_sessions.create(data)
-  return userSession;
+   const returnedUser = await getUserById(data.user_id);
+   const user={role:returnedUser.role,email:returnedUser.email,fname:returnedUser.fname,lname:returnedUser.fname}
+  return { userSession,user};
 }
 
 const deleteUserSession =async(user_id: string)=>{
