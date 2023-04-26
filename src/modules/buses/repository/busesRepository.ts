@@ -1,5 +1,5 @@
 import models from '../../../database/models/index'
-const { buses, users } = models
+const { buses, users, routes, locations } = models
 
 const getBusById = async (id: number) => {
   return await buses.findOne({ where: { id } });
@@ -41,4 +41,26 @@ const assignBus = async (body: any) => {
    return await getBusById(body.bus_id)
 }
 
-export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus,updateBus, assignBus }
+const getBusesByRoutes = async (orgin:number, destination:number) => {
+  const busesInRoute = await buses.findAll({
+    include: {
+      model: routes,
+      as: 'routes',
+      where: {
+        start:orgin,
+        end:destination,
+      },
+      include: [{
+        model: locations,
+        as: 'locations_start',
+      }, {
+        model: locations,
+        as: 'locations_end', 
+      }],
+    },
+  });
+
+  return busesInRoute;
+}
+
+export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus,updateBus, assignBus, getBusesByRoutes }
