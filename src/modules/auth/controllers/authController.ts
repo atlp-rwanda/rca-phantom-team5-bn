@@ -87,7 +87,7 @@ const resetPasswordEmail = async (req: any, res: Response) =>{
     let userSession: any = { user_id: emailExist.id, device_id: req.body.device_id };
     userSession = await authRepository.createUserSession(userSession);
 
-    const link = `${process.env.BASE_URL}/reset-password/${userSession.access_token}`;
+    const link = `${process.env.BASE_URL}/reset-password?token=${userSession.access_token}`;
     await sendEmail(link, " ", req.body.email, "Reset Password Link", "");
 
     responseUtil.handleError(OK, 'Reset Password Link sent');
