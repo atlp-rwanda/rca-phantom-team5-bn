@@ -90,7 +90,7 @@ const resetPasswordEmail = async (req: any, res: Response) =>{
     const link = `${process.env.BASE_URL}/reset-password/${userSession.access_token}`;
     await sendEmail(link, " ", req.body.email, "Reset Password Link", "");
 
-    responseUtil.handleError(OK, 'Reset Password Link sent');
+    responseUtil.handleError(OK, 'Reset password link sent');
     return responseUtil.response(res);
 }catch (error: any) {
   responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
