@@ -80,7 +80,7 @@ const resetPasswordEmail = async (req: any, res: Response) =>{
   try{
     const emailExist = await authRepository.getUserByEmail(req.body.email);
     if (!emailExist) {
-      responseUtil.handleError(BAD_REQUEST, 'Email Not found');
+      responseUtil.handleError(BAD_REQUEST, 'Email not found');
       return responseUtil.response(res);
     }
 
