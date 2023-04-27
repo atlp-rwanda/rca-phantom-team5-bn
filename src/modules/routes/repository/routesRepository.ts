@@ -6,7 +6,7 @@ const createRoutes = async (data: any) => {
   return route;
 };
 
-const getRoutes = async (page :any, limit :any) => {
+const getRoutes = async (page: any, limit: any) => {
   const offset = (page - 1) * limit;
   const data = await routes.findAndCountAll({ limit, offset });
   return data;
@@ -15,6 +15,11 @@ const getRoutes = async (page :any, limit :any) => {
 const getRoute = async (id: number) => {
   const data = await routes.findOne({ where: { id } });
   return data;
+};
+
+const getRouteByOrginDestinaton = async (origin: number, destination: number) => {
+  const data = await routes.findOne({ where: { start: origin, end: destination, } })
+  return data
 };
 
 const updateRoute = async (route_id: number, data: any) => {
@@ -32,4 +37,5 @@ const deleteRoute = async (id: number) => {
   }
 };
 
-export default { createRoutes, getRoutes, getRoute, updateRoute, deleteRoute };
+
+export default { createRoutes, getRoutes, getRoute, getRouteByOrginDestinaton, updateRoute, deleteRoute };
