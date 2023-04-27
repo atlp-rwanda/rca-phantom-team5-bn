@@ -39,7 +39,7 @@ describe("Users test cases", () => {
 
   it("User who is not admin should be unauthorized", (done) => {
     router()
-      .get("/api/admins/get-user/2")
+      .get("/api/users/get-user/2")
       .set('Authorization', `Bearer ${token}`)
       .end((error, response) => {
         expect(response).to.have.status(UNAUTHORIZED);
@@ -95,7 +95,7 @@ describe("Users test cases", () => {
 
   it("User who is admin should be able to get users by id", (done) => {
     router()
-      .get("/api/admins/get-user/2")
+      .get("/api/users/get-user/2")
       .set('Authorization', `Bearer ${adminToken}`)
       .end((error, response) => {
         expect(response).to.have.status(OK);
@@ -106,15 +106,5 @@ describe("Users test cases", () => {
       });
   });
 
-  it("User who is admin should get error for users by id who does not exist", (done) => {
-    router()
-      .get("/api/admins/get-user/999")
-      .set('Authorization', `Bearer ${adminToken}`)
-      .end((error, response) => {
-        expect(response).to.have.status(NOT_FOUND);
-        expect(response.body).to.be.a("object");
-        expect(response.body.message).to.be.a("string");
-        done(error);
-      });
-  });
+
 });

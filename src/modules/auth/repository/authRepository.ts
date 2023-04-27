@@ -43,5 +43,4 @@ const deleteUserSession =async(user_id: string)=>{
    await users_sessions.destroy({ where: { user_id } }) 
 }
 
-
-export default { getUserByEmail, getUserByNid, getUserById, registerUsers, getUserSessionByUserId, createUserSession, deleteUserSession}
+export default { getUserByEmail, getUserByNid, getUserById, registerUsers, getUserSessionByUserId, createUserSession, deleteUserSession }

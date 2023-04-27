@@ -10,7 +10,7 @@
     }
   },
   
-  "host-loc": "localhost:3000",
+  "host-loc": "localhost:3003",
   "host-live": "localhost:3000",
   "host": "phatom-team-5.herokuapp.com",
  
@@ -39,10 +39,7 @@
       "name": "User Routes",
       "description": "User endpoints | Put Route"
     },
-    {
-      "name": "Admin Routes",
-      "description": "Admin endpoints | GET Route"
-    },
+
     {
       "name": "Routes Routes",
       "description": "Routes endpoints | GET Route"
@@ -50,6 +47,10 @@
     {
       "name": "Bus Routes",
       "description": "Buses endpoints | GET Route"
+    },
+    {
+      "name": "Locations Routes",
+      "description": "Locations endpoints | GET Route"
     }
   ],
 
@@ -182,7 +183,6 @@
       }
     },
 
-    
     "/auth/reset-password/{token}": {
       "put": {
         "tags": [
@@ -221,8 +221,6 @@
       }
     },
 
-
-
     "/auth/logout": {
       "delete": {
         "summary": "Log out a user",
@@ -253,8 +251,9 @@
           }
         }
       }
-    },
-
+    },  
+    
+  
     "/users/get-profile": {
       "get": {
         "tags": [
@@ -341,41 +340,40 @@
         ]
   }
   },
-
-    "/admins/get-user/{id}": {
-      "get": {
-        "tags": [
-          "Admin Routes"
-        ],
-        "summary": " (Get user profile using his/her id With GET Route)",
-        "description": "By the use of this GET endpoint, you will be able to get a user profile as long as you have his/her id",
-        "responses": {
-          "200": {
-            "description": "OK."
-          },
-          "401": {
-            "description": "UNAUTHORIZED."
-          },
-          "404": {
-            "description": "NOT_FOUND."
-          }
+  "/users/delete-user/{id}":{
+    "delete":{
+      "tags": [
+        "User Routes"
+      ],
+      "summary": " (Delete a Driver or operator  DELETE Route)",
+      "description": "By the use of this DELETE endpoint, you will be able to delete a driver or operator",
+      "responses":{
+        "200": {
+          "description": "OK."
         },
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true,
-            "description": "user Id"
-          }
-        ],
-        "security": [
-          {
-            "jwt": []
-          }
-        ]
-      }
-    },
+        "404": {
+          "description": "NOT_FOUND."
+        },
+        "400": {
+          "description":"BAD_REQUEST."
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "type": "integer",
+          "required": true,
+          "description": "user Id"
+        }
+      ],
+      "security": [
+        {
+          "jwt": []
+        }
+      ]
+    }
+  },
 
     "/routes/create-routes":{
       "post":{
@@ -412,6 +410,8 @@
       }
     },
 
+
+  
     "/routes/get-routes":{
       "get": {
         "tags":[
@@ -540,6 +540,159 @@
       }
     },
 
+    "/locations/create-location": {
+      "post": {
+        "tags": [
+          "Locations Routes"
+        ],
+        "summary": "(Create a new location with POST route}",
+        "description": "By the use of this POST endpoint, you will be able to a new location",
+        "responses": {
+          "201": {
+            "description": "CREATED."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/Locations" }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+
+    "/locations/get-locations": {
+      "get": {
+        "tags": [
+          "Locations Routes"
+        ],
+        "summary": " (Get all locations With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get all locations",
+        "responses": {
+
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+         "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+       "schema": { "$ref": "#/definitions/Locations" }
+      }
+    },
+    
+    "/locations/get-location/{id}": {
+      "get": {
+        "tags": [
+          "Locations Routes"
+        ],
+        "summary": " (Get location With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get a location",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Bus Id",
+            "schema": { "$ref": "#/definitions/Locations" }
+          }
+        ]
+      }
+    },
+
+    "/location/update-location/{id}": {
+      "put": {
+        "tags": [
+          "Locations Routes"
+        ],
+        "summary": " (Update Location With PUT Route)",
+        "description": "By the use of this PUT endpoint, you will be able to update a location",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "location Id"
+          },{
+            "in": "body",
+            "name": "body",
+            "type": "object",
+            "required": true,
+            "description": "Body Request",
+            "schema": { "$ref": "#/definitions/Locations" }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+
+    "/locations/delete-location/{id}": {
+      "delete": {
+        "tags": [
+          "Locations Routes"
+        ],
+        "summary": " (Delete Location With DELETE Route)",
+        "description": "By the use of this DELETE endpoint, you will be able to delete a location",
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Bus Id",
+            "schema": { "$ref": "#/definitions/Locations" }
+          }
+        ],
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
     "/buses/create-bus": {
       "post": {
         "tags": [
@@ -576,7 +729,7 @@
     "/buses/get-buses": {
       "get": {
         "tags": [
-          "Bus Routes"
+          "Buses Routes"
         ],
         "summary": " (Get all buses With GET Route)",
         "description": "By the use of this GET endpoint, you will be able to get all buses",
@@ -595,11 +748,50 @@
        "schema": { "$ref": "#/definitions/Buses" }
       }
     },
+    "/buses/get-buses/{origin}/{destination}": {
+      "get": {
+        "tags": [
+          "Buses Routes"
+        ],
+        "summary": " (Get all buses With GET Route)",
+        "description": "By the use of this GET endpoint, you will be able to get all buses",
+        "responses": {
+
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+         "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "origin",
+            "type": "integer",
+            "required": true,
+            "description": "location Id of origin"
+          
+          },
+          {
+            "in": "path",
+            "name": "destination",
+            "type": "integer",
+            "required": true,
+            "description": "location Id of destination"
+          }
+        ],
+       "schema": { "$ref": "#/definitions/RouteBuses" }
+      }
+    },
     
     "/buses/get-bus/{id}": {
       "get": {
         "tags": [
-          "Bus Routes"
+          "Buses Routes"
         ],
         "summary": " (Get Bus With GET Route)",
         "description": "By the use of this GET endpoint, you will be able to get a bus",
@@ -631,7 +823,7 @@
     "/buses/update-bus/{id}": {
       "put": {
         "tags": [
-          "Bus Routes"
+          "Buses Routes"
         ],
         "summary": " (Update Bus With PUT Route)",
         "description": "By the use of this PUT endpoint, you will be able to update a bus",
@@ -673,7 +865,7 @@
     "/buses/delete-bus/{id}": {
       "delete": {
         "tags": [
-          "Bus Routes"
+          "Buses Routes"
         ],
         "summary": " (Delete Bus With DELETE Route)",
         "description": "By the use of this DELETE endpoint, you will be able to delete a bus",
@@ -905,7 +1097,48 @@
         "driver_id": {
           "type": "number",
           "example": null
+        },
+        "route_name": {
+
         }
+      }
+    },
+    "RouteBuses": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Toyota Corolla"
+        },
+        "available_sits": {
+          "type": "number",
+          "example": 5
+        },
+        "model": {
+          "type": "string",
+          "example": "XLi"
+        },
+        "plate_number": {
+          "type": "string",
+          "example": "ABC-123"
+        },
+        "driver_id": {
+          "type": "number",
+          "example": null
+        },
+        "router": {
+          "type": "object",
+          "properties":{
+            
+            "location_start":{
+              "$ref":"#/definitions/Locations"
+            },
+            "location_end":{
+              "$ref":"#/definitions/Locations"
+            }
+          }
+        }
+
       }
     },
       "BusesDrivers": {
@@ -921,16 +1154,20 @@
         }
       }
     },
-    "BusesRoutes": {
+    "Locations": {
       "type": "object",
-      "bus_id": {
+      "location_name": {
         "name": {
-          "type": "number",
-          "example": 2
+          "type": "string",
+          "example": "Gatenga"
         },
-        "route_id": {
-          "type": "number",
-          "example": 2
+        "latitude": {
+          "type": "float",
+          "example": -2.61833
+        },
+        "logitude": {
+          "type": "float",
+          "example": 29.71667
         }
       }
     }
