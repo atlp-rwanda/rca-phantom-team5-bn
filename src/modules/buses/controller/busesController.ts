@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { INTERNAL_SERVER_ERROR, OK, BAD_REQUEST, CREATED, NOT_FOUND, CONFLICT } from 'http-status'
+import { INTERNAL_SERVER_ERROR, OK,CREATED,NOT_FOUND, CONFLICT } from 'http-status'
 
 import responseUtil from '../../../utils/responseUtil'
 import busesRepository from '../repository/busesRepository';

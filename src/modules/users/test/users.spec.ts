@@ -15,9 +15,9 @@ describe("Users test cases", () => {
       router()
         .post("/api/auth/signin")
         .send({
-          email: "demo@demo.com",
-          password: "$321!pass!123$",
-          device_id:"MC-123"
+        email: "jane@demo.com",
+        password: "jane!123$",
+        device_id: "MC-123",
         })
         .end((error, response) => {
           token = response.body.data.access_token;
