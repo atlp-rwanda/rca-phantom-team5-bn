@@ -77,12 +77,10 @@ const deleteUsers = async (req: any, res: Response) => {
           responseUtil.handleError(NOT_FOUND, 'User not found')
           return responseUtil.response(res)
       }
-  
       if((data.role === "super_admin" || data.role === "admin") && req.user.role === "admin"){
         responseUtil.handleError(NOT_FOUND, 'admin can not delete super admin or admin')
         return responseUtil.response(res)
       }
-     
       await usersRepository.deleteUsers(req.params.id);
       responseUtil.handleSuccess(OK, "Success", {});
       return responseUtil.response(res);
