@@ -13,7 +13,11 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 3003
 const httpServer = http.createServer(app)
-const io = new Server(httpServer)
+const io = new Server(httpServer,{
+    cors: {
+      origin: "*",
+    }
+  })
 
 
 app.use(express.json())
@@ -21,6 +25,7 @@ app.use(express.urlencoded({ extended: false }))
 
 
 app.use(cors());
+
 app.use('/api', routes)
 app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
@@ -31,7 +36,7 @@ app.get('**', (req: Request, res: Response) => res.status(200).json({
     data: []
 }))
 
-io.on("connection", (socket)=>SocketConnection(socket,io) )
+io.on("connection", (socket) => SocketConnection(socket, io))
 httpServer.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`)
 })

@@ -8,7 +8,7 @@ export default function  SocketConnection(socket:Socket,io:Server){
 
       socket.on('join',(data,callback)=>onJoin(socket,data,callback,io));
     
-      socket.on('onupdate', (data,callBack)=> onUpdate(data,callBack,io));
+      socket.on('update', (data,callBack)=> onUpdate(data,callBack,io));
     
       socket.on('disconnect', (key) => onDisconnect(key,io))
  

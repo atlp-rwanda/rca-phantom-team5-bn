@@ -8,20 +8,25 @@ export interface UserData {
     destination: number
 }
 
+const fetchRouteInfo = async (origin: string, destination: string) => {
+
+    let data: any = await routes.getRouteByOrginDestinaton(parseInt(origin), parseInt(destination))
+    console.log(data.id)
+    return { id: data.id, route_name: data.route_name }
+}
+
 export default async function onJoin(socket: Socket, data: UserData, callback: Function, io: Server) {
-   try {
-    const result = await Cache.get(data.route_id,()=> routes.getRouteByOrginDestinaton(data.origin,data.destination));
+    try {
+        const result: any = await Cache.get(data.route_id.toString(), () => (fetchRouteInfo(data.origin.toString(), data.destination.toString())));
+        socket.emit('joined', { user: 'phantom', text: `welcome to route ${result.name}.` });
+        socket.broadcast.to(result.id).emit('newUser', { text: `new user has joined!` });
+        socket.join(result.id);
+        io.to(result.id).emit('routeData', { route: result.route_name, wait: result.count });
 
-    socket.join(result.id);
+        callback();
+    } catch (error) {
+        console.log(error)
+        callback(error)
+    }
 
-    socket.emit('joined', { user: 'phantom', text: `welcome to route ${result.name}.`});
-    socket.broadcast.to(result.id).emit('newUser', { text: `new user has joined!` });
-
-    io.to(result.id).emit('routeData', { room: result.name, wait: result.count});
-
-    callback();
-   } catch (error) {
-    callback(error)
-   }
-   
 }
