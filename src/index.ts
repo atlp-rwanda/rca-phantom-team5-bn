@@ -11,10 +11,10 @@ import SocketConnection from './socket';
 
 dotenv.config()
 const app = express()
-const port = process.env.PORT || 3003
+const port = 3003 || process.env.PORT
 const httpServer = http.createServer(app)
 try {
-  
+
   const io = new Server(httpServer, {
     cors: {
       origin: "*",
