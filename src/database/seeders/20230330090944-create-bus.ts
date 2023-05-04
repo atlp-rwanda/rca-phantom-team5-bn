@@ -20,6 +20,7 @@ const busTwo = {
   plate_number: 'RCA125G'
 
 }
+
 const busThree = {
   createdAt: new Date(),
   updatedAt: new Date(),
