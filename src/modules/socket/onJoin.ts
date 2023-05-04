@@ -21,9 +21,9 @@ export default async function onJoin(socket: Socket, data: UserData, callback: F
         socket.join(result.id);
         io.to(result.id).emit('routeData', { route: result.route_name, wait: result.count });
 
-        callback(result);
+        callback();
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         callback(error)
     }
 

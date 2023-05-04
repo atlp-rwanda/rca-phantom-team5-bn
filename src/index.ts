@@ -42,14 +42,11 @@ try {
 
 
   io.on("connection", (socket) => SocketConnection(socket, io))
-  io.on("error", (err) => console.log("hello ", err.message))
 
   httpServer.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`)
   })
-  httpServer.on('error', (err: any) => {
-    console.log("dis", err.message)
-  })
+
 } catch (err: any) {
   console.log(err.message)
 }

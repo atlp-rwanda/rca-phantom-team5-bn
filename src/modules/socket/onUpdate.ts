@@ -9,7 +9,6 @@ export interface UpdateRoute {
 
 }
 export default function onUpdate(message: UpdateRoute, callback: Function, io: Server) {
-    console.log(message)
     io.to(message.route_id).emit('onUpdate', { busId: message.busId,seats:message.seats, position: message.position, state: message.state });
     if(typeof callback === 'function') callback();
    
