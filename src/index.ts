@@ -13,11 +13,11 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 3003
 const httpServer = http.createServer(app)
-const io = new Server(httpServer,{
-    cors: {
-      origin: "*",
-    }
-  })
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*",
+  }
+})
 
 
 app.use(express.json())
@@ -31,14 +31,18 @@ app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 
 app.get('**', (req: Request, res: Response) => res.status(200).json({
-    status: 200,
-    message: 'Welcome To Phantom Server',
-    data: []
+  status: 200,
+  message: 'Welcome To Phantom Server',
+  data: []
 }))
 
-io.on("connection", (socket) => SocketConnection(socket, io))
+try {
+  io.on("connection", (socket) => SocketConnection(socket, io))
+} catch (err: any) {
+  console.log(err.message)
+}
 httpServer.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`)
+  console.log(`Server is running at http://localhost:${port}`)
 })
 
 export default httpServer;
