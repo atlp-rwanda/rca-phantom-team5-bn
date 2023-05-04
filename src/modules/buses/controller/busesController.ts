@@ -131,5 +131,21 @@ const getBusesByRoute = async (req: any, res: Response) => {
   }
 }
 
+const getBusesByDriver = async (req: any, res: Response) => {
+  try {
+    const driver_id: any = req.params.driver_id;
+    const bus = await busesRepository.getBusesByDriverId(driver_id)
+    if (!bus) {
+      responseUtil.handleError(NOT_FOUND, "Bus not found");
+      return responseUtil.response(res);
+    }
+    responseUtil.handleSuccess(OK, 'Success', bus)
+    return responseUtil.response(res);
+  } catch (error: any) {
+    responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());
+    return responseUtil.response(res);
+  }
 
-export default { createBus, getBuses, getBus, updateBus, deleteBus, assignBus, getBusesByRoute }
+}
+
+export default { createBus, getBuses, getBus, updateBus, deleteBus, assignBus, getBusesByRoute, getBusesByDriver }

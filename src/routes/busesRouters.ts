@@ -9,6 +9,7 @@ const busRouter=Router()
 busRouter
     .get("/get-buses", busesController.getBuses)
     .get("/get-bus/:id", busesController.getBus)
+    .get("/get-bus-by-driver/:driver_id", busesController.getBusesByDriver)
     .get("/get-buses/:orgin/:destination", busesController.getBusesByRoute)
     .post("/create-bus", validateCreateBus, busesController.createBus)
     .delete("/delete-bus/:id", userAuthorization(['operator']), busesController.deleteBus)

@@ -9,6 +9,10 @@ const getBusByPlateNumber = async (plate_number: string) => {
   return await buses.findOne({ where: { plate_number } });
 };
 
+const getBusesByDriverId = async (driver_id: number) => {
+  return await buses.findOne({ where: { driver_id } });
+};
+
 const getBuses = async (page = 1, limit = 2, route_id: number) => {
   const offset = (page - 1) * limit;
   if (route_id !== undefined) {
@@ -64,4 +68,4 @@ const getBusesByRoutes = async (orgin:number, destination:number) => {
 }
 
 
-export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus, updateBus, assignBus, getBusesByRoutes }
+export default { getBusById, getBusByPlateNumber, getBusesByDriverId, getBuses, deleteBus, createBus, updateBus, assignBus, getBusesByRoutes }
