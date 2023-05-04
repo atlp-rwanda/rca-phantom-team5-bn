@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io";
-import Cache from "../../utils/redisCasheUtils";
+import Cache from "../utils/redisCasheUtils";
 
 export default async function onDisconnect(key:any, socket: Socket, io: Server) {
     // ('console.logdisconnect',key)

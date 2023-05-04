@@ -1,19 +1,15 @@
-// with { "type": "module" } in your package.json
+
 import { createServer } from "http";
 import { io as Client } from "socket.io-client";
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
 import { assert } from "chai";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 import { AddressInfo } from "net";
-
-// with { "type": "commonjs" } in your package.json
-// const { createServer } = require("http");
-// const { Server } = require("socket.io");
-// const Client = require("socket.io-client");
-// const assert = require("chai").assert;
+import onJoin, { UserData } from "../onJoin";
+import onUpdate from "../onUpdate";
 
 describe("testing socket", () => {
-  let io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>, serverSocket: { emit: (arg0: string, arg1: string) => void; on: (arg0: string, arg1: (cb: any) => void) => void; }, clientSocket: { on: (arg0: string, arg1: { (err?: any): void; (arg: any): void; }) => void; close: () => void; emit: (arg0: string, arg1: (arg: any) => void) => void; };
+  let io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>, serverSocket: Socket, clientSocket: any
 
   before((done) => {
     const httpServer = createServer();
@@ -34,19 +30,18 @@ describe("testing socket", () => {
   });
 
   it("should work", (done) => {
-    clientSocket.on("hello", (arg: any) => {
+    clientSocket.on("join", (arg: any) => {
       assert.equal(arg, "world");
       done();
     });
+    
     serverSocket.emit("hello", "world");
   });
 
   it("should work (with ack)", (done) => {
-    serverSocket.on("hi", (cb: (arg0: string) => void) => {
-      cb("hola");
-    });
-    clientSocket.emit("hi", (arg: any) => {
-      assert.equal(arg, "hola");
+    serverSocket.on("join", (arg: UserData, cb: Function) => { onJoin(serverSocket, arg,cb, io)});
+    clientSocket.emit("join", (arg: any) => {
+      assert.equal(arg, {});
       done();
     });
   });

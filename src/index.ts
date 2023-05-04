@@ -7,7 +7,7 @@ import { Server } from 'socket.io';
 
 import routes from './routes'
 import * as swaggerDocument from '../swagger.json'
-import SocketConnection from './modules/socket';
+import SocketConnection from './socket';
 
 dotenv.config()
 const app = express()

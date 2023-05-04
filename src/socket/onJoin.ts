@@ -1,6 +1,6 @@
 import { Server, Socket } from "socket.io";
-import Cache from "../../utils/redisCasheUtils";
-import routes from '../routes/repository/routesRepository'
+import Cache from "../utils/redisCasheUtils";
+import routes from '../modules/routes/repository/routesRepository'
 export interface UserData {
     route_id: string;
     device_id: string;
