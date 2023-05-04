@@ -24,16 +24,14 @@ class RedisCache {
         });
 
 
-        this.cache.on("error", (error: any) => {
-            console.error(`Redis error, service degraded: ${error}`);
-        });
+        // this.cache.on("error", (error: any) => {
+        //     console.error(`Redis error, service degraded: ${error}`);
+        // });
         this.cache.connect()
     }
 
-    // [2] generic function, takes `fetcher` argument which is meant to refresh the cache
     async get<T>(key: string, fetcher: () => Promise<T>): Promise<T> {
-        // [3] if we're not connected to redis, bypass cache
-       
+
         if (!this.isconnected) {
             return await fetcher();
         }
@@ -52,7 +50,6 @@ class RedisCache {
                     }
                 }
 
-                // [5] if value is not in cache, fetch it and return it
                 const data:any = await fetcher();
                 
                 const result = { ...data, count: 1 }
@@ -68,7 +65,7 @@ class RedisCache {
         });
     }
 
-    // [6]
+
     del(key: string) {
         this.cache.del(key);
     }
