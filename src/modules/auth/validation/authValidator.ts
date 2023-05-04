@@ -26,7 +26,7 @@ const validSignIn = (  req: Request,  res: Response,  next: NextFunction) => {
 const validResetPassword = (  req: Request,  res: Response,  next: NextFunction) => {
   const bodySchema = Joi.object({
     password: Joi.string().required(),
-    confirm_password: Joi.string().required().valid(Joi.ref('password')),
+    confirm_password: Joi.string(),
   }).options({ abortEarly: false });
   return validateSchema(bodySchema, req.body, res, next);
 };

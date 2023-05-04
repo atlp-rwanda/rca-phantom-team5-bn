@@ -80,17 +80,17 @@ const resetPasswordEmail = async (req: any, res: Response) =>{
   try{
     const emailExist = await authRepository.getUserByEmail(req.body.email);
     if (!emailExist) {
-      responseUtil.handleError(BAD_REQUEST, 'Email Not found');
+      responseUtil.handleError(BAD_REQUEST, 'Email not found');
       return responseUtil.response(res);
     }
 
     let userSession: any = { user_id: emailExist.id, device_id: req.body.device_id };
     userSession = await authRepository.createUserSession(userSession);
 
-    const link = `${process.env.BASE_URL}/reset-password/${userSession.access_token}`;
+    const link = `https://phatom-team.netlify.app/reset-password/${userSession.access_token}`;
     await sendEmail(link, " ", req.body.email, "Reset Password Link", "");
 
-    responseUtil.handleError(OK, 'Reset Password Link sent');
+    responseUtil.handleError(OK, 'Reset password link sent');
     return responseUtil.response(res);
 }catch (error: any) {
   responseUtil.handleError(INTERNAL_SERVER_ERROR, error.toString());

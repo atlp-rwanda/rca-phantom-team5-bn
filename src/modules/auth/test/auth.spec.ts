@@ -235,5 +235,3 @@ it('Signin should have three properties: email, password, device_id', (done) => 
   });
   
 })
-
-

@@ -1,7 +1,7 @@
 import { QueryInterface  } from 'sequelize'
 import { hashPassword } from '../../utils/passwordUtils'
 
-const userOne = {
+const userFive = {
   created_at: new Date(),
   updated_at: new Date(),
   role: 'driver',
@@ -10,6 +10,19 @@ const userOne = {
   driver_licence:['A','B','C','D','E','F'],
   nid: '1997988947289789',
   email:'demo@demo.com',
+  is_assigned:false,
+  password:hashPassword('$321!pass!123$')
+}
+const userOne = {
+  created_at: new Date(),
+  updated_at: new Date(),
+  role: 'driver',
+  fname: 'Yassin',
+  lname: 'Draxler',
+  driver_licence:['A','B','C','D','E','F'],
+  nid: '1997988947289789',
+  email:'hyassin509@gmail.com',
+  is_assigned:false,
   password:hashPassword('$321!pass!123$')
 }
 
@@ -51,6 +64,6 @@ const userFour = {
 
 
   
-const up = (queryInterface: QueryInterface) => queryInterface.bulkInsert('users', [userOne, usertwo, userThree, userFour])
+const up = (queryInterface: QueryInterface) => queryInterface.bulkInsert('users', [userOne, usertwo, userThree, userFour,userFive])
 const down = (queryInterface: QueryInterface) => queryInterface.bulkDelete('users', [], {})
 export { up, down }

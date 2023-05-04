@@ -64,4 +64,4 @@ const getBusesByRoutes = async (orgin:number, destination:number) => {
 }
 
 
-export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus,updateBus, assignBus, getBusesByRoutes }
+export default { getBusById, getBusByPlateNumber, getBuses, deleteBus, createBus, updateBus, assignBus, getBusesByRoutes }

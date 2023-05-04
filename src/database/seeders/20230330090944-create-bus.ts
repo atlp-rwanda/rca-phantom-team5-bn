@@ -13,19 +13,8 @@ const busOne = {
 const busTwo = {
   createdAt: new Date(),
   updatedAt: new Date(),
-  name: 'KBS',
-  available_sits: 8,
-  route_id:2,
-  model: 'XLiu',
-  plate_number: 'RCA125G'
-
-}
-const busThree = {
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  name: 'Kbs',
+  name: 'BMW',
   available_sits: 5,
-  route_id:2,
   model: 'XLiu',
   plate_number: 'RCA125A'
 
@@ -51,6 +40,6 @@ const busFive = {
   plate_number: 'RCA125C'
 
 }
-const up = (queryInterface: QueryInterface) => queryInterface.bulkInsert('buses', [busOne, busTwo,busThree,busFour,busFive])
+const up = (queryInterface: QueryInterface) => queryInterface.bulkInsert('buses', [busOne, busTwo,busThree,busFour,busFive,busThree,busFour,busFive])
 const down = (queryInterface: QueryInterface) => queryInterface.bulkDelete('buses', [], {})
 export { up, down }
