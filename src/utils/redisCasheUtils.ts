@@ -24,9 +24,9 @@ class RedisCache {
         });
 
 
-        // this.cache.on("error", (error: any) => {
-        //     console.error(`Redis error, service degraded: ${error}`);
-        // });
+        this.cache.on("error", (error: any) => {
+            console.error(`Redis error, service degraded: ${error}`);
+        });
         this.cache.connect()
     }
 

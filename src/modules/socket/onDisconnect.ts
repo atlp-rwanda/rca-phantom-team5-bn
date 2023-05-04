@@ -1,8 +1,9 @@
 import { Server, Socket } from "socket.io";
 import Cache from "../../utils/redisCasheUtils";
 
-export default async function onDisconnect(key:string, io: Server<any>) {
+export default async function onDisconnect(key:any, socket: Socket, io: Server) {
     console.log('disconnect',key)
+    console.log(socket.id)
     // const result = await Cache.reduceCount(key);
 
     // if (result) {

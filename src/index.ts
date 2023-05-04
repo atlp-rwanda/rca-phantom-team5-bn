@@ -13,36 +13,45 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 3003
 const httpServer = http.createServer(app)
-const io = new Server(httpServer, {
-  cors: {
-    origin: "*",
-  }
-})
-
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-
-
-app.use(cors());
-
-app.use('/api', routes)
-app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-
-
-app.get('**', (req: Request, res: Response) => res.status(200).json({
-  status: 200,
-  message: 'Welcome To Phantom Server',
-  data: []
-}))
-
 try {
+  
+  const io = new Server(httpServer, {
+    cors: {
+      origin: "*",
+    },
+    pingTimeout: 60000,
+
+  })
+
+
+  app.use(express.json())
+  app.use(express.urlencoded({ extended: false }))
+
+
+  app.use(cors());
+
+  app.use('/api', routes)
+  app.use('/api/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
+
+  app.get('**', (req: Request, res: Response) => res.status(200).json({
+    status: 200,
+    message: 'Welcome To Phantom Server',
+    data: []
+  }))
+
+
   io.on("connection", (socket) => SocketConnection(socket, io))
+  io.on("error", (err) => console.log("hello ", err.message))
+
+  httpServer.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`)
+  })
+  httpServer.on('error', (err: any) => {
+    console.log("dis", err.message)
+  })
 } catch (err: any) {
   console.log(err.message)
 }
-httpServer.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`)
-})
 
 export default httpServer;

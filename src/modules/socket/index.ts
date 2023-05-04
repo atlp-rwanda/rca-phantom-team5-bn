@@ -10,7 +10,7 @@ export default function SocketConnection(socket: Socket, io: Server) {
 
             socket.on('update', (data, callBack) => onUpdate(data, callBack, io));
 
-            socket.on('disconnect', (key) => onDisconnect(key, io))
+            socket.on('disconnect', (key) => onDisconnect(key,socket, io))
       } catch (err:any) {
             console.log(err.message);
       }
