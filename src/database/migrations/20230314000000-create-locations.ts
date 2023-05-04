@@ -5,6 +5,6 @@ module.exports = { async up(queryInterface: QueryInterface) { await queryInterfa
     updatedAt: { allowNull: false, type: DataTypes.DATE },
     id: { allowNull: false, autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER },
     location_name: { type: DataTypes.STRING },
-    latitude: { type: DataTypes.DECIMAL(11, 2) },
-    longitude: { type: DataTypes.DECIMAL(11, 2) },
+    latitude: { type: DataTypes.DECIMAL },
+    longitude: { type: DataTypes.DECIMAL },
 }) }, async down(queryInterface: QueryInterface) { await queryInterface.dropTable('locations') }, }

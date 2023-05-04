@@ -9,9 +9,7 @@ export interface UserData {
 }
 
 const fetchRouteInfo = async (origin: string, destination: string) => {
-
     let data: any = await routes.getRouteByOrginDestinaton(parseInt(origin), parseInt(destination))
-    console.log(data.id)
     return { id: data.id, route_name: data.route_name }
 }
 
