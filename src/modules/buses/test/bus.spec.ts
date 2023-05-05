@@ -35,6 +35,40 @@ describe("Buses Test Cases", () => {
       });
   });
 
+  it("Should be able to get Buses by driver", (done) => {
+    router()
+      .get("/api/buses/get-bus-by-driver/1")
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  it("Should get an error when getting Buses by driver who doens't exist", (done) => {
+    router()
+      .get("/api/buses/get-bus-by-driver/999")
+      .end((error, response) => {
+        expect(response).to.have.status(NOT_FOUND);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        done(error);
+      });
+  });
+
+  it("Internal server error when getting Buses by driver who doens't exist", (done) => {
+    router()
+      .get("/api/buses/get-bus-by-driver/(*:97skhdfa")
+      .end((error, response) => {
+        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        done(error);
+      });
+  });
+
   it("Should be able to get Buses on a given route", (done) => {
     router()
       .get("/api/buses/get-buses?router_id=1")
@@ -43,6 +77,17 @@ describe("Buses Test Cases", () => {
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
         expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  it("Internal server error on invalid query to get Buses on a given route", (done) => {
+    router()
+      .get("/api/buses/get-buses?router_id=(*:97skhdfa")
+      .end((error, response) => {
+        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
         done(error);
       });
   });
@@ -268,11 +313,22 @@ describe("Buses Test Cases", () => {
       });
   });
 
-  it("Testing internal server error for getting a non-existent bus", (done) => {
+  it("Not found error for getting a non-existent bus", (done) => {
     router()
       .get("/api/buses/get-bus/999")
       .end((error, response) => {
         expect(response).to.have.status(NOT_FOUND);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.an("string");
+        done(error);
+      });
+  });
+
+  it("Testing internal server error for getting a non-existent bus", (done) => {
+    router()
+      .get("/api/buses/get-bus/345YRTY(")
+      .end((error, response) => {
+        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.an("string");
         done(error);
