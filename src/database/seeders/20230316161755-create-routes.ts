@@ -45,7 +45,17 @@ const routefive = {
   stops: [10],
   way_points: [1]
 }
+
+const routeSix = {
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  route_name: 'Nyabugogo-Remera',
+  start: 5,
+  end: 2,
+  stops: [10],
+  way_points: [1]
+}
   
-const up = (queryInterface: QueryInterface) => queryInterface.bulkInsert('routes', [routeOne, routetwo,routethree,routefour,routefive])
+const up = (queryInterface: QueryInterface) => queryInterface.bulkInsert('routes', [routeOne, routetwo, routethree, routefour, routefive, routeSix])
 const down = (queryInterface: QueryInterface) => queryInterface.bulkDelete('routes', [], {})
 export { up, down }
