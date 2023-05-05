@@ -1,6 +1,6 @@
 import chaihttp from "chai-http";
 import chai, { expect } from "chai";
-import {NOT_FOUND, OK, UNAUTHORIZED } from "http-status";
+import {INTERNAL_SERVER_ERROR, NOT_FOUND, OK, UNAUTHORIZED } from "http-status";
 
 import app from "../../../index";
 
@@ -37,12 +37,62 @@ describe("Users test cases", () => {
       });
   });
 
+  it("User should be able to get users who are drivers", (done) => {
+    router()
+      .get("/api/users/get-drivers?limit=3&page=3&is_assigned=false")
+      .set('Authorization', `Bearer ${token}`)
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  it("User should be able to get users who are drivers without is_assigned", (done) => {
+    router()
+      .get("/api/users/get-drivers?limit=3&page=3")
+      .set('Authorization', `Bearer ${token}`)
+      .end((error, response) => {
+        expect(response).to.have.status(OK);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+
+  it("User should be able to get error on invalid queries to get drivers", (done) => {
+    router()
+      .get("/api/users/get-drivers?limit=3&page=3&is_assigned=(*:97skhdfa")
+      .set('Authorization', `Bearer ${token}`)
+      .end((error, response) => {
+        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        done(error);
+      });
+  });
+
   it("User who is not admin should be unauthorized", (done) => {
     router()
       .get("/api/users/get-user/2")
       .set('Authorization', `Bearer ${token}`)
       .end((error, response) => {
         expect(response).to.have.status(UNAUTHORIZED);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.a("string");
+        done(error);
+      });
+  });
+
+  it("Internal server error on get user who doen't exist", (done) => {
+    router()
+      .get("/api/users/get-user/345YRTY(")
+      .set('Authorization', `Bearer ${adminToken}`)
+      .end((error, response) => {
+        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
         done(error);
@@ -93,15 +143,50 @@ describe("Users test cases", () => {
       });
   });
 
-  it("User who is admin should be able to get users by id", (done) => {
+  it("User should to get error on get user who doesn't exist", (done) => {
     router()
-      .get("/api/users/get-user/2")
+      .get("/api/users/get-user/999")
       .set('Authorization', `Bearer ${adminToken}`)
       .end((error, response) => {
-        expect(response).to.have.status(OK);
+        expect(response).to.have.status(NOT_FOUND);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
-        expect(response.body).to.have.property("data");
+        done(error);
+      });
+  });
+  
+  it("Testing error for admin can not delete super admin or admin", (done) => {
+    router()
+      .delete("/api/users/delete-user/4")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .end((error, response) => {
+        expect(response).to.have.status(NOT_FOUND);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.an("string");
+        done(error);
+      });
+  });
+
+  it("Testing error for deleting non-existent user", (done) => {
+    router()
+      .delete("/api/users/delete-user/999")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .end((error, response) => {
+        expect(response).to.have.status(NOT_FOUND);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.an("string");
+        done(error);
+      });
+  });
+
+  it("Testing internal server error for deleting non-existent user", (done) => {
+    router()
+      .delete("/api/users/delete-user/345YRTY(")
+      .set("Authorization", `Bearer ${adminToken}`)
+      .end((error, response) => {
+        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response.body).to.be.a("object");
+        expect(response.body.message).to.be.an("string");
         done(error);
       });
   });

@@ -819,6 +819,37 @@
         ]
       }
     },
+    "/buses/get-bus-by-driver/{id}": {
+      "get": {
+        "tags": [
+          "Buses Routes"
+        ],
+        "summary": " (Get Bus With GET Route by driver)",
+        "description": "By the use of this GET endpoint, you will be able to get a bus by driver Id",
+        "responses": {
+
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+         "description": "BAD_REQUEST."
+          },
+          "404": {
+            "description": "NOT_FOUND."
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true,
+            "description": "Driver Id",
+            "schema": { "$ref": "#/definitions/Buses" }
+          }
+        ]
+      }
+    },
 
     "/buses/update-bus/{id}": {
       "put": {

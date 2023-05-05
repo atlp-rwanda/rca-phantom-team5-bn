@@ -11,8 +11,8 @@ const locationTwo = {
   createdAt: new Date(),
   updatedAt: new Date(),
   location_name: 'Remera',
-  latitude: -1.951542,
-  longitude: 30.109847,
+  latitude: -1.9647362028782875,
+  longitude: 30.148948779461183,
 }
 
 const locationThree = {

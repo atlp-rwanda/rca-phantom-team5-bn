@@ -187,6 +187,21 @@ it('Signin should have three properties: email, password, device_id', (done) => 
         done(error);
       });
   }); 
+
+  it('Reset password success token Expired error', (done) => {
+    router()
+      .put(`/api/auth/reset-password/${access_token}er+1`)
+      .send({       
+        password:"peter!123$",
+        confirm_password:"peter!123$"      
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(INTERNAL_SERVER_ERROR);
+        expect(response.body).to.be.a('object');
+        expect(response.body.message).to.be.a('string');
+        done(error);
+      });
+  }); 
  
 
   //logout

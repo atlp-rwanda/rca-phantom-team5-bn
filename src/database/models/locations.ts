@@ -29,8 +29,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
       updatedAt: { field: "updatedAt", type: DataTypes.DATE },
       id: { allowNull: false, autoIncrement: true, primaryKey: true, type: DataTypes.INTEGER },
       location_name: { type: DataTypes.STRING, allowNull: false },
-      latitude: { type: DataTypes.DECIMAL(11, 2), allowNull: false },
-      longitude: { type: DataTypes.DECIMAL(11, 2), allowNull: false },
+      latitude: { type: DataTypes.DECIMAL, allowNull: false },
+      longitude: { type: DataTypes.DECIMAL, allowNull: false },
     },
     {
       sequelize,
