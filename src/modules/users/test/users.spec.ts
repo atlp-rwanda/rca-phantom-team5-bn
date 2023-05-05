@@ -154,6 +154,7 @@ describe("Users test cases", () => {
         done(error);
       });
   });
+  
   it("Testing error for admin can not delete super admin or admin", (done) => {
     router()
       .delete("/api/users/delete-user/4")

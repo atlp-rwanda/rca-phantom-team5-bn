@@ -27,7 +27,7 @@ const busThree = {
   updatedAt: new Date(),
   name: 'Kbs',
   available_sits: 5,
-  driver_id:5,
+  driver_id:1,
   route_id: 2,
   model: 'XLiu',
   plate_number: 'RCA125A'

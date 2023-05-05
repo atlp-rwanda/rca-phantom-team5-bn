@@ -279,7 +279,7 @@ describe("Buses Test Cases", () => {
   });
   it("Should be able to delete a bus", (done) => {
     router()
-      .delete("/api/buses/delete-bus/1")
+      .delete("/api/buses/delete-bus/3")
       .set("Authorization", `Bearer ${token}`)
       .end((error, response) => {
         expect(response).to.have.status(OK);
