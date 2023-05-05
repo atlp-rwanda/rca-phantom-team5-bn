@@ -11,7 +11,7 @@ import SocketConnection from './socket';
 
 dotenv.config()
 const app = express()
-const port = 3003 || process.env.PORT
+const port = process.env.PORT || 3003 
 const httpServer = http.createServer(app)
 try {
 
