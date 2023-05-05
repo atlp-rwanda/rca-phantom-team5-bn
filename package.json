@@ -34,7 +34,8 @@
       "text",
       "text-summary"
     ],
-    "report-dir": "coverage"
+    "report-dir": "coverage",
+    "lines": 40
   },
   "repository": {
     "type": "git",
