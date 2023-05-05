@@ -43,6 +43,7 @@ const busFour = {
   plate_number: 'RCA125F'
 
 }
+
 const busFive = {
   createdAt: new Date(),
   updatedAt: new Date(),
