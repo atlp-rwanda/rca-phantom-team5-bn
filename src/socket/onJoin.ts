@@ -4,6 +4,7 @@ import routes from '../modules/routes/repository/routesRepository'
 export interface UserData {
     route_id: string;
     device_id: string;
+    busId?:string;
     origin: number;
     destination: number
 }
@@ -15,12 +16,16 @@ const fetchRouteInfo = async (origin: string, destination: string) => {
 
 export default async function onJoin(socket: Socket, data: UserData, callback: Function, io: Server, fetcher = fetchRouteInfo) {
     try {
+        
         const result: any = await Cache.get(data.route_id.toString(), () => (fetcher(data.origin.toString(), data.destination.toString())));
+        let recentBus:any = null;
+        if(data.busId){
+            recentBus = await Cache.get(`bus:${data.busId.toString()}`, async()=>({id:data.busId,completed:false,user_id:socket.id ,route_id:data.route_id}))
+        }
         socket.emit('joined', { user: 'phantom', text: `welcome to route ${result.name}.` });
-        socket.broadcast.to(result.id).emit('newUser', { text: `new user has joined!` });
+        socket.broadcast.to(result.id).emit('RecentBus', { data: recentBus });
         socket.join(result.id);
         io.to(result.id).emit('routeData', { route: result.route_name, wait: result.count });
-
         callback();
     } catch (error) {
         // console.log(error)

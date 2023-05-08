@@ -64,6 +64,36 @@ class RedisCache {
             })
         });
     }
+    async busUpdate<T>(key: string, fetcher:()=>Promise<T>): Promise<T> {
+        if(!this.isconnected){
+            return await fetcher();
+        }
+
+        return new Promise((resolve,reject)=>{
+            this.cache.get(key).then(async (value:any)=>{
+                const values = JSON.parse(value)
+                if(values && values.id){
+                    const newData = await fetcher();
+                    const newValue = { ...values, ...newData }
+                    this.cache.set(
+                        key,
+                        JSON.stringify(newValue)
+                    );
+                    return resolve(values);
+                }
+                const data:any = await fetcher();
+                const result = { ...data}
+                this.cache.set(
+                    key,
+                    JSON.stringify(result)
+                );
+                return resolve(result);
+            }).catch((err:Error)=>{
+                return reject(err)
+            })
+        })
+    }
+
 
 
     del(key: string) {
