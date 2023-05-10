@@ -19,7 +19,6 @@ const busTwo = {
   route_id: 2,
   model: 'XLiu',
   plate_number: 'RCA125G'
-
 }
 
 const busThree = {
