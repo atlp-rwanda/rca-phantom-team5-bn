@@ -11,7 +11,7 @@ usersRouter
 	.get("/get-drivers", userAuthorization(['operator']), usersController.getDrivers)
 	.get('/get-user/:id',  userAuthorization(['admin', 'super_admin']), usersController.getUser)
 	.delete('/delete-user/:id', userAuthorization(['admin', 'super_admin']), usersController.deleteUsers)
-	.get('/get-profile', userAuthorization(['operator', 'driver', 'adamin', 'super_admin']), usersController.getProfile)
-	.put('/update-profile', userAuthorization(['operator', 'driver', 'adamin', 'super_admin']), validateUpdateUser, usersController.updateProfile)
+	.get('/get-profile', userAuthorization(['operator', 'driver', 'admin', 'super_admin']), usersController.getProfile)
+	.put('/update-profile', userAuthorization(['operator', 'driver', 'admin', 'super_admin']), validateUpdateUser, usersController.updateProfile)
     
 export default usersRouter
